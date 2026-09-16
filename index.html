@@ -6,10 +6,116 @@
     <title>STech</title>
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/pages/home/home.css" />
+    <script src="./scripts/shared/header.js" defer></script>
   </head>
   <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__brand" href="/" aria-label="STEP TECH home">
+          <span class="site-header__logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </span>
+          <span class="site-header__brand-name">STEP TECH</span>
+        </a>
+
+        <nav
+          class="site-header__nav"
+          id="site-menu"
+          aria-label="Primary navigation"
+        >
+          <ul class="site-header__nav-list">
+            <li>
+              <a
+                class="site-header__nav-link site-header__nav-link--active"
+                href="/"
+                aria-current="page"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a class="site-header__nav-link" href="#section2">Shop</a>
+            </li>
+            <li>
+              <a
+                class="site-header__nav-link site-header__nav-link--with-icon"
+                href="#section3"
+                aria-label="Browse product categories"
+              >
+                <span>Categories</span>
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="m4 6 4 4 4-4" />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <form
+          class="site-header__search"
+          role="search"
+          aria-label="Product search"
+        >
+          <label class="site-header__search-label" for="site-search"
+            >Search products</label
+          >
+          <input
+            id="site-search"
+            type="search"
+            name="search"
+            placeholder="Search products..."
+            autocomplete="off"
+          />
+        </form>
+
+        <div class="site-header__actions" aria-label="User shortcuts">
+          <button
+            class="site-header__icon-btn site-header__icon-btn--favorite"
+            type="button"
+            aria-label="View wishlist"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 1 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z"
+              />
+            </svg>
+          </button>
+          <button
+            class="site-header__icon-btn"
+            type="button"
+            aria-label="View shopping cart"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M3 4h2l2.1 11.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"
+              />
+              <path d="M10 21h.01" />
+              <path d="M17 21h.01" />
+            </svg>
+          </button>
+          <button
+            class="site-header__profile"
+            type="button"
+            aria-label="Open user profile"
+          >
+            <span aria-hidden="true">JS</span>
+          </button>
+          <button
+            class="site-header__menu"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-menu"
+          >
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
     <main>
-      <header></header>
       <section id="section1"></section>
       <section id="section2"></section>
       <section id="section3"></section>

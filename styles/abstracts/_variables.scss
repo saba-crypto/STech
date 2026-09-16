@@ -3,6 +3,7 @@ $background-clr: #ffffff;
 $primary-clr: #ffffff;
 $secondary-clr: #131d17;
 $accent-clr: #1db954;
+$faded-accent-clr: #1db9541a;
 $optional-clr: #f6f6f6;
 $primary-border-clr: #e0e0e0;
 
@@ -41,9 +42,9 @@ $padding3XL-x: 0 min(100px, 8vw);
 $padding4XL-x: 0 min(130px, 10vw);
 
 //breakpoints
-$breakpointL: 1025px;
-$breakpointM: 769px;
-$breakpointL: 574px;
+$breakpointL: 70rem;
+$breakpointM: 52rem;
+$breakpointS: 36rem;
 
 //fonts
 $primary-font: sagoe;
@@ -55,3 +56,7 @@ $font-sizeM: clamp(1rem, 1.5vw + 0.3rem, 1.4rem);
 $font-sizeS: clamp(0.8rem, 1.3vw + 0.2rem, 1.1rem);
 $font-sizeXS: clamp(0.7rem, 1.2vw + 0.2rem, 1rem);
 $font-sizeXXS: clamp(0.6rem, 1.1vw + 0.15rem, 0.8rem);
+
+$primary-font-clr: #000000;
+$secondary-font-clr: #ffffff;
+$optional-font-clr: #1db954;
