@@ -1,0 +1,46 @@
+//colors
+$background-clr: #ffffff;
+$primary-clr: #ffffff;
+$secondary-clr: #131d17;
+$accent-clr: #1db954;
+$optional-clr: #f6f6f6;
+$primary-border-clr: #e0e0e0;
+
+//shadows
+$shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+//border-radius
+$radiusXL: 16px;
+
+//paddings
+$paddingXS: min(5px, 1vw);
+$paddingS: min(10px, 2vw);
+$paddingM: min(15px, 2.5vw);
+$paddingL: min(20px, 3vw);
+$paddingXL: min(30px, 4vw);
+$padding2XL: min(50px, 6vw);
+$padding3XL: min(100px, 8vw);
+$padding4XL: min(130px, 10vw);
+
+$paddingXS-y: min(5px, 1vw) 0;
+$paddingS-y: min(10px, 2vw) 0;
+$paddingM-y: min(15px, 2.5vw) 0;
+$paddingL-y: min(20px, 3vw) 0;
+$paddingXL-y: min(30px, 4vw) 0;
+$padding2XL-y: min(50px, 6vw) 0;
+$padding3XL-y: min(100px, 8vw) 0;
+$padding4XL-y: min(130px, 10vw) 0;
+
+$paddingXS-x: 0 min(5px, 1vw);
+$paddingS-x: 0 min(10px, 2vw);
+$paddingM-x: 0 min(15px, 2.5vw);
+$paddingL-x: 0 min(20px, 3vw);
+$paddingXL-x: 0 min(30px, 4vw);
+$padding2XL-x: 0 min(50px, 6vw);
+$padding3XL-x: 0 min(100px, 8vw);
+$padding4XL-x: 0 min(130px, 10vw);
+
+//breakpoints
+$breakpointL: 1025px;
+$breakpointM: 769px;
+$breakpointL: 574px;
