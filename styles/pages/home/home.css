@@ -1,1 +1,4 @@
-/*# sourceMappingURL=home.css.map */
+.text {
+  font-family: sagoe;
+  font-size: clamp(1.7rem, 5vw + 0.3rem, 3.9rem);
+}/*# sourceMappingURL=home.css.map */
