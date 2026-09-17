@@ -18,7 +18,7 @@
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
           </span>
-          <span class="site-header__brand-name">STEP TECH</span>
+          <span class="site-header__brand-name">STECH</span>
         </a>
 
         <nav
@@ -116,8 +116,223 @@
     </header>
 
     <main>
-      <section id="section1"></section>
-      <section id="section2"></section>
+      <section class="hero" id="section1" aria-labelledby="hero-title">
+        <div class="hero__inner">
+          <div class="hero__content">
+            <p class="hero__eyebrow">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z" />
+              </svg>
+              <span>New Arrivals</span>
+            </p>
+
+            <h1 class="hero__title" id="hero-title">
+              Discover the Future of <span>Technology</span>
+            </h1>
+
+            <p class="hero__description">
+              Shop the latest smartphones, laptops, and cutting-edge electronics
+              from top brands. Free shipping on orders over $100.
+            </p>
+
+            <div class="hero__actions" aria-label="Hero actions">
+              <button class="btn btn--primary" href="#section2">
+                <span>Shop Now</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M5 12h14" />
+                  <path d="m13 5 7 7-7 7" />
+                </svg>
+              </button>
+              <button class="btn btn--outline" href="#section3">
+                View New Arrivals
+              </button>
+            </div>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <img
+              class="hero__image"
+              src="./public/images/hero_banner.png"
+              alt=""
+            />
+
+            <div class="hero__float-card hero__float-card--phone">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path
+                  d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"
+                />
+                <path d="M12 18h.01" />
+              </svg>
+              <span>Smartphones</span>
+            </div>
+
+            <div class="hero__float-card hero__float-card--laptop">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M4 5h16v11H4z" />
+                <path d="M2 20h20" />
+              </svg>
+              <span>Laptops</span>
+            </div>
+
+            <div class="hero__float-card hero__float-card--audio">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M4 14a8 8 0 0 1 16 0" />
+                <path d="M4 14v5a2 2 0 0 0 2 2h2v-7H4Z" />
+                <path d="M20 14v5a2 2 0 0 1-2 2h-2v-7h4Z" />
+              </svg>
+              <span>Audio</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="section2">
+        <div class="section-container">
+          <div style="width: 100%">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="splitter">
+              <p>Browse our wide selection of tech categories</p>
+              <a class="view-all-link" href="#"
+                >View All
+                <svg
+                  _ngcontent-ng-c3873563376=""
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline
+                    _ngcontent-ng-c3873563376=""
+                    points="9 18 15 12 9 6"
+                  ></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="categories-grid">
+            <div class="category-card">
+              <div class="category-icon">
+                <img
+                  class="category-image"
+                  src="./public/images/laptops.jpg"
+                  alt="Laptops"
+                />
+              </div>
+              <div class="category-info">
+                <h3 class="category-name">Laptops</h3>
+                <span class="product-count">6 products</span>
+              </div>
+              <div class="category-arrow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="category-card">
+              <div class="category-icon">
+                <img
+                  class="category-image"
+                  src="./public/images/phones.jpg"
+                  alt="Laptops"
+                />
+              </div>
+              <div class="category-info">
+                <h3 class="category-name">Smartphones</h3>
+                <span class="product-count">7 products</span>
+              </div>
+              <div class="category-arrow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="category-card">
+              <div class="category-icon">
+                <img
+                  class="category-image"
+                  src="./public/images/monitors.jpg"
+                  alt="Laptops"
+                />
+              </div>
+              <div class="category-info">
+                <h3 class="category-name">Monitors</h3>
+                <span class="product-count">4 products</span>
+              </div>
+              <div class="category-arrow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="category-card">
+              <div class="category-icon">
+                <img
+                  class="category-image"
+                  src="./public/images/keyboards-and-mice.jpg"
+                  alt="Laptops"
+                />
+              </div>
+              <div class="category-info">
+                <h3 class="category-name">Keyboards & Mice</h3>
+                <span class="product-count">5 products</span>
+              </div>
+              <div class="category-arrow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="section3"></section>
       <section id="section4"></section>
       <section id="section5"></section>

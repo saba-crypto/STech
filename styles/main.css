@@ -88,12 +88,75 @@ a {
   src: url(../../public/fonts/segoe-ui/Segoe\ UI.ttf);
   font-display: swap;
 }
+html {
+  font-family: sagoe;
+}
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+  padding: min(15px, 2.5vw) min(30px, 4vw);
+  border: 0.125rem solid transparent;
+  border-radius: 0.5rem;
+  font-family: sagoe, "Segoe UI", sans-serif;
+  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 1rem);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-0.08rem);
+  outline: none;
+}
+
+.btn svg {
+  inline-size: 1.35rem;
+  block-size: 1.35rem;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.btn--primary {
+  color: #ffffff;
+  background-color: #1db954;
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: #1db954;
+  border-color: #1db954;
+}
+
+.btn--outline {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
 .site-header {
+  position: fixed;
+  z-index: 100;
   width: 100%;
   background-color: #ffffff;
   border-bottom: 0.0625rem solid #e0e0e0;
   color: #000000;
   font-family: sagoe, "Segoe UI", sans-serif;
+  z-index: 100;
 }
 
 .site-header__inner {
@@ -401,6 +464,4 @@ a {
   .site-header[data-menu-open=true] .site-header__nav-link {
     justify-content: flex-start;
   }
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

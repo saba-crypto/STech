@@ -1,11 +1,14 @@
 @use "../abstracts" as *;
 
 .site-header {
+  position: fixed;
+  z-index: 100;
   width: 100%;
   background-color: $background-clr;
   border-bottom: 0.0625rem solid $primary-border-clr;
   color: $primary-font-clr;
   font-family: $primary-font, "Segoe UI", sans-serif;
+  z-index: 100;
 }
 
 .site-header__inner {
