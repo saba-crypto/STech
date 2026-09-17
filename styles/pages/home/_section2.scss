@@ -1,26 +1,6 @@
 @use "../../abstracts" as *;
 
 #section2 {
-  @include flexbox(row, center, center);
-  .section-container {
-    @include flexbox(column, center, flex-start, 40px);
-    width: min(100% - 3.5rem, 70.8rem);
-    padding: $padding2XL 0;
-  }
-  .section-title {
-    font-weight: bold;
-    font-size: $font-sizeM;
-  }
-  .splitter {
-    @include flexbox(row, space-between, center);
-    font-size: $font-sizeXXS;
-    .view-all-link {
-      @include flexbox(row, center, center, 10px);
-      font-size: $font-sizeXXS;
-      color: $accent-clr;
-      font-weight: 700;
-    }
-  }
   .categories-grid {
     @include grid(repeat(4, 1fr), 1fr, 20px);
     width: 100%;

@@ -1,1 +1,24 @@
 @use "../../abstracts" as *;
+
+#section3 {
+  background-color: $optional-clr;
+
+  .featured-products-grid {
+    @include grid(repeat(4, 1fr), 1fr, 30px);
+  }
+}
+
+@media (max-width: $breakpointL) {
+  #section3 {
+    .featured-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+@media (max-width: $breakpointS) {
+  #section3 {
+    .featured-products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

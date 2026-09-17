@@ -1,0 +1,15 @@
+@use "../abstracts" as *;
+.section-title {
+  font-weight: bold;
+  font-size: $font-sizeM;
+}
+.splitter {
+  @include flexbox(row, space-between, center);
+  font-size: $font-sizeXXS;
+  .view-all-link {
+    @include flexbox(row, center, center, 10px);
+    font-size: $font-sizeXXS;
+    color: $accent-clr;
+    font-weight: 700;
+  }
+}

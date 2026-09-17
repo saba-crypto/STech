@@ -1,0 +1,125 @@
+@use "../abstracts" as *;
+
+.product-card {
+  @include flexbox(column, center, flex-start);
+  background-color: $primary-clr;
+  border-radius: $radiusXL;
+  overflow: hidden;
+  border: 1px solid $primary-border-clr;
+  transition-duration: 0.25s;
+  .card-image {
+    flex-grow: 1;
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+    .quick-actions {
+      @include flexbox(column, center, center, 10px);
+      position: absolute;
+      top: 5%;
+      right: 0;
+      z-index: 4;
+      opacity: 0;
+      transition-duration: 0.25s;
+      .action-btn {
+        border-radius: 50%;
+        aspect-ratio: 1;
+        border: none;
+        padding: 7px;
+        pointer-events: none;
+        cursor: pointer;
+        transition-duration: 0.25s;
+        border: 1px solid transparent;
+        &:hover {
+          border: 1px solid $accent-clr;
+          color: $accent-clr;
+          scale: 1.08;
+        }
+      }
+    }
+  }
+  .card-content {
+    @include flexbox(column, center, flex-start, 10px);
+    padding: $paddingL;
+
+    .card-meta {
+      @include flexbox(row, flex-start, center, 10px);
+      .category {
+        color: $accent-clr;
+        font-size: $font-sizeXXS;
+      }
+      .brand {
+        @include flexbox(row, center, center, 10px);
+        font-size: $font-sizeXXS;
+        &::before {
+          content: "";
+          width: 3px;
+          height: 3px;
+          background-color: grey;
+          border-radius: 50%;
+        }
+      }
+    }
+    .card-title {
+      font-size: $font-sizeXS;
+    }
+    .card-rating {
+      @include flexbox(row, center, center, 5px);
+      .stars {
+        @include flexbox(row, center, center, 5px);
+        color: $product-rating-clr;
+      }
+      .rating-value {
+        font-size: $font-sizeXXS;
+      }
+    }
+    .card-price {
+      font-weight: 700;
+      font-size: $font-sizeXS;
+    }
+  }
+  .card-footer {
+    width: 100%;
+    padding: $paddingL;
+    padding-top: 0;
+    .add-to-cart {
+      @include flexbox(row, center, center, 10px);
+      width: 100%;
+      padding: $paddingS 0;
+      font-weight: 600;
+      font-size: $font-sizeXXS;
+      border: 1px solid $primary-border-clr;
+      border-radius: $radiusL;
+      cursor: pointer;
+      transition-duration: 0.25s;
+      &:hover {
+        background-color: $accent-clr;
+        color: white;
+      }
+    }
+  }
+  &:hover {
+    box-shadow: $shadow-card-hover;
+    border-color: $accent-clr;
+    transform: translateY(-5px);
+    .card-image {
+      img {
+        scale: 1.06;
+      }
+      .quick-actions {
+        top: 5%;
+        right: 5%;
+        opacity: 1;
+        .action-btn {
+          pointer-events: all;
+        }
+      }
+    }
+  }
+}

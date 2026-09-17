@@ -1,3 +1,4 @@
+@use "../abstracts" as *;
 //this file contains general css that are used for global styling
 html {
   scroll-behavior: smooth;
@@ -6,4 +7,14 @@ html {
 a {
   text-decoration: none;
   color: unset;
+}
+
+section {
+  @include flexbox(row, center, center);
+  width: 100%;
+  .section-container {
+    @include flexbox(column, center, flex-start, 40px);
+    width: min(100% - 3.5rem, 70.8rem);
+    padding: $padding2XL 0;
+  }
 }
