@@ -1,0 +1,55 @@
+@use "../../abstracts" as *;
+
+#section6 {
+  background-color: $optional-clr;
+  .features-grid {
+    @include grid(repeat(4, 1fr), 1fr, 30px);
+    width: 100%;
+  }
+  .feature-card {
+    @include flexbox(column, center, center, 10px);
+    padding: $paddingXL 0;
+    background-color: $primary-clr;
+    border-radius: $radiusXL;
+    border: 1px solid $primary-border-clr;
+    transition-duration: 0.25s;
+    .feature-icon {
+      padding: $paddingM;
+      background-color: $optional-clr;
+      border-radius: $radiusL;
+      color: $accent-clr;
+      transition-duration: 0.25s;
+    }
+    h3 {
+      font-size: $font-sizeXS;
+    }
+    p {
+      font-size: $font-sizeXXS;
+    }
+    &:hover {
+      box-shadow: $shadow-card-hover;
+      border-color: $accent-clr;
+      transform: translateY(-5px);
+      .feature-icon {
+        background-color: $accent-clr;
+        color: white;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointL) {
+  #section6 {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: $breakpointM) {
+  #section6 {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

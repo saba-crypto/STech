@@ -39,6 +39,7 @@
 
     .decoration-circle {
       position: absolute;
+      pointer-events: none;
     }
     .circle1 {
       width: 400px;
@@ -47,7 +48,7 @@
       background-color: $faded-clr;
       bottom: 0px;
       right: -15%;
-      z-index: 3;
+
       opacity: 0.6;
     }
     .circle2 {
@@ -57,7 +58,7 @@
       background-color: $faded-clr;
       bottom: -35%;
       right: 5%;
-      z-index: 3;
+
       opacity: 0.8;
     }
   }
