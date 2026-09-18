@@ -1,21 +1,12 @@
-let productsGridElement = document.querySelector(".featured-products-grid");
-fetch(
-  "https://shopapi.stepacademy.ge/api/products/filter?InStock=true&MinRating=4&Take=4&Page=1",
-  {
-    method: "GET",
-    headers: {
-      "X-API-KEY": "956882f6-28b3-46c9-b443-49fd3c61edaf",
-    },
-  },
-).then((response) => {
-  response.json().then((data) => {
-    renderFeaturedProducts(data.data.items);
-  });
-});
+import { fetchFeaturedProducts } from "../../data/features.js";
 
-function renderFeaturedProducts(products) {
+renderFeaturedProducts();
+
+async function renderFeaturedProducts() {
+  let productsGridElement = document.querySelector(".featured-products-grid");
+  let products = await fetchFeaturedProducts();
   let productsHtml = ``;
-
+  console.log(products);
   products.forEach((product) => {
     let html = `
       <div class="product-card">
@@ -119,10 +110,9 @@ function renderFeaturedProducts(products) {
 
 function renderStars(starCount) {
   let starsHTML = ``;
-  console.log(starCount);
   for (let i = 1; i <= 5; i++) {
     if (Math.round(starCount) >= i) {
-      //positive star svg
+      //add positive star svg
       starsHTML += `<svg
         xmlns="http://www.w3.org/2000/svg"
         width="14"
@@ -140,7 +130,7 @@ function renderStars(starCount) {
         ></polygon>
       </svg>`;
     } else {
-      //negative star svg
+      //add negative star svg
       starsHTML += `<svg  xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="star" fill="none"><polygon  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
     }
   }
