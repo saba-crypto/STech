@@ -312,4 +312,93 @@
   #section3 .featured-products-grid {
     grid-template-columns: 1fr;
   }
+}
+#section4 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px;
+  background-color: #1db954;
+  width: 100%;
+  color: #ffffff;
+  padding: min(50px, 6vw);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+#section4 .container .promo-banner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0px;
+}
+#section4 .container .promo-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+#section4 .container .promo-content strong {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: min(3px, 0.8vw) min(5px, 1vw);
+  border-radius: 6px;
+}
+#section4 .container .promo-content .promo-tag {
+  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 1rem);
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: min(3px, 0.8vw) min(10px, 2vw);
+  border-radius: 100px;
+}
+#section4 .container .promo-content .shop-btn {
+  background-color: #ffffff;
+  padding: min(10px, 2vw) min(20px, 3vw);
+  border: none;
+  color: #1db954;
+  font-weight: 600;
+  font-size: clamp(0.8rem, 1.3vw + 0.2rem, 1.1rem);
+  cursor: pointer;
+}
+#section4 .container .decoration-circle {
+  position: absolute;
+}
+#section4 .container .circle1 {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  bottom: 0px;
+  right: -15%;
+  z-index: 3;
+  opacity: 0.6;
+}
+#section4 .container .circle2 {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  bottom: -35%;
+  right: 5%;
+  z-index: 3;
+  opacity: 0.8;
+}
+
+#section5 .new-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 70rem) {
+  #section5 .new-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 36rem) {
+  #section5 .new-products-grid {
+    grid-template-columns: 1fr;
+  }
 }/*# sourceMappingURL=home.css.map */

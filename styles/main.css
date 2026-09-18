@@ -179,7 +179,6 @@ html {
   transition-duration: 0.25s;
 }
 .product-card .card-image {
-  flex-grow: 1;
   aspect-ratio: 1;
   overflow: hidden;
   position: relative;
@@ -226,6 +225,7 @@ html {
   align-items: flex-start;
   gap: 10px;
   padding: min(20px, 3vw);
+  flex-grow: 1;
 }
 .product-card .card-content .card-meta {
   display: flex;
@@ -317,6 +317,21 @@ html {
 }
 .product-card:hover .card-image .quick-actions .action-btn {
   pointer-events: all;
+}
+
+.product-card.new .card-badges {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
+.product-card.new .card-badges .new-badge {
+  color: white;
+  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.8rem);
+  background-color: #1db954;
+  padding: min(3px, 0.8vw) min(10px, 2vw);
+  border-radius: 6px;
+  font-weight: 500;
+  letter-spacing: -5%;
 }
 
 .section-title {

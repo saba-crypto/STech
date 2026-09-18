@@ -1,1 +1,21 @@
 @use "../../abstracts" as *;
+
+#section5 {
+  .new-products-grid {
+    @include grid(repeat(4, 1fr), 1fr, 30px);
+  }
+}
+@media (max-width: $breakpointL) {
+  #section5 {
+    .new-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+@media (max-width: $breakpointS) {
+  #section5 {
+    .new-products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

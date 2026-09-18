@@ -1,17 +1,17 @@
-import { fetchFeaturedProducts } from "../../data/features.js";
+import { fetchNewProducts } from "../../data/newProducts.js";
+renderNewProducts();
 
-renderFeaturedProducts();
-
-async function renderFeaturedProducts() {
-  let productsGridElement = document.querySelector(".featured-products-grid");
-  let products = await fetchFeaturedProducts();
+async function renderNewProducts() {
+  let productsGridElement = document.querySelector(".new-products-grid");
+  let products = await fetchNewProducts();
   let productsHtml = ``;
 
   products.forEach((product) => {
     let html = `
-      <div class="product-card">
+      <div class="product-card new">
               <div class="card-image">
                 <img src="${product.imageUrl}" alt="${product.name}" />
+                <div class="card-badges"><span class="new-badge">NEW</span></div>
                 <div class="quick-actions">
                   <button class="action-btn favorite-btn">
                     <svg
