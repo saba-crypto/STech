@@ -358,6 +358,16 @@ html {
   font-weight: 700;
 }
 
+.footer-default {
+  background: #131d17;
+  color: #1db954;
+  margin-top: auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .site-header {
   position: fixed;
   z-index: 100;
