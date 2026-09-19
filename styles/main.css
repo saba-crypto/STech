@@ -103,8 +103,15 @@ section .section-container {
 
 @font-face {
   font-family: sagoe;
-  src: url(../../public/fonts/segoe-ui/Segoe\ UI.ttf);
+  src: url(../../public/fonts/segoe-ui-4-cufonfonts/Segoe\ UI.ttf);
   font-display: swap;
+  font-weight: 500;
+}
+@font-face {
+  font-family: sagoe;
+  src: url(../../public/fonts/segoe-ui-4-cufonfonts/Segoe\ UI\ Bold.ttf);
+  font-display: swap;
+  font-weight: 700;
 }
 html {
   font-family: sagoe;
@@ -468,7 +475,7 @@ html {
 .site-header__nav-link:hover,
 .site-header__nav-link:focus-visible,
 .site-header__nav-link--active {
-  color: #1db954;
+  color: #535353;
   background-color: rgba(29, 185, 84, 0.1019607843);
 }
 

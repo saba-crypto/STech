@@ -1,0 +1,66 @@
+@use "../../abstracts" as *;
+
+#section2 {
+  .section-container {
+    @include grid(3fr 10fr, 1fr);
+  }
+  .filter-sidebar {
+    border: $primary-border-clr 1px solid;
+    border-radius: $radiusXL;
+    padding: $paddingXL;
+  }
+  .sidebar-header {
+    h3 {
+      font-size: $font-sizeM;
+      font-weight: 500;
+    }
+    border-bottom: 1px solid $primary-border-clr;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .filters-content {
+    @include flexbox(column, center, flex-start, 30px);
+
+    .filter-group {
+      @include flexbox(column, center, flex-start, 20px);
+    }
+    .filter-title {
+      @include flexbox(row, flex-start, center, 10px);
+      font-weight: 500;
+      font-size: $font-sizeS;
+    }
+    .filter-options {
+      @include flexbox(column, center, flex-start, 10px);
+      font-size: clamp(0.7rem, 2vw, 0.8rem);
+      .filter-option {
+        @include flexbox(row, space-between, center, 10px);
+        width: 100%;
+
+        color: $optional-font-clr;
+        border-radius: $radiusM;
+        padding: $paddingXS;
+        white-space: nowrap;
+        input[type="radio"] {
+          accent-color: $accent-clr;
+        }
+        &:hover {
+          background-color: $optional-clr;
+        }
+        .option-count {
+          @include flexbox(row, center, center);
+
+          width: 20px;
+          height: 20px;
+          color: $optional-font-clr;
+          background-color: $optional-clr;
+          font-size: calc($font-sizeXXS - 0.2rem);
+          border-radius: 50%;
+          box-sizing: border-box;
+        }
+      }
+      .option-label {
+        flex-grow: 1;
+      }
+    }
+  }
+}

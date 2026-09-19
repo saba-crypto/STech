@@ -1,0 +1,24 @@
+@use "../../abstracts" as *;
+
+#section1 {
+  background-color: $optional-clr;
+  .section-container {
+    margin-top: 30px;
+  }
+  .container {
+    @include flexbox(column, center, flex-start, 10px);
+    .breadcrumb {
+      @include flexbox(row, flex-start, center, 10px);
+      font-size: $font-sizeXXS;
+      color: $optional-font-clr;
+    }
+    .page-heading {
+      font-weight: 700;
+      font-size: $font-sizeL;
+    }
+    .page-description {
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+    }
+  }
+}
