@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShopTop</title>
+    <title>STech</title>
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/pages/shop/shop.css" />
   </head>
@@ -31,17 +31,13 @@
         >
           <ul class="site-header__nav-list">
             <li>
-              <a
-                class="site-header__nav-link"
-                href="../index.html"
-                aria-current="page"
-                >Home</a
-              >
+              <a class="site-header__nav-link" href="../index.html">Home</a>
             </li>
             <li>
               <a
                 class="site-header__nav-link site-header__nav-link--active"
                 href="#"
+                aria-current="page"
                 >Shop</a
               >
             </li>
@@ -124,88 +120,86 @@
     <main>
       <section id="section1">
         <div class="section-container">
-          <div class="container">
-            <div class="header-content">
-              <div class="breadcrumb">
-                <a href="../index.html">Home</a
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-                <span>Shop</span>
-              </div>
-              <h1 class="page-heading">All Products</h1>
-              <p class="page-description">
-                Discover our full range of tech products
-              </p>
-            </div>
+          <div class="header-content">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="../index.html">Home</a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+              <span>Shop</span>
+            </nav>
+            <h1 class="page-heading">All Products</h1>
+            <p class="page-description">
+              Discover our full range of tech products
+            </p>
           </div>
         </div>
       </section>
       <section id="section2">
         <div class="section-container">
-          <aside class="filter-sidebar">
+          <aside class="filter-sidebar" aria-label="Product filters">
             <div class="sidebar-header">
-              <h3>Filters</h3>
+              <h2>Filters</h2>
             </div>
             <div class="filters-content">
-              <div class="filter-group">
-                <h4 class="filter-title">Categories</h4>
+              <fieldset class="filter-group">
+                <legend class="filter-title">Categories</legend>
                 <div class="filter-options">
-                  <label class="filter-option"
-                    ><input type="radio" name="category" value="1" />
-                    <span class="option-label">Laptops</span
-                    ><span class="option-count">6</span>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="1" />
+                    <span class="option-label">Laptops</span>
+                    <span class="option-count">6</span>
                   </label>
-                  <label class="filter-option"
-                    ><input type="radio" name="category" value="2" /><span
-                      class="option-label"
-                      >Smartphones</span
-                    ><span class="option-count">7</span> </label
-                  ><label class="filter-option"
-                    ><input type="radio" name="category" value="3" /><span
-                      class="option-label"
-                      >Monitors</span
-                    ><span class="option-count">4</span></label
-                  ><label class="filter-option"
-                    ><input type="radio" name="category" value="4" /><span
-                      class="option-label"
-                      >Keyboards &amp; Mice</span
-                    ><span class="option-count">5</span></label
-                  ><label class="filter-option"
-                    ><input type="radio" name="category" value="5" /><span
-                      class="option-label"
-                      >Headphones &amp; Audio</span
-                    ><span class="option-count">5</span></label
-                  ><label class="filter-option"
-                    ><input type="radio" name="category" value="6" /><span
-                      class="option-label"
-                      >Graphics Cards</span
-                    ><span class="option-count">4</span></label
-                  ><label class="filter-option"
-                    ><input type="radio" name="category" value="7" /><span
-                      class="option-label"
-                      >Storage</span
-                    ><span class="option-count">5</span></label
-                  ><label class="filter-option"
-                    ><input type="radio" name="category" value="8" /><span
-                      class="option-label"
-                      >Networking</span
-                    ><span class="option-count">4</span></label
-                  >
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="2" />
+                    <span class="option-label">Smartphones</span>
+                    <span class="option-count">7</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="3" />
+                    <span class="option-label">Monitors</span>
+                    <span class="option-count">4</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="4" />
+                    <span class="option-label">Keyboards &amp; Mice</span>
+                    <span class="option-count">5</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="5" />
+                    <span class="option-label">Headphones &amp; Audio</span>
+                    <span class="option-count">5</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="6" />
+                    <span class="option-label">Graphics Cards</span>
+                    <span class="option-count">4</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="7" />
+                    <span class="option-label">Storage</span>
+                    <span class="option-count">5</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="radio" name="category" value="8" />
+                    <span class="option-label">Networking</span>
+                    <span class="option-count">4</span>
+                  </label>
                 </div>
-              </div>
-              <div class="filter-group">
-                <h4 class="filter-title">
+              </fieldset>
+              <fieldset class="filter-group">
+                <legend class="filter-title">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"
@@ -219,107 +213,120 @@
                     ></polygon>
                   </svg>
                   Min Rating
-                </h4>
+                </legend>
                 <div
+                  class="rating-options"
                   role="group"
                   aria-label="Minimum star rating filter"
-                  class="rating-options"
                 >
                   <button
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 4 &amp; up"
+                    aria-label="Minimum rating: 4 and up"
                   >
-                    <span aria-hidden="true" class="stars-display"
-                      ><span class="star star-filled">★</span
-                      ><span class="star star-filled">★</span
-                      ><span class="star star-filled">★</span
-                      ><span class="star star-filled">★</span
-                      ><span class="star">★</span
-                      ><!----></span
-                    ><span class="rating-text">4 &amp; up</span></button
-                  ><button
+                    <span class="stars-display" aria-hidden="true">
+                      <span class="star star-filled">★</span>
+                      <span class="star star-filled">★</span>
+                      <span class="star star-filled">★</span>
+                      <span class="star star-filled">★</span>
+                      <span class="star">★</span>
+                    </span>
+                    <span class="rating-text">4 &amp; up</span>
+                  </button>
+                  <button
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 3 &amp; up"
+                    aria-label="Minimum rating: 3 and up"
                   >
-                    <span aria-hidden="true" class="stars-display"
-                      ><span class="star star-filled">★</span
-                      ><span class="star star-filled">★</span
-                      ><span class="star star-filled">★</span
-                      ><span class="star">★</span><span class="star">★</span
-                      ><!----></span
-                    ><span class="rating-text">3 &amp; up</span></button
-                  ><button
+                    <span class="stars-display" aria-hidden="true">
+                      <span class="star star-filled">★</span>
+                      <span class="star star-filled">★</span>
+                      <span class="star star-filled">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                    </span>
+                    <span class="rating-text">3 &amp; up</span>
+                  </button>
+                  <button
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 2 &amp; up"
+                    aria-label="Minimum rating: 2 and up"
                   >
-                    <span aria-hidden="true" class="stars-display"
-                      ><span class="star star-filled">★</span
-                      ><span class="star star-filled">★</span
-                      ><span class="star">★</span><span class="star">★</span
-                      ><span class="star">★</span
-                      ><!----></span
-                    ><span class="rating-text">2 &amp; up</span></button
-                  ><button
+                    <span class="stars-display" aria-hidden="true">
+                      <span class="star star-filled">★</span>
+                      <span class="star star-filled">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                    </span>
+                    <span class="rating-text">2 &amp; up</span>
+                  </button>
+                  <button
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 1 &amp; up"
+                    aria-label="Minimum rating: 1 and up"
                   >
-                    <span aria-hidden="true" class="stars-display"
-                      ><span class="star star-filled">★</span
-                      ><span class="star">★</span><span class="star">★</span
-                      ><span class="star">★</span><span class="star">★</span
-                      ><!----></span
-                    ><span class="rating-text">1 &amp; up</span></button
-                  ><!---->
+                    <span class="stars-display" aria-hidden="true">
+                      <span class="star star-filled">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                    </span>
+                    <span class="rating-text">1 &amp; up</span>
+                  </button>
                 </div>
-              </div>
-              <div class="filter-group">
-                <h4 class="filter-title">Price Range</h4>
+              </fieldset>
+              <fieldset class="filter-group">
+                <legend class="filter-title">Price Range</legend>
                 <div class="price-inputs">
                   <div class="price-input">
-                    <label>Min</label
-                    ><input
+                    <label for="price-min">Min</label>
+                    <input
+                      id="price-min"
                       type="number"
                       placeholder="$0"
-                      class="ng-untouched ng-pristine ng-valid"
+                      min="0"
                     />
                   </div>
                   <span class="price-separator">-</span>
                   <div class="price-input">
-                    <label>Max</label
-                    ><input
+                    <label for="price-max">Max</label>
+                    <input
+                      id="price-max"
                       type="number"
                       placeholder="$9999"
-                      class="ng-untouched ng-pristine ng-valid"
+                      min="0"
                     />
                   </div>
                 </div>
-              </div>
-              <div class="filter-group">
-                <h4 class="filter-title">Brand</h4>
+              </fieldset>
+              <fieldset class="filter-group">
+                <legend class="filter-title">Brand</legend>
                 <div class="filter-search">
+                  <label class="visually-hidden" for="brand-search"
+                    >Search brands</label
+                  >
                   <input
+                    id="brand-search"
                     type="text"
                     placeholder="Search brands..."
-                    class="ng-untouched ng-pristine ng-valid"
                   />
                 </div>
-              </div>
-              <div class="filter-group">
-                <h4 class="filter-title">Availability</h4>
-                <label class="filter-option checkbox"
-                  ><input type="checkbox" /><span class="checkbox-mark"></span
-                  ><span class="option-label">In Stock Only</span></label
-                >
-              </div>
-              <button class="clear-filters-btn">
+              </fieldset>
+              <fieldset class="filter-group">
+                <legend class="filter-title">Availability</legend>
+                <label class="filter-option checkbox">
+                  <input type="checkbox" name="in-stock" />
+                  <span class="checkbox-mark"></span>
+                  <span class="option-label">In Stock Only</span>
+                </label>
+              </fieldset>
+              <button class="clear-filters-btn" type="button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -330,6 +337,7 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
                 >
                   <polyline points="1 4 1 10 7 10"></polyline>
                   <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
@@ -341,6 +349,31 @@
           <div class="products-container">
             <div class="products-toolbar">
               <div class="toolbar-left">
+                <button class="filter-toggle" type="button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                  </svg>
+                  Filters
+                </button>
                 <div class="search-box">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -352,23 +385,59 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                    aria-hidden="true"
                   >
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                   </svg>
+                  <label class="visually-hidden" for="shop-search"
+                    >Search products</label
+                  >
                   <input
+                    id="shop-search"
                     type="text"
                     placeholder="Search products..."
-                    class="ng-valid ng-dirty ng-touched"
                   />
                 </div>
               </div>
               <div class="toolbar-right">
                 <span class="results-count">40 products</span>
-                <button class="sort-by-button">Sort by</button>
+                <label class="visually-hidden" for="sort-by">Sort by</label>
+                <select id="sort-by" class="sort-select">
+                  <option value="" selected>Sort by</option>
+                </select>
               </div>
             </div>
             <div class="products-grid"></div>
+            <nav class="pagination" aria-label="Product pages">
+              <div class="pagination-list">
+                <button
+                  class="pagination-btn pagination-previous"
+                  type="button"
+                  aria-label="Previous page"
+                >
+                  ‹
+                </button>
+                <div class="pagination-nav-btns"></div>
+                <button
+                  class="pagination-btn pagination-next"
+                  type="button"
+                  aria-label="Next page"
+                >
+                  ›
+                </button>
+
+                <label class="visually-hidden" for="page-size"
+                  >Products per page</label
+                >
+                <select id="page-size" class="page-size-select">
+                  <option value="8" selected>8 / page</option>
+                  <option value="12">12 / page</option>
+                  <option value="24">24 / page</option>
+                  <option value="48">48 / page</option>
+                </select>
+              </div>
+            </nav>
           </div>
         </div>
       </section>

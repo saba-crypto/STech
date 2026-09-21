@@ -1,6 +1,9 @@
 @use "../../abstracts" as *;
 
 #section2 {
+  .products-grid {
+    @include grid(repeat(3, 1fr), auto, 20px);
+  }
   .section-container {
     @include grid(3fr 10fr, 1fr);
   }

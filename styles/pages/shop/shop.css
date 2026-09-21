@@ -29,6 +29,12 @@
   color: #535353;
 }
 
+#section2 .products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+}
 #section2 .section-container {
   display: grid;
   grid-template-columns: 3fr 10fr;
