@@ -1,4 +1,4 @@
-export const filterState = {
+export let filterState = {
   search: "",
   brand: "",
   inStock: null,
@@ -24,4 +24,18 @@ export const PARAM_MAP = {
   maxPrice: "MaxPrice",
   take: "Take",
   page: "Page",
+};
+
+export const initialFilterState = {
+  search: "",
+  brand: "",
+  inStock: null,
+  sortBy: "",
+  sortDescending: false,
+  categoryId: "",
+  minRating: null,
+  minPrice: null,
+  maxPrice: null,
+  take: 8,
+  page: 1,
 };

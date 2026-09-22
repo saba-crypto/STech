@@ -277,6 +277,7 @@
                     >Search brands</label
                   >
                   <input
+                    class="brand-input"
                     id="brand-search"
                     type="text"
                     placeholder="Search brands..."
@@ -285,8 +286,12 @@
               </fieldset>
               <fieldset class="filter-group">
                 <legend class="filter-title">Availability</legend>
-                <label class="filter-option checkbox">
-                  <input type="checkbox" name="in-stock" />
+                <label class="filter-option checkbox in-stock-container">
+                  <input
+                    class="in-stock-input"
+                    type="checkbox"
+                    name="in-stock"
+                  />
                   <span class="checkbox-mark"></span>
                   <span class="option-label">In Stock Only</span>
                 </label>
@@ -359,6 +364,7 @@
                     >Search products</label
                   >
                   <input
+                    class="shop-search-input"
                     id="shop-search"
                     type="text"
                     placeholder="Search products..."
@@ -369,7 +375,20 @@
                 <span class="results-count">40 products</span>
                 <label class="visually-hidden" for="sort-by">Sort by</label>
                 <select id="sort-by" class="sort-select">
-                  <option value="" selected>Sort by</option>
+                  <option disabled selected value="">sort by</option>
+                  <option value="price" class="sort-option">
+                    Price: Low to High
+                  </option>
+                  <option value="price descending" class="sort-option">
+                    Price: High to Low
+                  </option>
+                  <option value="name" class="sort-option">Name: A-Z</option>
+                  <option value="rating descending" class="sort-option">
+                    Top Rated
+                  </option>
+                  <option value="createdAt descending" class="sort-option">
+                    Newest
+                  </option>
                 </select>
               </div>
             </div>
