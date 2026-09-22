@@ -36,7 +36,7 @@
   border-radius: 999rem;
   color: #1db954;
   background-color: rgba(29, 185, 84, 0.16);
-  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.8rem);
+  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
   font-weight: 600;
 }
 
@@ -109,7 +109,7 @@
   color: #131d17;
   background-color: rgba(255, 255, 255, 0.94);
   box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.16);
-  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.8rem);
+  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
   font-weight: 700;
   animation: hero-float-card 4.2s ease-in-out infinite;
 }
@@ -255,10 +255,10 @@
   flex-grow: 1;
 }
 #section2 .category-card .category-info .category-name {
-  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 1rem);
+  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
 }
 #section2 .category-card .category-info .product-count {
-  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.8rem);
+  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
 }
 #section2 .category-card .category-arrow {
   color: grey;
@@ -347,7 +347,7 @@
   border-radius: 6px;
 }
 #section4 .container .promo-content .promo-tag {
-  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 1rem);
+  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   background-color: rgba(255, 255, 255, 0.2);
   padding: min(3px, 0.8vw) min(10px, 2vw);
   border-radius: 100px;
@@ -431,10 +431,10 @@
   transition-duration: 0.25s;
 }
 #section6 .feature-card h3 {
-  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 1rem);
+  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
 }
 #section6 .feature-card p {
-  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.8rem);
+  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
 }
 #section6 .feature-card:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);

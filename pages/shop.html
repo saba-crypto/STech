@@ -147,10 +147,28 @@
         </div>
       </section>
       <section id="section2">
+        <div class="filters-overlay" aria-hidden="true"></div>
         <div class="section-container">
           <aside class="filter-sidebar" aria-label="Product filters">
             <div class="sidebar-header">
               <h2>Filters</h2>
+              <button class="close-filters" type="button" aria-label="Close filters">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
             </div>
             <div class="filters-content">
               <fieldset class="filter-group">
@@ -248,10 +266,10 @@
                 <legend class="filter-title">Price Range</legend>
                 <div class="price-inputs">
                   <div class="price-input">
-                    <label for="price-min">Min</label>
+                    <div class="price-label">Min</div>
                     <input
                       class="min-price-input"
-                      id="price-min "
+                      id="price-min"
                       type="number"
                       placeholder="$0"
                       min="0"
@@ -259,7 +277,7 @@
                   </div>
                   <span class="price-separator">-</span>
                   <div class="price-input">
-                    <label for="price-max">Max</label>
+                    <div class="price-label">Max</div>
                     <input
                       class="max-price-input"
                       id="price-max"
@@ -273,9 +291,6 @@
               <fieldset class="filter-group">
                 <legend class="filter-title">Brand</legend>
                 <div class="filter-search">
-                  <label class="visually-hidden" for="brand-search"
-                    >Search brands</label
-                  >
                   <input
                     class="brand-input"
                     id="brand-search"
@@ -286,7 +301,7 @@
               </fieldset>
               <fieldset class="filter-group">
                 <legend class="filter-title">Availability</legend>
-                <label class="filter-option checkbox in-stock-container">
+                <div class="filter-option checkbox in-stock-container">
                   <input
                     class="in-stock-input"
                     type="checkbox"
@@ -294,7 +309,7 @@
                   />
                   <span class="checkbox-mark"></span>
                   <span class="option-label">In Stock Only</span>
-                </label>
+                </div>
               </fieldset>
               <button class="clear-filters-btn" type="button">
                 <svg
@@ -342,7 +357,8 @@
                     <line x1="9" y1="8" x2="15" y2="8"></line>
                     <line x1="17" y1="16" x2="23" y2="16"></line>
                   </svg>
-                  Filters
+                  <span>Filters</span>
+                  <span class="filter-badge" style="display: none;">0</span>
                 </button>
                 <div class="search-box">
                   <svg
@@ -360,20 +376,33 @@
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                   </svg>
-                  <label class="visually-hidden" for="shop-search"
-                    >Search products</label
-                  >
                   <input
                     class="shop-search-input"
                     id="shop-search"
                     type="text"
                     placeholder="Search products..."
                   />
+                  <button class="clear-search" type="button" aria-label="Clear search" style="display: none;">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
                 </div>
               </div>
               <div class="toolbar-right">
                 <span class="results-count">40 products</span>
-                <label class="visually-hidden" for="sort-by">Sort by</label>
                 <select id="sort-by" class="sort-select">
                   <option disabled selected value="">sort by</option>
                   <option value="price" class="sort-option">
@@ -392,6 +421,7 @@
                 </select>
               </div>
             </div>
+            <div class="active-filters" aria-label="Active filters"></div>
             <div class="products-grid"></div>
             <nav class="pagination" aria-label="Product pages">
               <div class="pagination-list">
@@ -411,9 +441,6 @@
                   ›
                 </button>
 
-                <label class="visually-hidden" for="page-size"
-                  >Products per page</label
-                >
                 <select id="page-size" class="page-size-select">
                   <option value="8" selected>8 / page</option>
                   <option value="12">12 / page</option>

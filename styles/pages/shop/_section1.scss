@@ -2,22 +2,51 @@
 
 #section1 {
   background-color: $optional-clr;
+  border-bottom: 1px solid $primary-border-clr;
+
   .section-container {
-    margin-top: 30px;
+    padding: $paddingXL 0;
+    margin-top: 70px;
   }
-  .container {
-    @include flexbox(column, center, flex-start, 10px);
+
+  .header-content {
+    @include flexbox(column, center, flex-start, 6px);
+    width: 100%;
+
     .breadcrumb {
-      @include flexbox(row, flex-start, center, 10px);
-      font-size: $font-sizeXXS;
-      color: $optional-font-clr;
+      @include flexbox(row, flex-start, center, 8px);
+      font-size: $font-sizeXS;
+      color: $faded-font-clr;
+      margin-bottom: 4px;
+
+      a {
+        color: $optional-font-clr;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $accent-clr;
+        }
+      }
+
+      svg {
+        color: $faded-font-clr;
+      }
+
+      span {
+        color: $secondary-clr;
+        font-weight: 500;
+      }
     }
+
     .page-heading {
       font-weight: 700;
       font-size: $font-sizeL;
+      color: $secondary-clr;
+      line-height: 1.2;
     }
+
     .page-description {
-      font-size: $font-sizeXS;
+      font-size: $font-sizeS;
       color: $optional-font-clr;
     }
   }
