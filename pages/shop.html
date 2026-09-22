@@ -179,6 +179,7 @@
                   aria-label="Minimum star rating filter"
                 >
                   <button
+                    data-min-rating="4"
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
@@ -194,6 +195,7 @@
                     <span class="rating-text">4 &amp; up</span>
                   </button>
                   <button
+                    data-min-rating="3"
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
@@ -209,6 +211,7 @@
                     <span class="rating-text">3 &amp; up</span>
                   </button>
                   <button
+                    data-min-rating="2"
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
@@ -224,6 +227,7 @@
                     <span class="rating-text">2 &amp; up</span>
                   </button>
                   <button
+                    data-min-rating="1"
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
@@ -246,7 +250,8 @@
                   <div class="price-input">
                     <label for="price-min">Min</label>
                     <input
-                      id="price-min"
+                      class="min-price-input"
+                      id="price-min "
                       type="number"
                       placeholder="$0"
                       min="0"
@@ -256,6 +261,7 @@
                   <div class="price-input">
                     <label for="price-max">Max</label>
                     <input
+                      class="max-price-input"
                       id="price-max"
                       type="number"
                       placeholder="$9999"
