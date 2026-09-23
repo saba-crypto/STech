@@ -1,6 +1,5 @@
 import { fetchCategories } from "../data/categories.js";
 const navDropDown = document.querySelector(".nav-dropdown");
-const categoriesBtn = document.querySelector(".categories-dropdown-btn");
 const categoriesList = document.querySelector(".dropdown-menu");
 
 if (navDropDown) {
