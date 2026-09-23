@@ -3,7 +3,7 @@ import "../../shared/header.js";
 import { API_KEY } from "../../data/secret.js";
 import { filterState } from "../../data/filterData.js";
 import { buildFilteredUrl } from "../../utils/buildFilteredUrl.js";
-import { renderProductsHtml } from "../../utils/renderProducts.js";
+import { renderProductsHtml } from "../../shared/product-card.js";
 
 // elements
 const productsGrid = document.querySelector(".products-grid");

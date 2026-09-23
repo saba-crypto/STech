@@ -1,4 +1,6 @@
-import { renderStars } from "./renderRatingStars.js";
+import { renderStars } from "../utils/renderRatingStars.js";
+
+//used for rendering product cards based on provided products array, use it whenever you need to render a product card(s)
 export function renderProductsHtml(products) {
   return products
     .map((product) => {
@@ -6,6 +8,8 @@ export function renderProductsHtml(products) {
     <div data-product-id=${product.id} class="product-card">
       <div class="card-image">
         <img src="${product.imageUrl}" alt="${product.name}" />
+        <div class="card-badges">${product.isNew ? "<span class='new-badge'>NEW</span>" : ""}</div>
+        
         <div class="quick-actions">
           <button class="action-btn favorite-btn">
             <svg

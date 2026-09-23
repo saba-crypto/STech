@@ -1,3 +1,4 @@
+//mainly used for rendering individual product card HTML rating stars
 export function renderStars(starCount) {
   let starsHTML = ``;
   for (let i = 1; i <= 5; i++) {

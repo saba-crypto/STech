@@ -197,6 +197,20 @@ html {
   object-fit: cover;
   transition: all 0.5s ease;
 }
+.product-card .card-image .card-badges {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
+.product-card .card-image .card-badges .new-badge {
+  color: white;
+  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
+  background-color: #1db954;
+  padding: min(3px, 0.8vw) min(10px, 2vw);
+  border-radius: 6px;
+  font-weight: 500;
+  letter-spacing: -5%;
+}
 .product-card .card-image .quick-actions {
   display: flex;
   flex-direction: column;
@@ -324,21 +338,6 @@ html {
 }
 .product-card:hover .card-image .quick-actions .action-btn {
   pointer-events: all;
-}
-
-.product-card.new .card-badges {
-  position: absolute;
-  left: 5%;
-  top: 5%;
-}
-.product-card.new .card-badges .new-badge {
-  color: white;
-  font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
-  background-color: #1db954;
-  padding: min(3px, 0.8vw) min(10px, 2vw);
-  border-radius: 6px;
-  font-weight: 500;
-  letter-spacing: -5%;
 }
 
 .section-title {

@@ -9,6 +9,7 @@ const debouncedRenderProducts = debounce(() => {
   updateFilterBadge();
 }, 300);
 
+//filter elements
 const categoriesElement = document.querySelector(".categories");
 const minRatingOptions = document.querySelectorAll(".rating-option");
 const minPriceInput = document.querySelector(".min-price-input");
@@ -43,7 +44,7 @@ async function renderCategories() {
 }
 
 renderCategories();
-// setupDrawer();
+handleFilterSidebar();
 handleMinRatingController();
 handleMinPriceController();
 handleMaxPriceController();
@@ -52,24 +53,22 @@ handleInStockController();
 handleSearchController();
 handleSortByController();
 
-// function setupDrawer() {
-//   if (filterToggleBtn && filterSidebar) {
-//     filterToggleBtn.addEventListener("click", () => {
-//       filterSidebar.classList.add("open");
-//       if (filtersOverlay) filtersOverlay.classList.add("active");
-//       document.body.style.overflow = "hidden";
-//     });
-//   }
+function handleFilterSidebar() {
+  filterToggleBtn.addEventListener("click", () => {
+    filterSidebar.classList.add("open");
+    filtersOverlay.style.display = "block";
+  });
 
-//   function closeDrawer() {
-//     if (filterSidebar) filterSidebar.classList.remove("open");
-//     if (filtersOverlay) filtersOverlay.classList.remove("active");
-//     document.body.style.overflow = "";
-//   }
+  closeFiltersBtn.addEventListener("click", () => {
+    filterSidebar.classList.remove("open");
+    filtersOverlay.style.display = "none";
+  });
 
-//   if (closeFiltersBtn) closeFiltersBtn.addEventListener("click", closeDrawer);
-//   if (filtersOverlay) filtersOverlay.addEventListener("click", closeDrawer);
-// }
+  filtersOverlay.addEventListener("click", () => {
+    filterSidebar.classList.remove("open");
+    filtersOverlay.style.display = "none";
+  });
+}
 
 function renderCategoriesHtml(categories) {
   if (!categoriesElement || !Array.isArray(categories)) return;

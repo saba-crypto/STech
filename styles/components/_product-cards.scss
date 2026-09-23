@@ -18,6 +18,20 @@
       object-fit: cover;
       transition: all 0.5s ease;
     }
+    .card-badges {
+      position: absolute;
+      left: 5%;
+      top: 5%;
+      .new-badge {
+        color: white;
+        font-size: $font-sizeXXS;
+        background-color: $accent-clr;
+        padding: $paddingXXS $paddingS;
+        border-radius: $radiusM;
+        font-weight: 500;
+        letter-spacing: -5%;
+      }
+    }
 
     .quick-actions {
       @include flexbox(column, center, center, 10px);
@@ -124,18 +138,4 @@
   }
 }
 .product-card.new {
-  .card-badges {
-    position: absolute;
-    left: 5%;
-    top: 5%;
-    .new-badge {
-      color: white;
-      font-size: $font-sizeXXS;
-      background-color: $accent-clr;
-      padding: $paddingXXS $paddingS;
-      border-radius: $radiusM;
-      font-weight: 500;
-      letter-spacing: -5%;
-    }
-  }
 }

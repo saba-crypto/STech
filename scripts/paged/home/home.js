@@ -1,4 +1,4 @@
-import "./features.js";
+import "./featuredProducts.js";
 import "./newProducts.js";
 import "../../shared/header.js";
 
