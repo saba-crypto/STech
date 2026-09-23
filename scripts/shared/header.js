@@ -13,9 +13,9 @@ if (navDropDown) {
   });
 }
 
-renderCategories();
+renderHeaderCategories();
 
-async function renderCategories() {
+async function renderHeaderCategories() {
   const categories = await fetchCategories();
   categoriesList.innerHTML = categories
     .map((category) => {

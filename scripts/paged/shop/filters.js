@@ -43,7 +43,7 @@ async function renderCategories() {
 }
 
 renderCategories();
-setupDrawer();
+// setupDrawer();
 handleMinRatingController();
 handleMinPriceController();
 handleMaxPriceController();
@@ -52,24 +52,24 @@ handleInStockController();
 handleSearchController();
 handleSortByController();
 
-function setupDrawer() {
-  if (filterToggleBtn && filterSidebar) {
-    filterToggleBtn.addEventListener("click", () => {
-      filterSidebar.classList.add("open");
-      if (filtersOverlay) filtersOverlay.classList.add("active");
-      document.body.style.overflow = "hidden";
-    });
-  }
+// function setupDrawer() {
+//   if (filterToggleBtn && filterSidebar) {
+//     filterToggleBtn.addEventListener("click", () => {
+//       filterSidebar.classList.add("open");
+//       if (filtersOverlay) filtersOverlay.classList.add("active");
+//       document.body.style.overflow = "hidden";
+//     });
+//   }
 
-  function closeDrawer() {
-    if (filterSidebar) filterSidebar.classList.remove("open");
-    if (filtersOverlay) filtersOverlay.classList.remove("active");
-    document.body.style.overflow = "";
-  }
+//   function closeDrawer() {
+//     if (filterSidebar) filterSidebar.classList.remove("open");
+//     if (filtersOverlay) filtersOverlay.classList.remove("active");
+//     document.body.style.overflow = "";
+//   }
 
-  if (closeFiltersBtn) closeFiltersBtn.addEventListener("click", closeDrawer);
-  if (filtersOverlay) filtersOverlay.addEventListener("click", closeDrawer);
-}
+//   if (closeFiltersBtn) closeFiltersBtn.addEventListener("click", closeDrawer);
+//   if (filtersOverlay) filtersOverlay.addEventListener("click", closeDrawer);
+// }
 
 function renderCategoriesHtml(categories) {
   if (!categoriesElement || !Array.isArray(categories)) return;
@@ -294,8 +294,10 @@ function renderActiveFilterChips() {
   }
 
   if (filterState.minPrice !== null || filterState.maxPrice !== null) {
-    const minText = filterState.minPrice !== null ? `$${filterState.minPrice}` : "$0";
-    const maxText = filterState.maxPrice !== null ? `$${filterState.maxPrice}` : "...";
+    const minText =
+      filterState.minPrice !== null ? `$${filterState.minPrice}` : "$0";
+    const maxText =
+      filterState.maxPrice !== null ? `$${filterState.maxPrice}` : "...";
     chips.push({
       label: `Price: ${minText} - ${maxText}`,
       clear: () => {
@@ -333,7 +335,7 @@ function renderActiveFilterChips() {
       <div class="filter-chip">
         <span>${chip.label}</span>
         <button type="button" data-chip-idx="${idx}" aria-label="Remove filter: ${chip.label}">✕</button>
-      </div>`
+      </div>`,
     )
     .join("");
 

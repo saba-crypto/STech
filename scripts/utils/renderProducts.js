@@ -3,7 +3,7 @@ export function renderProductsHtml(products) {
   return products
     .map((product) => {
       return `
-    <div class="product-card">
+    <div data-product-id=${product.id} class="product-card">
       <div class="card-image">
         <img src="${product.imageUrl}" alt="${product.name}" />
         <div class="quick-actions">
@@ -23,7 +23,7 @@ export function renderProductsHtml(products) {
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
               ></path>
             </svg></button
-          ><button class="action-btn view-btn">
+          ><button class="action-btn view-btn"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -62,7 +62,7 @@ export function renderProductsHtml(products) {
         <div class="card-price"><span>USD ${product.price.toLocaleString()}</span></div>
       </div>
       <div class="card-footer">
-        <button class="add-to-cart">
+        <button  class="add-to-cart">
           <svg
             
             xmlns="http://www.w3.org/2000/svg"
