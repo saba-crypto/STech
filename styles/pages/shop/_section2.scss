@@ -564,6 +564,9 @@
       border-color: $accent-clr;
       color: $accent-clr;
     }
+    &.active:hover:not(:disabled) {
+      color: $primary-clr;
+    }
 
     &.active {
       background-color: $accent-clr;

@@ -617,6 +617,9 @@
   border-color: #1db954;
   color: #1db954;
 }
+#section2 .pagination-btn.active:hover:not(:disabled) {
+  color: #ffffff;
+}
 #section2 .pagination-btn.active {
   background-color: #1db954;
   border-color: #1db954;

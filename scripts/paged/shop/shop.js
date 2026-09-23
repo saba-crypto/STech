@@ -1,4 +1,5 @@
 import "./filters.js";
+import "../../shared/header.js";
 import { API_KEY } from "../../data/secret.js";
 import { filterState } from "../../data/filterData.js";
 import { buildFilteredUrl } from "../../utils/buildFilteredUrl.js";
@@ -144,4 +145,11 @@ if (paginationButtons) {
 }
 
 // Initial render
-renderProducts(filterState);
+const params = new URLSearchParams(window.location.search);
+const selectedCategory = params.get("category");
+if (selectedCategory) {
+  filterState.categoryId = Number(selectedCategory);
+  renderProducts();
+} else {
+  renderProducts(filterState);
+}

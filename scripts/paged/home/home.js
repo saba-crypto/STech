@@ -1,6 +1,10 @@
 import "./features.js";
 import "./newProducts.js";
+import "../../shared/header.js";
 
-document.querySelector(".shop-btn").addEventListener("click", () => {
-  window.location.href = "./pages/shop.html";
-});
+const shopBtn = document.querySelector(".shop-btn");
+if (shopBtn) {
+  shopBtn.addEventListener("click", () => {
+    window.location.href = "./pages/shop.html";
+  });
+}
