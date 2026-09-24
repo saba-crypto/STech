@@ -22,6 +22,7 @@ function renderPaginationNavButtons(totalPages, currentPage) {
   for (let i = 1; i <= totalPages; i++) {
     const isActive = i === currentPage;
     html += `
+    
       <button
         class="pagination-btn pagination-nav-btn ${isActive ? "active" : ""}"
         type="button"

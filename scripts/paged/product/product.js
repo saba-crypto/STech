@@ -5,13 +5,15 @@ import { renderReviews } from "./Reviews.js";
 import { renderRelatedProducts } from "./relatedProducts.js";
 import { renderSpecifications } from "./specifications.js";
 import { renderDescription } from "./description.js";
+import { fetchProductReviews } from "../../data/productReviews.js";
 
 const params = new URLSearchParams(window.location.search);
-
-async function renderProductsPage() {
-  const productData = await fetchProduct();
-  renderMainProductInfo(productData);
-  renderReviews(productData);
+const productId = params.get("id");
+async function renderProductsPage(productId) {
+  const productData = await fetchProduct(productId);
+  const productReviewsData = await fetchProductReviews(productId);
+  renderMainProductInfo(productData, productReviewsData);
+  renderReviews(productData, productReviewsData);
 }
 
-renderProductsPage();
+renderProductsPage(productId);

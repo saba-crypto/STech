@@ -123,8 +123,11 @@
 .product-info .product-rating .stars svg {
   width: 18px;
   height: 18px;
-  fill: currentColor;
+  fill: transparent;
   stroke: currentColor;
+}
+.product-info .product-rating .stars .filled {
+  fill: currentColor;
 }
 .product-info .product-rating .rating-value {
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);

@@ -113,8 +113,11 @@
       svg {
         width: 18px;
         height: 18px;
-        fill: currentColor;
+        fill: transparent;
         stroke: currentColor;
+      }
+      .filled {
+        fill: currentColor;
       }
     }
 
