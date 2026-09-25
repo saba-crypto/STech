@@ -18,3 +18,8 @@ section {
     padding: $padding2XL 0;
   }
 }
+
+body.no-scroll {
+  overflow: hidden;
+}
+

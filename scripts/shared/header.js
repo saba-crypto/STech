@@ -1,22 +1,33 @@
 import { fetchCategories } from "../data/categories.js";
+import { initSidebar } from "./sidebar.js";
+
 const headerElement = document.querySelector(".header");
-let currentPage = window.location.href;
-if (currentPage.includes("shop.html")) {
+
+const isPagesDir = window.location.pathname.includes("/pages/");
+const homeUrl = isPagesDir ? "../index.html" : "./index.html";
+const shopUrl = isPagesDir ? "./shop.html" : "./pages/shop.html";
+
+let currentPage = "home";
+if (window.location.href.includes("shop.html")) {
   currentPage = "shop";
-} else if (currentPage.includes("index.html")) {
-  currentPage = "home";
+} else if (window.location.href.includes("product.html")) {
+  currentPage = "product";
 }
-renderHeader().then(addCategoriesDropdownControllers);
+
+renderHeader().then((categories) => {
+  addCategoriesDropdownControllers();
+  initSidebar(categories);
+});
 
 async function renderHeader() {
   const categories = await fetchCategories();
   if (headerElement) {
-    headerElement.innerHTML = `<header class="header">
+    headerElement.innerHTML = `
       <div class="header-container">
         <div class="header-content">
           <a
             class="brand-link"
-            href="http://127.0.0.1:5500/index.html"
+            href="${homeUrl}"
             aria-label="STech Home"
           >
             <span class="brand-icon" aria-hidden="true">
@@ -29,13 +40,13 @@ async function renderHeader() {
           </a>
 
           <nav class="nav-links" aria-label="Main Navigation">
-            <a class="nav-link ${currentPage === "home" ? "active" : ""}" href="http://127.0.0.1:5500/index.html"
+            <a class="nav-link ${currentPage === "home" ? "active" : ""}" href="${homeUrl}"
               >Home</a
             >
             <a
               class="nav-link ${currentPage === "shop" ? "active" : ""}"
-              href="http://127.0.0.1:5500/pages/shop.html"
-              aria-current="page"
+              href="${shopUrl}"
+              ${currentPage === "shop" ? 'aria-current="page"' : ""}
               >Shop</a
             >
             <div class="nav-dropdown">
@@ -151,7 +162,7 @@ async function renderHeader() {
             <button
               class="mobile-menu-btn"
               type="button"
-              aria-label="Toggle navigation menu"
+              aria-label="Open navigation menu"
               aria-expanded="false"
               aria-controls="mobile-menu"
             >
@@ -170,7 +181,6 @@ async function renderHeader() {
                 viewBox="0 0 24 24"
                 aria-hidden="true"
                 focusable="false"
-                style="display: none"
               >
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -180,30 +190,33 @@ async function renderHeader() {
         </div>
       </div>
 
-      <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
         <nav class="mobile-nav">
-          <a class="mobile-nav-link" href="http://127.0.0.1:5500/index.html"
+          <a class="mobile-nav-link ${currentPage === "home" ? "active" : ""}" href="${homeUrl}"
             >Home</a
           >
           <a
-            class="mobile-nav-link active"
-            href="http://127.0.0.1:5500/pages/shop.html"
-            aria-current="page"
+            class="mobile-nav-link ${currentPage === "shop" ? "active" : ""}"
+            href="${shopUrl}"
+            ${currentPage === "shop" ? 'aria-current="page"' : ""}
             >Shop</a
           >
           <div class="mobile-nav-label">Categories</div>
           <div class="mobile-categories"></div>
         </nav>
-      </div>
-      <div class="mobile-overlay" aria-hidden="true"></div>
-    </header>`;
+      </aside>
+      <div class="mobile-overlay" aria-hidden="true"></div>`;
+    return categories;
   } else {
     console.error(
-      'error occurred while rendering header, make sure header exists with class ".header" ',
+      'error occurred while rendering header, make sure header element exists with class ".header" ',
     );
+    return [];
   }
 }
+
 function renderHeaderCategories(categories) {
+  if (!Array.isArray(categories)) return "";
   return categories
     .map((category) => {
       return `
@@ -219,7 +232,7 @@ function renderHeaderCategories(categories) {
 function addCategoriesDropdownControllers() {
   const navDropDown = document.querySelector(".nav-dropdown");
   const categoriesList = document.querySelector(".dropdown-menu");
-  if (navDropDown) {
+  if (navDropDown && categoriesList) {
     navDropDown.addEventListener("mouseenter", () => {
       navDropDown.classList.add("open");
     });
@@ -233,7 +246,7 @@ function addCategoriesDropdownControllers() {
   categoryItems.forEach((item) => {
     const categoryId = item.dataset.categoryId;
     item.addEventListener("click", () => {
-      window.location.href = `http://127.0.0.1:5500/pages/shop.html?category=${categoryId}`;
+      window.location.href = `${shopUrl}?category=${categoryId}`;
     });
   });
 }

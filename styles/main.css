@@ -101,6 +101,10 @@ section .section-container {
   padding: min(50px, 6vw) 0;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 @font-face {
   font-family: sagoe;
   src: url(../../public/fonts/segoe-ui-4-cufonfonts/Segoe\ UI.ttf);
@@ -662,12 +666,12 @@ html {
   font-weight: 700;
 }
 .nav-actions .mobile-menu-btn {
-  display: none;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 0px;
+  display: none;
   width: 40px;
   height: 40px;
   border: none;
@@ -683,7 +687,72 @@ html {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.nav-actions .mobile-menu-btn .menu-close-icon {
+  display: none;
+}
+.nav-actions .mobile-menu-btn[aria-expanded=true] .menu-open-icon {
+  display: none;
+}
+.nav-actions .mobile-menu-btn[aria-expanded=true] .menu-close-icon {
+  display: block;
+}
 
+@media (max-width: 70rem) {
+  .nav-links {
+    display: none;
+  }
+  .nav-actions .mobile-menu-btn {
+    display: flex;
+  }
+  .header-search-bar {
+    width: 220px;
+  }
+}
+@media (max-width: 52rem) {
+  .header-container {
+    width: min(100% - 2rem, 70.8rem);
+  }
+  .brand-link .brand-name {
+    display: none;
+  }
+  .nav-actions .favorite-btn,
+  .nav-actions .user-btn {
+    display: none;
+  }
+  .header-search-bar {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    border-inline: none;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .header-search-bar.expanded {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .header-search-bar .search-toggle {
+    display: flex;
+  }
+}
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .mobile-menu {
   position: fixed;
   top: 70px;
@@ -776,59 +845,11 @@ html {
   opacity: 1;
 }
 
-@media (max-width: 70rem) {
-  .nav-links {
+@media (min-width: calc(70rem + 0.02px)) {
+  .mobile-menu,
+  .mobile-overlay {
     display: none;
-  }
-  .nav-actions .mobile-menu-btn {
-    display: flex;
-  }
-  .header-search-bar {
-    width: 220px;
   }
 }
-@media (max-width: 52rem) {
-  .header-container {
-    width: min(100% - 2rem, 70.8rem);
-  }
-  .brand-link .brand-name {
-    display: none;
-  }
-  .nav-actions .favorite-btn,
-  .nav-actions .user-btn {
-    display: none;
-  }
-  .header-search-bar {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    border-radius: 0;
-    border-inline: none;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-  .header-search-bar.expanded {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .header-search-bar .search-toggle {
-    display: flex;
-  }
-}
-@keyframes dropdownFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}/*# sourceMappingURL=main.css.map */
+
+/*# sourceMappingURL=main.css.map */

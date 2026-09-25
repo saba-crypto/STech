@@ -275,8 +275,8 @@
   }
 
   .mobile-menu-btn {
-    display: none;
     @include flexbox(row, center, center);
+    display: none;
     width: 40px;
     height: 40px;
     border: none;
@@ -292,103 +292,23 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-  }
-}
 
-.mobile-menu {
-  position: fixed;
-  top: 70px;
-  right: 0;
-  bottom: 0;
-  width: 280px;
-  background-color: $background-clr;
-  border-left: 1px solid $primary-border-clr;
-  padding: $paddingL;
-  overflow-y: auto;
-  z-index: 1050;
-  transform: translateX(100%);
-  transition: transform 0.25s ease-in-out;
-
-  &.open {
-    transform: translateX(0);
-  }
-
-  .mobile-nav {
-    @include flexbox(column, flex-start, stretch, 6px);
-  }
-
-  .mobile-nav-link {
-    padding: $paddingS $paddingM;
-    border-radius: $radiusM;
-    font-size: $font-sizeS;
-    font-weight: 600;
-    color: $secondary-clr;
-    transition:
-      color 0.16s ease,
-      background-color 0.16s ease;
-
-    &:hover,
-    &.active {
-      color: $accent-clr;
-      background-color: $faded-accent-clr;
+    .menu-close-icon {
+      display: none;
     }
-  }
 
-  .mobile-nav-label {
-    padding: $paddingM $paddingM $paddingXS;
-    font-size: $font-sizeXXS;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: $faded-font-clr;
-    letter-spacing: 0.5px;
-  }
-
-  .mobile-categories {
-    @include flexbox(column, flex-start, stretch, 4px);
-    max-height: 260px;
-    overflow-y: auto;
-
-    .mobile-category-link {
-      @include flexbox(row, space-between, center, 8px);
-      padding: $paddingXS $paddingM;
-      border-radius: $radiusM;
-      font-size: $font-sizeXS;
-      color: $optional-font-clr;
-      transition:
-        color 0.16s ease,
-        background-color 0.16s ease;
-
-      &:hover {
-        color: $accent-clr;
-        background-color: $optional-clr;
+    &[aria-expanded="true"] {
+      .menu-open-icon {
+        display: none;
       }
 
-      .item-count {
-        font-size: $font-sizeXXS;
-        color: $faded-font-clr;
-        background-color: $optional-clr;
-        padding: 2px 6px;
-        border-radius: 999px;
+      .menu-close-icon {
+        display: block;
       }
     }
   }
 }
 
-.mobile-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  top: 70px;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1040;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-
-  &.active {
-    display: block;
-    opacity: 1;
-  }
-}
 
 @media (max-width: $breakpointL) {
   .nav-links {
