@@ -213,7 +213,20 @@
 
 .nav-actions {
   @include flexbox(row, flex-end, center, 8px);
-
+  .sign-in-btn {
+    background-color: $accent-clr;
+    color: $secondary-font-clr;
+    border: none;
+    border-radius: 100px;
+    padding: $paddingS $paddingL;
+    font-size: $font-sizeXS;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
   .action-btn {
     @include flexbox(row, center, center);
     position: relative;
@@ -308,7 +321,6 @@
     }
   }
 }
-
 
 @media (max-width: $breakpointL) {
   .nav-links {

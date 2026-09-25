@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - STech</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/pages/login/login.css" />
+  </head>
+  <body>
+    <main class="login-page">
+      <div class="login-container">
+        <section class="banner-section" aria-label="Brand introduction">
+          <div class="section-container banner-container">
+            <div class="banner-content">
+              <a href="../index.html" class="logo" aria-label="STech Home">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="40"
+                  height="40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              </a>
+              <h1 class="banner-title">STECH</h1>
+              <p class="banner-description">
+                Access exclusive deals and manage your orders with your account.
+              </p>
+              <div class="stats" aria-label="Platform highlights">
+                <div class="stat-item">
+                  <div class="stat-value">50K+</div>
+                  <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">200+</div>
+                  <div class="stat-label">Brands</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">24/7</div>
+                  <div class="stat-label">Support</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-label="Sign in form">
+          <div class="section-container form-container">
+            <div class="login-card">
+              <header class="header-section">
+                <div class="icon-wrapper" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="28"
+                    height="28"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10 17 15 12 10 7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                  </svg>
+                </div>
+                <h2 class="form-title">Welcome Back</h2>
+                <p class="subtitle">Sign in to continue shopping 🛒</p>
+              </header>
+
+              <form class="login-form" action="#" method="POST">
+                <div class="form-group">
+                  <label class="form-label" for="login-email">Email address</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                      </svg>
+                    </span>
+                    <input
+                      type="email"
+                      id="login-email"
+                      name="email"
+                      class="form-input"
+                      placeholder="Email address"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="login-password">Password</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                    </span>
+                    <input
+                      type="password"
+                      id="login-password"
+                      name="password"
+                      class="form-input"
+                      placeholder="Password"
+                      autocomplete="current-password"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-options">
+                  <label class="remember-me" for="remember-me">
+                    <input
+                      type="checkbox"
+                      id="remember-me"
+                      name="rememberMe"
+                      class="checkbox-input"
+                    />
+                    <span>Remember me</span>
+                  </label>
+                  <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="submit-button">
+                  <span class="button-content">Sign In</span>
+                </button>
+
+                <div class="divider" role="separator">
+                  <span class="divider-text">or</span>
+                </div>
+
+                <p class="footer-text">
+                  Don't have an account?
+                  <a href="#" class="register-link">Create one now</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

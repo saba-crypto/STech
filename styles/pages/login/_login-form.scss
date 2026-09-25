@@ -1,0 +1,257 @@
+@use "../../abstracts" as *;
+
+.form-section {
+  @include flexbox(column, center, center);
+  height: 100%;
+  min-height: 100vh;
+  background-color: $background-clr;
+  padding: $padding3XL;
+
+  .section-container {
+    @include flexbox(column, center, center);
+    width: 100%;
+    max-width: 480px;
+    padding: 0;
+  }
+
+  .login-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .header-section {
+    padding-bottom: $paddingXL;
+    text-align: center;
+
+    .icon-wrapper {
+      @include flexbox(row, center, center);
+      width: 64px;
+      height: 64px;
+      margin: 0 auto $paddingM;
+      background-color: $optional-clr;
+      border: 1px solid $primary-border-clr;
+      border-radius: $radiusL;
+      color: $accent-clr;
+    }
+
+    .form-title {
+      font-size: $font-sizeL;
+      font-weight: 600;
+      color: $secondary-clr;
+      margin-bottom: $paddingXS;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+      margin: 0;
+    }
+  }
+
+  .login-form {
+    width: 100%;
+
+    .form-group {
+      @include flexbox(column, flex-start, stretch, 6px);
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: $font-sizeXS;
+      font-weight: 600;
+      color: $secondary-clr;
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+
+      &:focus-within {
+        .input-icon {
+          color: $accent-clr;
+        }
+      }
+    }
+
+    .input-icon {
+      @include flexbox(row, center, center);
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $faded-font-clr;
+      z-index: 1;
+      pointer-events: none;
+      transition: color 0.16s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 50px;
+      border-radius: $radiusM;
+      font-size: $font-sizeXS;
+      border: 1px solid $primary-border-clr;
+      background-color: $optional-clr;
+      color: $primary-font-clr;
+      padding: 0 16px 0 46px;
+      outline: none;
+      transition:
+        border-color 0.16s ease,
+        background-color 0.16s ease,
+        box-shadow 0.16s ease;
+
+      &::placeholder {
+        color: $faded-font-clr;
+      }
+
+      &:hover {
+        border-color: $faded-font-clr;
+        background-color: $background-clr;
+      }
+
+      &:focus {
+        border-color: $accent-clr;
+        background-color: $background-clr;
+        box-shadow: 0 0 0 4px $faded-accent-clr;
+      }
+    }
+
+    .form-options {
+      @include flexbox(row, space-between, center);
+      margin-bottom: $paddingL;
+    }
+
+    .remember-me {
+      @include flexbox(row, flex-start, center, 8px);
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+      cursor: pointer;
+
+      .checkbox-input {
+        width: 16px;
+        height: 16px;
+        accent-color: $accent-clr;
+        cursor: pointer;
+      }
+    }
+
+    .forgot-link {
+      font-size: $font-sizeXS;
+      font-weight: 500;
+      color: $accent-clr;
+      transition: color 0.16s ease;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .submit-button {
+      @include flexbox(row, center, center);
+      width: 100%;
+      height: 50px;
+      border-radius: $radiusM;
+      font-weight: 600;
+      font-size: $font-sizeXS;
+      background-color: $accent-clr;
+      border: 1px solid $accent-clr;
+      color: $secondary-font-clr;
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition:
+        background-color 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.16s ease;
+
+      &:hover {
+        background-color: #1ed760;
+        border-color: #1ed760;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: $paddingXL 0 $paddingL;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: $primary-border-clr;
+      }
+
+      .divider-text {
+        position: relative;
+        display: inline-block;
+        padding: 0 $paddingM;
+        background-color: $background-clr;
+        color: $faded-font-clr;
+        font-size: $font-sizeXXS;
+        font-weight: 500;
+      }
+    }
+
+    .footer-text {
+      text-align: center;
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+      margin: 0;
+
+      .register-link {
+        font-weight: 600;
+        color: $accent-clr;
+        transition: color 0.16s ease;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointL) {
+  .form-section {
+    padding: $paddingL;
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .form-section {
+    .header-section {
+      padding-bottom: $paddingL;
+
+      .icon-wrapper {
+        width: 56px;
+        height: 56px;
+      }
+
+      .form-title {
+        font-size: $font-sizeL;
+      }
+    }
+
+    .login-form {
+      .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $paddingM;
+      }
+    }
+  }
+}

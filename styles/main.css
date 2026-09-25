@@ -603,6 +603,20 @@ html {
   align-items: center;
   gap: 8px;
 }
+.nav-actions .sign-in-btn {
+  background-color: #1db954;
+  color: #ffffff;
+  border: none;
+  border-radius: 100px;
+  padding: min(10px, 2vw) min(20px, 3vw);
+  font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+.nav-actions .sign-in-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
 .nav-actions .action-btn {
   display: flex;
   flex-direction: row;
@@ -850,6 +864,4 @@ html {
   .mobile-overlay {
     display: none;
   }
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
