@@ -1,5 +1,6 @@
 import "./featuredProducts.js";
 import "./newProducts.js";
+import "./categories.js";
 import "../../shared/header.js";
 
 const shopBtn = document.querySelector(".shop-btn");

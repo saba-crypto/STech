@@ -1,6 +1,7 @@
 import { API_KEY } from "./secret.js";
 
-export async function fetchCategories() {
+//fetches all categories and returns them based on categoryCount parameter.
+export async function fetchCategories(count) {
   const response = await fetch(
     "https://shopapi.stepacademy.ge/api/categories",
     {
@@ -10,5 +11,9 @@ export async function fetchCategories() {
     },
   );
   const result = await response.json();
-  return result.data;
+  if (!count) {
+    return result.data;
+  } else {
+    return result.data.splice(0, count);
+  }
 }
