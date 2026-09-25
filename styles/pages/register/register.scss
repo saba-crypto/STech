@@ -1,13 +1,13 @@
 @use "../../abstracts" as *;
-@use "./login-banner";
-@use "./login-form";
+@use "./register-banner";
+@use "./register-form";
 
-.login-page {
+.register-page {
   min-height: 100vh;
   width: 100%;
 }
 
-.login-container {
+.register-container {
   @include grid(1fr 1fr, auto, 0px);
   min-height: 100vh;
   position: relative;
@@ -56,7 +56,7 @@
 }
 
 @media (max-width: $breakpointL) {
-  .login-container {
+  .register-container {
     grid-template-columns: 1fr;
   }
 
