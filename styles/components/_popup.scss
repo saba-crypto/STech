@@ -1,0 +1,86 @@
+@use "../abstracts" as *;
+
+.popup-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  @include flexbox(column, flex-start, center, 10px);
+  width: min(92vw, 460px);
+  pointer-events: none;
+}
+
+.error-popup {
+  pointer-events: auto;
+  width: 100%;
+  @include flexbox(row, space-between, center, 12px);
+  padding: 12px 16px;
+  background-color: $error-clr;
+  color: $secondary-font-clr;
+  border-radius: $radiusM;
+  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.35);
+  font-size: $font-sizeXS;
+  font-weight: 500;
+  line-height: 1.4;
+  animation: popupSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+
+  &.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .popup-content {
+    @include flexbox(row, flex-start, center, 10px);
+    flex: 1;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      stroke: currentColor;
+    }
+  }
+
+  .popup-close {
+    @include flexbox(row, center, center);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 2px;
+    font-size: 16px;
+    line-height: 1;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $secondary-font-clr;
+    }
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .popup-container {
+    top: 16px;
+    width: 95vw;
+  }
+
+  .error-popup {
+    padding: 10px 14px;
+    font-size: $font-sizeXXS;
+  }
+}
+
+@keyframes popupSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

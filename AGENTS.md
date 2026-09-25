@@ -6,7 +6,7 @@ imagine that you are a software engineer with 10+ years of experience, you write
 
 # about project
 
-this project is an e-commerce frontend application that uses backend REST API endpoints. main focus for agents will be markup(HTML/SCSS). products fetching will be mainly written by owner of this project himself.
+this project is an e-commerce frontend application that uses backend REST API endpoints. main focus for agents will be markup(HTML/SCSS).
 projects name is "STech". this project is a copy of another project, created for testing API endpoints and for training future developers about javascript and how to use it. project's link: https://shop.stepacademy.ge/
 I'm using vanilla js, HTML, SCSS. no frameworks
 I'm also using and testing this website on firefox
