@@ -7,6 +7,7 @@ export function renderMainProductInfo(product, reviews) {
   productGalleryContainer.innerHTML = renderGallery(product);
   productInfoContainer.innerHTML = renderProductInfo(product, reviews);
   addThumbnailLister(product, reviews);
+  addQuantityControllers();
 }
 
 let currentlySelectedImage;
@@ -55,6 +56,7 @@ function addThumbnailLister(product, reviews) {
   });
 }
 
+let productQuantity = 1;
 //product info
 function renderProductInfo(product, reviews) {
   return `
@@ -98,13 +100,13 @@ function renderProductInfo(product, reviews) {
       <div class="quantity-selector">
         <label>Quantity</label>
         <div class="quantity-controls">
-          <button class="qty-btn" type="button" aria-label="Decrease quantity">
+          <button class="qty-btn quantity decrease-quantity" type="button" aria-label="Decrease quantity">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
           </button>
-          <span class="qty-value">1</span>
-          <button class="qty-btn" type="button" aria-label="Increase quantity">
+          <span class="qty-value">${productQuantity}</span>
+          <button class="qty-btn add-quantity" type="button" aria-label="Increase quantity">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -130,4 +132,22 @@ function renderProductInfo(product, reviews) {
       </div>
 
   `;
+}
+
+function addQuantityControllers() {
+  const addQuantityButton = document.querySelector(".add-quantity");
+  const decreaseQuantityButton = document.querySelector(".decrease-quantity");
+  const quantityValue = document.querySelector(".qty-value");
+  addQuantityButton.addEventListener("click", () => {
+    if (productQuantity < 50 && quantityValue) {
+      productQuantity++;
+      quantityValue.innerHTML = productQuantity;
+    }
+  });
+  decreaseQuantityButton.addEventListener("click", () => {
+    if (productQuantity > 1 && quantityValue) {
+      productQuantity--;
+      quantityValue.innerHTML = productQuantity;
+    }
+  });
 }
