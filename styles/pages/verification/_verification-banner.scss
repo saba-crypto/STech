@@ -1,0 +1,128 @@
+@use "../../abstracts" as *;
+
+.banner-section {
+  @include flexbox(column, center, center);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  min-height: 100vh;
+  background-color: $secondary-clr;
+  padding: $padding3XL;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background:
+      radial-gradient(circle at 20% 50%, $accent-clr 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, #1ed760 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .section-container {
+    @include flexbox(column, center, center);
+    width: 100%;
+    max-width: 500px;
+    padding: 0;
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .logo {
+    @include flexbox(row, center, center);
+    width: 80px;
+    height: 80px;
+    margin: 0 auto $paddingXL;
+    background: linear-gradient(135deg, $accent-clr 0%, #1ed760 100%);
+    border-radius: $radiusXL;
+    box-shadow: 0 0 32px rgba(29, 185, 84, 0.5);
+    color: $secondary-font-clr;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .banner-title {
+    font-size: $font-sizeL;
+    font-weight: 700;
+    color: $secondary-font-clr;
+    margin-bottom: $paddingM;
+    line-height: 1.25;
+  }
+
+  .banner-description {
+    font-size: $font-sizeM;
+    color: $faded-font-clr;
+    line-height: 1.6;
+    margin-bottom: $paddingXL;
+  }
+
+  .features {
+    @include flexbox(column, flex-start, stretch, $paddingL);
+    margin-top: $padding2XL;
+  }
+
+  .feature-item {
+    @include flexbox(row, flex-start, center, $paddingM);
+    text-align: left;
+  }
+
+  .feature-icon {
+    @include flexbox(row, center, center);
+    width: 48px;
+    height: 48px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: $radiusL;
+    color: $accent-clr;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    h3 {
+      font-size: $font-sizeS;
+      font-weight: 600;
+      color: $secondary-font-clr;
+      margin-bottom: $paddingXXS;
+    }
+
+    p {
+      font-size: $font-sizeXS;
+      color: $faded-font-clr;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: $breakpointL) {
+  .banner-section {
+    display: none;
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(50px);
+  }
+}

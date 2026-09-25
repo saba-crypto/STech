@@ -1,0 +1,345 @@
+@use "../../abstracts" as *;
+
+.form-section {
+  @include flexbox(column, center, center);
+  height: 100%;
+  min-height: 100vh;
+  background-color: $background-clr;
+  padding: $padding3XL;
+
+  .section-container {
+    @include flexbox(column, center, center);
+    width: 100%;
+    max-width: 480px;
+    padding: 0;
+  }
+
+  .verification-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .header-section {
+    padding-bottom: $paddingXL;
+    text-align: center;
+
+    .icon-wrapper {
+      @include flexbox(row, center, center);
+      width: 64px;
+      height: 64px;
+      margin: 0 auto $paddingM;
+      background-color: $optional-clr;
+      border: 1px solid $primary-border-clr;
+      border-radius: $radiusL;
+      color: $accent-clr;
+      position: relative;
+
+      svg {
+        position: relative;
+        z-index: 1;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: $radiusL;
+        padding: 1px;
+        opacity: 0.3;
+        background: linear-gradient(135deg, $accent-clr, #1ed760);
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+    }
+
+    .form-title {
+      font-size: $font-sizeL;
+      font-weight: 600;
+      color: $secondary-clr;
+      margin-bottom: $paddingXS;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  .verification-form {
+    width: 100%;
+
+    .form-group {
+      @include flexbox(column, flex-start, stretch, 6px);
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: $font-sizeXS;
+      font-weight: 600;
+      color: $secondary-clr;
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+
+      &:focus-within {
+        .input-icon {
+          color: $accent-clr;
+        }
+      }
+    }
+
+    .input-icon {
+      @include flexbox(row, center, center);
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $faded-font-clr;
+      z-index: 1;
+      pointer-events: none;
+      transition: color 0.16s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 50px;
+      border-radius: $radiusM;
+      font-size: $font-sizeXS;
+      border: 1px solid $primary-border-clr;
+      background-color: $optional-clr;
+      color: $primary-font-clr;
+      padding: 0 16px 0 46px;
+      outline: none;
+      transition:
+        border-color 0.16s ease,
+        background-color 0.16s ease,
+        box-shadow 0.16s ease;
+
+      &::placeholder {
+        color: $faded-font-clr;
+        letter-spacing: normal;
+        font-size: $font-sizeXS;
+        font-weight: normal;
+      }
+
+      &:hover {
+        border-color: $faded-font-clr;
+        background-color: $background-clr;
+      }
+
+      &:focus {
+        border-color: $accent-clr;
+        background-color: $background-clr;
+        box-shadow: 0 0 0 4px $faded-accent-clr;
+      }
+
+      &.code-input {
+        text-align: center;
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: 8px;
+        padding-left: 46px;
+        padding-right: 16px;
+      }
+    }
+
+    .error-message {
+      display: block;
+      margin-top: $paddingXS;
+      color: $error-clr;
+      font-size: $font-sizeXXS;
+      font-weight: 500;
+      padding-left: $paddingXXS;
+      animation: shake 0.3s ease;
+    }
+
+    .submit-button {
+      @include flexbox(row, center, center);
+      width: 100%;
+      height: 50px;
+      border-radius: $radiusM;
+      font-weight: 600;
+      font-size: $font-sizeXS;
+      background-color: $accent-clr;
+      border: 1px solid $accent-clr;
+      color: $secondary-font-clr;
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition:
+        background-color 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.16s ease;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: #1ed760;
+        border-color: #1ed760;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+
+        &::before {
+          left: 100%;
+        }
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .button-content {
+        @include flexbox(row, center, center, 8px);
+      }
+    }
+
+    .resend-section {
+      text-align: center;
+      margin-top: $paddingXL;
+      padding-top: $paddingL;
+      border-top: 1px solid $primary-border-clr;
+
+      .resend-text {
+        color: $optional-font-clr;
+        font-size: $font-sizeXS;
+        margin-bottom: $paddingXS;
+      }
+
+      .resend-button {
+        background: none;
+        border: none;
+        color: $accent-clr;
+        font-size: $font-sizeXS;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 4px 8px;
+        transition:
+          color 0.16s ease,
+          opacity 0.16s ease;
+
+        &:hover:not(:disabled) {
+          text-decoration: underline;
+          color: #1ed760;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: $paddingXL;
+      margin-bottom: 0;
+
+      .back-link {
+        @include flexbox(row, center, center, 8px);
+        display: inline-flex;
+        color: $optional-font-clr;
+        font-size: $font-sizeXS;
+        font-weight: 500;
+        transition: color 0.16s ease;
+
+        svg {
+          width: 16px;
+          height: 16px;
+          stroke: currentColor;
+          stroke-width: 2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          fill: none;
+          transition: transform 0.16s ease;
+        }
+
+        &:hover {
+          color: $accent-clr;
+          text-decoration: none;
+
+          svg {
+            transform: translateX(-4px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointL) {
+  .form-section {
+    padding: $paddingL;
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .form-section {
+    .header-section {
+      padding-bottom: $paddingL;
+
+      .icon-wrapper {
+        width: 56px;
+        height: 56px;
+      }
+
+      .form-title {
+        font-size: $font-sizeL;
+      }
+    }
+
+    .verification-form {
+      .form-input.code-input {
+        font-size: 1.15rem;
+        letter-spacing: 6px;
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(-4px);
+  }
+  75% {
+    transform: translate(4px);
+  }
+}
