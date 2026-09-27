@@ -1,0 +1,356 @@
+@use "../../abstracts" as *;
+
+.profile-content {
+  width: 100%;
+
+  .content-header {
+    @include flexbox(row, space-between, flex-start);
+    margin-bottom: $paddingXL;
+
+    .header-text {
+      h1 {
+        font-size: $font-sizeXL;
+        font-weight: 700;
+        color: $primary-font-clr;
+        margin-bottom: $paddingXXS;
+      }
+
+      p {
+        font-size: $font-sizeXS;
+        color: $optional-font-clr;
+        margin: 0;
+      }
+    }
+
+    .unsaved-indicator {
+      @include flexbox(row, center, center, $paddingXS);
+      padding: $paddingXS $paddingM;
+      background-color: rgba(255, 152, 0, 0.1);
+      border: 1px solid rgba(255, 152, 0, 0.3);
+      border-radius: 9999px;
+      font-size: $font-sizeXXS;
+      color: #ff9800;
+      font-weight: 500;
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ff9800;
+        border-radius: 9999px;
+        animation: pulseDot 2s ease-in-out infinite;
+      }
+    }
+  }
+
+  .form-card {
+    background-color: $background-clr;
+    border: 1px solid $primary-border-clr;
+    border-radius: $radiusXL;
+    margin-bottom: $paddingXL;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-header {
+      padding: $paddingM $paddingXL;
+      border-bottom: 1px solid $primary-border-clr;
+      background-color: $optional-clr;
+
+      h3 {
+        @include flexbox(row, flex-start, center, $paddingS);
+        font-size: $font-sizeS;
+        font-weight: 600;
+        color: $secondary-clr;
+        margin: 0;
+
+        svg {
+          color: $accent-clr;
+        }
+      }
+    }
+
+    .card-content {
+      padding: $paddingXL;
+    }
+  }
+
+  .profile-picture-section {
+    @include flexbox(row, flex-start, center, $paddingXL);
+
+    .current-picture {
+      width: 120px;
+      height: 120px;
+      border-radius: $radiusXL;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      border: 2px solid $primary-border-clr;
+      transition: all 0.2s ease;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .picture-placeholder {
+        @include flexbox(row, center, center);
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, $optional-clr 0%, #ebebeb 100%);
+        color: $faded-font-clr;
+        font-size: 2.2rem;
+        font-weight: 700;
+      }
+
+      .picture-overlay {
+        @include flexbox(row, center, center);
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: $secondary-font-clr;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      &:hover {
+        .picture-overlay {
+          opacity: 1;
+        }
+      }
+    }
+
+    .picture-actions {
+      flex: 1;
+
+      .picture-info {
+        margin-bottom: $paddingM;
+
+        h4 {
+          font-size: $font-sizeS;
+          font-weight: 600;
+          color: $secondary-clr;
+          margin-bottom: $paddingXXS;
+        }
+
+        p {
+          font-size: $font-sizeXS;
+          color: $optional-font-clr;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .form-grid {
+    @include grid(repeat(2, 1fr), auto, $paddingL);
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .form-group {
+    @include flexbox(column, flex-start, stretch, 6px);
+    width: 100%;
+
+    .form-label {
+      font-size: $font-sizeXS;
+      font-weight: 500;
+      color: $optional-font-clr;
+
+      &.required::after {
+        content: " *";
+        color: $error-clr;
+      }
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+
+      &:focus-within {
+        .input-icon {
+          color: $accent-clr;
+        }
+      }
+
+      .input-icon {
+        @include flexbox(row, center, center);
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $faded-font-clr;
+        z-index: 1;
+        pointer-events: none;
+        transition: color 0.16s ease;
+      }
+
+      .locked-badge {
+        @include flexbox(row, center, center);
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        background-color: $optional-clr;
+        border-radius: $radiusM;
+        color: $faded-font-clr;
+        cursor: help;
+      }
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      border-radius: $radiusL;
+      border: 1px solid $primary-border-clr;
+      background-color: $optional-clr;
+      color: $primary-font-clr;
+      font-size: $font-sizeXS;
+      padding: 0 16px 0 46px;
+      outline: none;
+      transition:
+        border-color 0.16s ease,
+        background-color 0.16s ease,
+        box-shadow 0.16s ease;
+
+      &::placeholder {
+        color: $faded-font-clr;
+      }
+
+      &:hover {
+        border-color: $faded-font-clr;
+        background-color: $background-clr;
+      }
+
+      &:focus {
+        border-color: $accent-clr;
+        background-color: $background-clr;
+        box-shadow: 0 0 0 3px $faded-accent-clr;
+      }
+
+      &.readonly-input {
+        color: $faded-font-clr;
+        cursor: not-allowed;
+        padding-right: 48px;
+        background-color: $optional-clr;
+
+        &:hover {
+          border-color: $primary-border-clr;
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    @include flexbox(row, flex-end, center, $paddingM);
+    padding-top: $paddingL;
+
+    .btn-discard {
+      @include flexbox(row, center, center, $paddingS);
+      height: 46px;
+      padding: 0 $paddingXL;
+      font-weight: 600;
+      font-size: $font-sizeXS;
+      border-radius: $radiusL;
+      background-color: transparent;
+      border: 1px solid $primary-border-clr;
+      color: $optional-font-clr;
+      cursor: pointer;
+      transition: all 0.16s ease;
+
+      &:hover:not(:disabled) {
+        border-color: $error-clr;
+        color: $error-clr;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .btn-save {
+      @include flexbox(row, center, center, $paddingS);
+      height: 46px;
+      padding: 0 $padding2XL;
+      min-width: 160px;
+      font-weight: 600;
+      font-size: $font-sizeXS;
+      border-radius: $radiusL;
+      background-color: $accent-clr;
+      border: 1px solid $accent-clr;
+      color: $secondary-font-clr;
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+      cursor: pointer;
+      transition: all 0.16s ease;
+
+      &:hover {
+        background-color: #1ed760;
+        border-color: #1ed760;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointM) {
+  .profile-content {
+    .content-header {
+      flex-direction: column;
+      gap: $paddingM;
+    }
+
+    .profile-picture-section {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .profile-content {
+    .content-header {
+      .header-text h1 {
+        font-size: $font-sizeL;
+      }
+    }
+
+    .form-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}

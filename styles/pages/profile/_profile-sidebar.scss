@@ -1,0 +1,221 @@
+@use "../../abstracts" as *;
+
+.profile-sidebar {
+  background-color: $background-clr;
+  border: 1px solid $primary-border-clr;
+  border-radius: $radiusXL;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  .user-card {
+    position: relative;
+    overflow: hidden;
+    padding: $paddingXL;
+    background: linear-gradient(135deg, #169c46 0%, $accent-clr 100%);
+    text-align: center;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .user-avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: $paddingM;
+    }
+
+    .user-avatar {
+      @include flexbox(row, center, center);
+      width: 100px;
+      height: 100px;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 9999px;
+      color: $secondary-font-clr;
+      font-size: 2rem;
+      font-weight: 700;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      overflow: hidden;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .avatar-badge {
+      @include flexbox(row, center, center);
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 28px;
+      height: 28px;
+      background-color: #22c55e;
+      border-radius: 9999px;
+      color: $secondary-font-clr;
+      border: 3px solid $accent-clr;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info {
+      position: relative;
+
+      .user-name {
+        font-size: $font-sizeM;
+        font-weight: 700;
+        color: $secondary-font-clr;
+        margin-bottom: $paddingXXS;
+      }
+
+      .user-email {
+        font-size: $font-sizeXS;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0;
+      }
+    }
+  }
+
+  .profile-nav {
+    padding: $paddingM;
+
+    .nav-item {
+      @include flexbox(row, flex-start, center, $paddingM);
+      width: 100%;
+      padding: $paddingM $paddingL;
+      border-radius: $radiusL;
+      color: $optional-font-clr;
+      font-size: $font-sizeXS;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+
+      span {
+        flex: 1;
+      }
+
+      .nav-icon {
+        @include flexbox(row, center, center);
+        width: 40px;
+        height: 40px;
+        border-radius: $radiusM;
+        background-color: $optional-clr;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        background-color: $optional-clr;
+        color: $accent-clr;
+
+        .nav-icon {
+          background-color: $faded-accent-clr;
+          color: $accent-clr;
+        }
+      }
+
+      &.active {
+        background-color: $optional-clr;
+        color: $accent-clr;
+        font-weight: 600;
+
+        .nav-icon {
+          background-color: $accent-clr;
+          color: $secondary-font-clr;
+        }
+      }
+
+      &.logout {
+        color: $error-clr;
+
+        .nav-icon {
+          background-color: rgba(244, 67, 54, 0.1);
+          color: $error-clr;
+        }
+
+        &:hover {
+          background-color: rgba(244, 67, 54, 0.1);
+
+          .nav-icon {
+            background-color: $error-clr;
+            color: $secondary-font-clr;
+          }
+        }
+      }
+    }
+
+    .nav-divider {
+      height: 1px;
+      background-color: $primary-border-clr;
+      margin: $paddingM 0;
+    }
+  }
+}
+
+@media (max-width: $breakpointL) {
+  .profile-sidebar {
+    .user-card {
+      @include flexbox(row, flex-start, center, $paddingL);
+      text-align: left;
+      padding: $paddingL;
+
+      .user-avatar-wrapper {
+        margin-bottom: 0;
+      }
+
+      .user-avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 1.5rem;
+      }
+
+      .avatar-badge {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .profile-nav {
+      @include flexbox(row, flex-start, center, $paddingS);
+      flex-wrap: wrap;
+      padding: $paddingM;
+
+      .nav-item {
+        flex: 1;
+        min-width: 140px;
+        justify-content: center;
+        padding: $paddingS $paddingM;
+
+        .nav-icon {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      .nav-divider {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointM) {
+  .profile-sidebar {
+    .profile-nav {
+      .nav-item {
+        min-width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@use "../../abstracts" as *;
+@use "./profile-sidebar";
+@use "./profile-content";
+
+.profile-page {
+  background-color: $optional-clr;
+  min-height: 100vh;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.profile-section {
+  .section-container.profile-container {
+    width: min(100% - 3.5rem, 70.8rem);
+    padding: $paddingXL 0 $padding4XL;
+  }
+}
+
+.profile-layout {
+  @include grid(300px 1fr, auto, $paddingXL);
+  align-items: start;
+  width: 100%;
+}
+
+@media (max-width: $breakpointL) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+    gap: $paddingL;
+  }
+}
