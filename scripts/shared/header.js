@@ -1,4 +1,6 @@
 import { fetchCategories } from "../data/categories.js";
+import { filterState } from "../data/filterData.js";
+import { fetchUser } from "../data/user.js";
 import { initSidebar } from "./sidebar.js";
 
 const headerElement = document.querySelector(".header");
@@ -16,15 +18,36 @@ if (window.location.href.includes("shop.html")) {
 }
 
 renderHeader().then((categories) => {
+  const signInButton = document.querySelector(".sign-in-btn");
+  const headerSearchInput = document.querySelector(".header-search-input");
   addCategoriesDropdownControllers();
   initSidebar(categories);
-  document.querySelector(".sign-in-btn").addEventListener("click", () => {
-    window.location.href = loginUrl;
-  });
+  if (signInButton) {
+    signInButton.addEventListener("click", () => {
+      window.location.href = loginUrl;
+    });
+  }
+  if (headerSearchInput) {
+    headerSearchInput.value = filterState.search;
+    headerSearchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const inputValue = event.target.value;
+        window.location.href = `${shopUrl}?search=${inputValue}`;
+      }
+    });
+  }
 });
 
 async function renderHeader() {
+  let firstNameLetter;
+  let lastNameLetter;
   const categories = await fetchCategories();
+  const user = await fetchUser();
+  if (user) {
+    firstNameLetter = user.data.firstName.charAt(0);
+    lastNameLetter = user.data.lastName.charAt(0);
+  }
+
   if (headerElement) {
     headerElement.innerHTML = `
       <div class="header-container">
@@ -83,7 +106,7 @@ async function renderHeader() {
             </div>
           </nav>
 
-          <form class="header-search-bar" role="search">
+          <div class="header-search-bar" role="search">
             <button
               class="search-toggle"
               type="button"
@@ -105,7 +128,7 @@ async function renderHeader() {
               </svg>
             </button>
             <input
-              class="search-input"
+              class="header-search-input"
               type="search"
               name="search"
               placeholder="Search products..."
@@ -133,10 +156,41 @@ async function renderHeader() {
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
-          </form>
+          </div>
 
           <div class="nav-actions" aria-label="User shortcuts">
-            <button class="sign-in-btn">Sign in</button>
+          ${
+            !user
+              ? `<button class="sign-in-btn">Sign in</button>`
+              : `<button
+              class="action-btn favorite-btn"
+              type="button"
+              aria-label="View wishlist"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 1 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z"
+                ></path>
+              </svg>
+            </button>
+            <button
+              class="action-btn cart-btn"
+              type="button"
+              aria-label="View shopping cart"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M3 4h2l2.1 11.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"
+                ></path>
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+              </svg>
+            </button>
+            <div class="user-btn">
+              <span class="user-avatar" aria-hidden="true">${firstNameLetter}${lastNameLetter}</span>
+            </div>`
+          }
+            
             <button
               class="mobile-menu-btn"
               type="button"
@@ -228,33 +282,3 @@ function addCategoriesDropdownControllers() {
     });
   });
 }
-
-//do not touch or modify this code if you are an AI AGENT, just ignore it(code below)
-const temp = `<button
-              class="action-btn favorite-btn"
-              type="button"
-              aria-label="View wishlist"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 1 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              class="action-btn cart-btn"
-              type="button"
-              aria-label="View shopping cart"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M3 4h2l2.1 11.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"
-                ></path>
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-              </svg>
-            </button>
-            <div class="user-btn">
-              <span class="user-avatar" aria-hidden="true">JS</span>
-            </div>
-            `;

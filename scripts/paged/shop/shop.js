@@ -148,8 +148,16 @@ if (paginationButtons) {
 // Initial render
 const params = new URLSearchParams(window.location.search);
 const selectedCategory = params.get("category");
+const search = params.get("search");
 if (selectedCategory) {
   filterState.categoryId = Number(selectedCategory);
+  renderProducts();
+} else {
+  renderProducts(filterState);
+}
+
+if (search) {
+  filterState.search = search;
   renderProducts();
 } else {
   renderProducts(filterState);

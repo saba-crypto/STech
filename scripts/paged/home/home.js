@@ -3,9 +3,11 @@ import "./newProducts.js";
 import "./categories.js";
 import "../../shared/header.js";
 
-const shopBtn = document.querySelector(".shop-btn");
-if (shopBtn) {
-  shopBtn.addEventListener("click", () => {
-    window.location.href = "./pages/shop.html";
+const shopBtns = document.querySelectorAll(".shop-btn");
+if (shopBtns) {
+  shopBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+      window.location.href = "./pages/shop.html";
+    });
   });
 }

@@ -15,7 +15,6 @@ form.addEventListener("submit", async (event) => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    console.log(user);
 
     const response = await fetch(
       "https://shopapi.stepacademy.ge/api/auth/register",
@@ -51,10 +50,10 @@ form.addEventListener("submit", async (event) => {
         showPopup("Registration failed. Please try again.");
       }
     } else {
-      console.log(result);
+      window.location.href = `./verification.html?email=${user.email}`;
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     showPopup("An unexpected error occurred. Please try again later.");
   }
 });

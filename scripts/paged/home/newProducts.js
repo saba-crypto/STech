@@ -21,6 +21,6 @@ async function renderNewProducts() {
   products.forEach((product) => {
     product.isNew = true;
   });
-  console.log(products);
+
   productsGridElement.innerHTML = renderProductsHtml(products);
 }

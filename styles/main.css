@@ -660,7 +660,7 @@ html {
   color: #535353;
   padding: 0;
 }
-.header-search-bar .search-input {
+.header-search-bar .header-search-input {
   flex: 1;
   border: none;
   background: transparent;
@@ -668,7 +668,7 @@ html {
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   color: #000000;
 }
-.header-search-bar .search-input::placeholder {
+.header-search-bar .header-search-input::placeholder {
   color: #b3b3b3;
 }
 .header-search-bar .clear-search {
@@ -955,6 +955,4 @@ html {
   .mobile-overlay {
     display: none;
   }
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
