@@ -284,6 +284,11 @@
       color: $secondary-font-clr;
       font-size: $font-sizeXXS;
       font-weight: 700;
+      cursor: pointer;
+      transition-duration: 0.2s;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 

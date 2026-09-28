@@ -9,6 +9,7 @@ const isPagesDir = window.location.pathname.includes("/pages/");
 const homeUrl = isPagesDir ? "../index.html" : "./index.html";
 const shopUrl = isPagesDir ? "./shop.html" : "./pages/shop.html";
 const loginUrl = isPagesDir ? "./login.html" : "/pages/login.html";
+const profileUrl = isPagesDir ? "./profile.html" : "/pages/profile.html";
 
 let currentPage = "home";
 if (window.location.href.includes("shop.html")) {
@@ -18,24 +19,9 @@ if (window.location.href.includes("shop.html")) {
 }
 
 renderHeader().then((categories) => {
-  const signInButton = document.querySelector(".sign-in-btn");
-  const headerSearchInput = document.querySelector(".header-search-input");
   addCategoriesDropdownControllers();
+  addHeaderButtonControllers();
   initSidebar(categories);
-  if (signInButton) {
-    signInButton.addEventListener("click", () => {
-      window.location.href = loginUrl;
-    });
-  }
-  if (headerSearchInput) {
-    headerSearchInput.value = filterState.search;
-    headerSearchInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        const inputValue = event.target.value;
-        window.location.href = `${shopUrl}?search=${inputValue}`;
-      }
-    });
-  }
 });
 
 async function renderHeader() {
@@ -281,4 +267,35 @@ function addCategoriesDropdownControllers() {
       window.location.href = `${shopUrl}?category=${categoryId}`;
     });
   });
+}
+
+function addHeaderButtonControllers() {
+  const signInButton = document.querySelector(".sign-in-btn");
+  const headerSearchInput = document.querySelector(".header-search-input");
+  const userAvatar = document.querySelector(".user-avatar");
+  if (signInButton) {
+    signInButton.addEventListener("click", () => {
+      window.location.href = loginUrl;
+    });
+  }
+  if (headerSearchInput) {
+    headerSearchInput.value = filterState.search;
+    headerSearchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const inputValue = event.target.value;
+        window.location.href = `${shopUrl}?search=${inputValue}`;
+      }
+    });
+  }
+  if (userAvatar) {
+    userAvatar.addEventListener("click", () => {
+      fetchUser().then((response) => {
+        if (!response) {
+          window.location.href = loginUrl;
+        } else {
+          window.location.href = profileUrl;
+        }
+      });
+    });
+  }
 }

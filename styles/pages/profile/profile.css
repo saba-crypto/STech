@@ -217,7 +217,7 @@
   margin-bottom: min(30px, 4vw);
 }
 .profile-content .content-header .header-text h1 {
-  font-size: clamp(1.7rem, 5vw + 0.3rem, 3.9rem);
+  font-size: clamp(1.4rem, 3vw + 0.3rem, 2.3rem);
   font-weight: 700;
   color: #000000;
   margin-bottom: min(3px, 0.8vw);
