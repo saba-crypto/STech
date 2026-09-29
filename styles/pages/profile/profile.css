@@ -892,7 +892,8 @@
   margin-bottom: min(30px, 4vw);
   max-width: 400px;
 }
-.empty-state .continue-shopping-btn {
+.empty-state .continue-shopping-btn,
+.empty-state .browse-products-btn {
   height: 44px;
   padding: 0 min(30px, 4vw);
   background-color: #1db954;
@@ -910,7 +911,8 @@
   gap: min(10px, 2vw);
   transition: background-color 0.2s ease;
 }
-.empty-state .continue-shopping-btn:hover {
+.empty-state .continue-shopping-btn:hover,
+.empty-state .browse-products-btn:hover {
   background-color: #1ed760;
 }
 

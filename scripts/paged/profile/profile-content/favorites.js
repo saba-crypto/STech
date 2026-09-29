@@ -1,18 +1,113 @@
 import { fetchFavorites } from "../../../data/favorites.js";
+import { fetchUser } from "../../../data/user.js";
 import { renderStars } from "../../../utils/renderRatingStars.js";
+import { API_KEY } from "../../../data/secret.js";
+import { showPopup } from "../../../utils/showPopup.js";
 
 let currentPage = 1;
 
 export async function renderFavorites() {
+  const favoritesTab = document.getElementById("tab-favorites");
+  const clearAllButton = document.querySelector(".clear-all-btn");
   const favoritesGrid = document.querySelector(".favorites-grid");
-  if (!favoritesGrid) return;
+  const pageSubtitle = document.querySelector(".favorites-subtitle");
+
+  if (!favoritesGrid || !favoritesTab) return;
 
   currentPage = 1;
   const data = await fetchFavorites(8, currentPage);
   if (!data) return;
 
+  if (pageSubtitle) {
+    pageSubtitle.textContent = `${data.totalCount || 0} items saved`;
+  }
+
+  if (
+    !data.totalCount ||
+    data.totalCount === 0 ||
+    !data.items ||
+    data.items.length === 0
+  ) {
+    favoritesGrid.innerHTML = "";
+    favoritesGrid.style.display = "none";
+    if (clearAllButton) clearAllButton.style.display = "none";
+    updateLoadMoreButton(false);
+    renderEmptyFavorites(favoritesTab);
+    return;
+  }
+
+  // If favorites exist, display grid and cards
+  removeEmptyFavorites(favoritesTab);
+  favoritesGrid.style.display = "grid";
+  if (clearAllButton) clearAllButton.style.display = "flex";
+
   favoritesGrid.innerHTML = renderFavoriteCards(data.items);
   updateLoadMoreButton(data.hasMore);
+  attachFavoriteCardListeners();
+
+  if (clearAllButton && !clearAllButton.dataset.listenerAttached) {
+    clearAllButton.dataset.listenerAttached = "true";
+    clearAllButton.addEventListener("click", async () => {
+      const cards = document.querySelectorAll(".favorite-card");
+      for (const card of cards) {
+        const productId = card.dataset.productId;
+        if (productId) {
+          await removeFromFavorites(productId);
+        } else {
+          showPopup("Failed to remove favorite, please try again");
+        }
+      }
+      renderFavorites();
+    });
+  }
+}
+
+function renderEmptyFavorites(favoritesTab) {
+  let emptyState = favoritesTab.querySelector(".empty-state");
+  if (!emptyState) {
+    emptyState = document.createElement("div");
+    emptyState.className = "empty-state";
+    emptyState.innerHTML = `
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </div>
+      <h2>No favorites yet</h2>
+      <p>Start adding products to your favorites to see them here. Click the heart icon on any product!</p>
+      <a href="./shop.html" class="browse-products-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+        <span>Browse Products</span>
+      </a>
+    `;
+    favoritesTab.appendChild(emptyState);
+  }
+}
+
+function removeEmptyFavorites(favoritesTab) {
+  const emptyState = favoritesTab.querySelector(".empty-state");
+  if (emptyState) {
+    emptyState.remove();
+  }
+}
+
+function attachFavoriteCardListeners() {
+  const removeFavoriteButtons = document.querySelectorAll(
+    ".remove-favorite-btn",
+  );
+  removeFavoriteButtons.forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const card = e.target.closest(".favorite-card");
+      const productId = card?.dataset.productId;
+      if (productId) {
+        await removeFromFavorites(productId);
+        renderFavorites();
+      }
+    });
+  });
 }
 
 function updateLoadMoreButton(hasMore) {
@@ -53,8 +148,9 @@ async function handleLoadMore() {
     if (favoritesGrid) {
       favoritesGrid.insertAdjacentHTML(
         "beforeend",
-        renderFavoriteCards(data.items)
+        renderFavoriteCards(data.items),
       );
+      attachFavoriteCardListeners();
     }
     updateLoadMoreButton(data.hasMore);
   } else if (loadMoreBtn) {
@@ -68,7 +164,7 @@ function renderFavoriteCards(favorites) {
     .map((product) => {
       const rating = product.rating || 0;
       return `
-        <article class="favorite-card">
+        <article data-product-id="${product.id}" class="favorite-card">
           <span class="stock-badge ${product.stock > 0 ? "" : "out-of-stock"}">
             ${product.stock > 0 ? "In Stock" : "Out of Stock"}
           </span>
@@ -111,4 +207,39 @@ function renderFavoriteCards(favorites) {
       `;
     })
     .join("");
+}
+
+async function removeFromFavorites(productId) {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    const isPagesDir = window.location.pathname.includes("/pages/");
+    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
+
+    const userResponse = await fetchUser();
+    if (!accessToken || !userResponse) {
+      window.location.href = loginUrl;
+    }
+    if (!productId) {
+      throw new Error(
+        "productId is undefined, failed to remove favorite product",
+      );
+    }
+    const response = await fetch(
+      `https://shopapi.stepacademy.ge/api/favorites/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "X-API-KEY": API_KEY,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(result.detail);
+    }
+  } catch (err) {
+    console.error(err.message || err);
+  }
 }

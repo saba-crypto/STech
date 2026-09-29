@@ -284,6 +284,7 @@
       color: $secondary-font-clr;
       font-size: $font-sizeXXS;
       font-weight: 700;
+      object-fit: cover;
       cursor: pointer;
       transition-duration: 0.2s;
       &:hover {

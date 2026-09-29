@@ -83,12 +83,21 @@ export function renderProfileSidebar(user) {
         </button>
       </nav>`;
     addSidebarNavigationControllers();
+    const logoutButton = document.querySelector(".logout");
+    if (logoutButton) {
+      console.log("hey");
+      logoutButton.addEventListener("click", () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "../index.html";
+      });
+    }
   }
 }
 
 function addSidebarNavigationControllers() {
   const navItems = document.querySelectorAll(
-    ".profile-nav .nav-item[data-page]"
+    ".profile-nav .nav-item[data-page]",
   );
   navItems.forEach((item) => {
     const page = item.dataset.page;

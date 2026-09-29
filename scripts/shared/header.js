@@ -29,10 +29,9 @@ async function renderHeader() {
   let lastNameLetter;
   const categories = await fetchCategories();
   const user = await fetchUser();
-  if (user) {
-    firstNameLetter = user.data.firstName.charAt(0);
-    lastNameLetter = user.data.lastName.charAt(0);
-  }
+
+  firstNameLetter = user.data.firstName.charAt(0);
+  lastNameLetter = user.data.lastName.charAt(0);
 
   if (headerElement) {
     headerElement.innerHTML = `
@@ -149,7 +148,7 @@ async function renderHeader() {
             !user
               ? `<button class="sign-in-btn">Sign in</button>`
               : `<button
-              class="action-btn favorite-btn"
+              class="action-btn header-favorite-btn"
               type="button"
               aria-label="View wishlist"
             >
@@ -173,7 +172,7 @@ async function renderHeader() {
               </svg>
             </button>
             <div class="user-btn">
-              <span class="user-avatar" aria-hidden="true">${firstNameLetter}${lastNameLetter}</span>
+              <img class="user-avatar" aria-hidden="true" src="${user.data.details.pictureUrl}" alt="${firstNameLetter}${lastNameLetter}"/>
             </div>`
           }
             
@@ -273,6 +272,8 @@ function addHeaderButtonControllers() {
   const signInButton = document.querySelector(".sign-in-btn");
   const headerSearchInput = document.querySelector(".header-search-input");
   const userAvatar = document.querySelector(".user-avatar");
+  const favoritesButton = document.querySelector(".header-favorite-btn");
+
   if (signInButton) {
     signInButton.addEventListener("click", () => {
       window.location.href = loginUrl;
@@ -296,6 +297,11 @@ function addHeaderButtonControllers() {
           window.location.href = `${profileUrl}?page=profile`;
         }
       });
+    });
+  }
+  if (favoritesButton) {
+    favoritesButton.addEventListener("click", () => {
+      window.location.href = `${profileUrl}?page=profile#favorites`;
     });
   }
 }
