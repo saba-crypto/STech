@@ -13,7 +13,7 @@ export async function fetchFavorites(take = 8, page = 1) {
     }
 
     const response = await fetch(
-      "https://shopapi.stepacademy.ge/api/favorites",
+      `https://shopapi.stepacademy.ge/api/favorites?Take=${take}&Page=${page}`,
       {
         headers: {
           "X-API-KEY": API_KEY,
