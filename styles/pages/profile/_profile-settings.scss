@@ -1,0 +1,173 @@
+@use "../../abstracts" as *;
+
+.settings-card {
+  &.danger-card {
+    border-color: rgba(244, 67, 54, 0.3);
+
+    .danger-header {
+      background-color: rgba(244, 67, 54, 0.05);
+      border-bottom-color: rgba(244, 67, 54, 0.2);
+
+      h3 svg {
+        color: $error-clr;
+      }
+    }
+  }
+}
+
+.password-form {
+  .form-group {
+    @include flexbox(column, flex-start, stretch, $paddingXS);
+
+    label {
+      font-size: $font-sizeXS;
+      font-weight: 500;
+      color: $secondary-clr;
+
+      .required {
+        color: $error-clr;
+      }
+    }
+
+    .input-affix-wrapper {
+      position: relative;
+      @include flexbox(row, flex-start, center);
+      background-color: $optional-clr;
+      border: 1px solid $primary-border-clr;
+      border-radius: $radiusL;
+      height: 44px;
+      padding: 0 $paddingM;
+      transition: all 0.2s ease;
+
+      &:focus-within {
+        background-color: $background-clr;
+        border-color: $accent-clr;
+        box-shadow: 0 0 0 3px $faded-accent-clr;
+      }
+
+      .prefix-icon {
+        color: $optional-font-clr;
+        margin-right: $paddingS;
+        @include flexbox(row, center, center);
+        flex-shrink: 0;
+      }
+
+      input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: $font-sizeXS;
+        color: $primary-font-clr;
+        outline: none;
+        width: 100%;
+
+        &::placeholder {
+          color: $faded-font-clr;
+        }
+      }
+
+      .password-toggle-btn {
+        background: none;
+        border: none;
+        color: $optional-font-clr;
+        cursor: pointer;
+        padding: 0;
+        @include flexbox(row, center, center);
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $primary-font-clr;
+        }
+      }
+    }
+  }
+
+  .password-requirements {
+    grid-column: 1 / -1;
+    padding: $paddingM;
+    background-color: $optional-clr;
+    border-radius: $radiusL;
+    font-size: $font-sizeXXS;
+    color: $optional-font-clr;
+
+    p {
+      font-weight: 600;
+      margin-bottom: $paddingXS;
+      color: $secondary-clr;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      @include flexbox(column, flex-start, stretch, $paddingXXS);
+
+      li {
+        @include flexbox(row, flex-start, center, $paddingXS);
+
+        &::before {
+          content: "•";
+          color: $accent-clr;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.danger-action {
+  @include flexbox(row, space-between, center, $paddingXL);
+  padding: $paddingL;
+  background-color: $optional-clr;
+  border: 1px solid $primary-border-clr;
+  border-radius: $radiusL;
+
+  .danger-info {
+    flex: 1;
+
+    h4 {
+      font-size: $font-sizeS;
+      font-weight: 600;
+      color: $secondary-clr;
+      margin-bottom: $paddingXXS;
+    }
+
+    p {
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+      margin: 0;
+    }
+  }
+
+  .btn-danger {
+    @include flexbox(row, center, center, $paddingS);
+    height: 42px;
+    padding: 0 $paddingXL;
+    background-color: transparent;
+    color: $error-clr;
+    border: 1px solid $error-clr;
+    border-radius: $radiusL;
+    font-size: $font-sizeXS;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: $error-clr;
+      color: $secondary-font-clr;
+    }
+  }
+}
+
+@media (max-width: $breakpointM) {
+  .danger-action {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $paddingM;
+
+    .btn-danger {
+      width: 100%;
+    }
+  }
+}

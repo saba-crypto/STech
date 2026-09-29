@@ -17,12 +17,8 @@
             <aside class="profile-sidebar" aria-label="Profile navigation">
               <div class="user-card"></div>
 
-              <nav class="profile-nav" aria-label="Account navigation">
-                <a
-                  href="./profile.html"
-                  class="nav-item active"
-                  aria-current="page"
-                >
+              <nav class="profile-nav" aria-label="Account navigation" role="tablist">
+                <a href="#profile" data-tab="profile" class="nav-item profile-link active" role="tab" id="nav-profile" aria-controls="tab-profile" aria-selected="true" aria-current="page">
                   <div class="nav-icon" aria-hidden="true">
                     <svg
                       viewBox="0 0 24 24"
@@ -43,7 +39,7 @@
                   <span>My Profile</span>
                 </a>
 
-                <a href="#" class="nav-item">
+                <a href="#cart" data-tab="cart" class="nav-item cart-link" role="tab" id="nav-cart" aria-controls="tab-cart" aria-selected="false">
                   <div class="nav-icon" aria-hidden="true">
                     <svg
                       viewBox="0 0 24 24"
@@ -65,7 +61,7 @@
                   <span>Cart</span>
                 </a>
 
-                <a href="#" class="nav-item">
+                <a href="#favorites" data-tab="favorites" class="nav-item favorites-link" role="tab" id="nav-favorites" aria-controls="tab-favorites" aria-selected="false">
                   <div class="nav-icon" aria-hidden="true">
                     <svg
                       viewBox="0 0 24 24"
@@ -85,7 +81,7 @@
                   <span>Favorites</span>
                 </a>
 
-                <a href="#" class="nav-item">
+                <a href="#settings" data-tab="settings" class="nav-item settings-link" role="tab" id="nav-settings" aria-controls="tab-settings" aria-selected="false">
                   <div class="nav-icon" aria-hidden="true">
                     <svg
                       viewBox="0 0 24 24"
@@ -131,7 +127,9 @@
             </aside>
 
             <div class="profile-content">
-              <header class="content-header">
+              <!-- Tab 1: Profile -->
+              <div id="tab-profile" class="tab-panel active" role="tabpanel" aria-labelledby="nav-profile">
+                <header class="content-header">
                 <div class="header-text">
                   <h1 class="page-title">My Profile</h1>
                   <p class="page-subtitle">
@@ -562,6 +560,379 @@
                   </button>
                 </div>
               </form>
+            </div>
+
+            <!-- Tab 2: Shopping Cart -->
+            <div id="tab-cart" class="tab-panel" role="tabpanel" aria-labelledby="nav-cart" hidden>
+              <header class="content-header">
+                <div class="header-text">
+                  <h1 class="page-title">Shopping Cart</h1>
+                  <p class="page-subtitle">2 items in your cart</p>
+                </div>
+              </header>
+
+              <div class="cart-layout">
+                <div class="cart-items-section">
+                  <div class="section-header">
+                    <h2>Cart Items</h2>
+                    <button type="button" class="clear-cart-btn" aria-label="Clear all items from cart">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                      <span>Clear Cart</span>
+                    </button>
+                  </div>
+
+                  <div class="cart-items">
+                    <!-- Cart Item 1 -->
+                    <article class="cart-item" data-id="3079">
+                      <div class="item-image">
+                        <img src="https://elements-resized.envatousercontent.com/envato-dam-assets-production/EVA/TRX/97/49/0e/7d/4c/v1_E10/E105QHL0.jpeg?w=1600&cf_fit=scale-down&q=85&format=auto&s=690c271bb457b0623787ef8b73347fb1164bc4ff24206859277b4d33730aa5c5" alt="MacBook Air 15-inch M2" />
+                      </div>
+                      <div class="item-info">
+                        <a href="./product.html?id=2" class="item-name">MacBook Air 15-inch M2</a>
+                        <span class="item-brand">Apple</span>
+                        <div class="item-price-mobile">$3,799</div>
+                      </div>
+                      <div class="item-price">$3,799</div>
+                      <div class="item-quantity">
+                        <button type="button" class="qty-btn minus" aria-label="Decrease quantity">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                        </button>
+                        <span class="qty-value" aria-label="Current quantity">1</span>
+                        <button type="button" class="qty-btn plus" aria-label="Increase quantity">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="item-total">$3,799</div>
+                      <button type="button" class="remove-btn" aria-label="Remove item">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </article>
+
+                    <!-- Cart Item 2 -->
+                    <article class="cart-item" data-id="3078">
+                      <div class="item-image">
+                        <img src="https://elements-resized.envatousercontent.com/envato-dam-assets-production/EVA/TRX/d4/e9/b3/31/7a/v1_E10/E1050PQL.jpg?w=1600&cf_fit=scale-down&q=85&format=auto&s=5f61760483021e895eca0bae411aa241fc353a7f8459dbbf8272d9bd307698d5" alt="MacBook Pro 14-inch M3 Pro" />
+                      </div>
+                      <div class="item-info">
+                        <a href="./product.html?id=1" class="item-name">MacBook Pro 14-inch M3 Pro</a>
+                        <span class="item-brand">Apple</span>
+                        <div class="item-price-mobile">$5,499</div>
+                      </div>
+                      <div class="item-price">$5,499</div>
+                      <div class="item-quantity">
+                        <button type="button" class="qty-btn minus" aria-label="Decrease quantity">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                        </button>
+                        <span class="qty-value" aria-label="Current quantity">1</span>
+                        <button type="button" class="qty-btn plus" aria-label="Increase quantity">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="item-total">$5,499</div>
+                      <button type="button" class="remove-btn" aria-label="Remove item">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </article>
+                  </div>
+
+                  <div class="continue-shopping">
+                    <a href="./shop.html" class="continue-link">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                      </svg>
+                      <span>Continue Shopping</span>
+                    </a>
+                  </div>
+                </div>
+
+                <aside class="order-summary" aria-label="Order Summary">
+                  <div class="summary-card">
+                    <h3>Order Summary</h3>
+                    <div class="summary-rows">
+                      <div class="summary-row">
+                        <span>Subtotal (2 items)</span>
+                        <span>$9,298</span>
+                      </div>
+                      <div class="summary-row">
+                        <span>Shipping</span>
+                        <span class="shipping-value"><span class="free">FREE</span></span>
+                      </div>
+                      <div class="shipping-notice">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="16" x2="12" y2="12"></line>
+                          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>You qualify for free shipping!</span>
+                      </div>
+                    </div>
+
+                    <div class="summary-total">
+                      <span>Total</span>
+                      <span class="total-value">$9,298</span>
+                    </div>
+
+                    <button type="button" class="checkout-btn">
+                      <span>Proceed to Checkout</span>
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                    </button>
+
+                    <div class="secure-badge">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      </svg>
+                      <span>Secure checkout guaranteed</span>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+
+            <!-- Tab 3: Favorites -->
+            <div id="tab-favorites" class="tab-panel" role="tabpanel" aria-labelledby="nav-favorites" hidden>
+              <header class="content-header">
+                <div class="header-text">
+                  <h1 class="page-title">My Favorites</h1>
+                  <p class="page-subtitle">2 items saved</p>
+                </div>
+                <div class="favorites-header-actions">
+                  <button type="button" class="clear-all-btn" aria-label="Clear all favorites">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span>Clear All</span>
+                  </button>
+                </div>
+              </header>
+
+              <div class="favorites-grid">
+                <!-- Favorite Product 1 -->
+                <article class="favorite-card">
+                  <span class="stock-badge">In Stock</span>
+                  <button type="button" class="remove-favorite-btn" aria-label="Remove HP Spectre x360 from favorites">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                  <a href="./product.html?id=6" class="product-image">
+                    <img src="https://elements-resized.envatousercontent.com/envato-dam-assets-production/EVA/TRX/be/f7/dd/3f/77/v1_E10/E103FZJL.jpg?w=1600&cf_fit=scale-down&q=85&format=auto&s=b775e9fd52e7ba7358e0df865616766b5e74c8dd63e2513150b0ffc30e7b94a2" alt="HP Spectre x360 14" />
+                  </a>
+                  <div class="product-info">
+                    <span class="product-brand">HP</span>
+                    <a href="./product.html?id=6" class="product-name">HP Spectre x360 14</a>
+                    <p class="product-model">Spectre-X360-14-EF2</p>
+                  </div>
+                  <div class="product-footer">
+                    <div class="rating-price-section">
+                      <div class="rating-row">
+                        <div class="product-rating" aria-label="5 out of 5 stars">
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                        <span class="rating-value">5.0</span>
+                      </div>
+                      <div class="price-row">
+                        <span class="price-current">$3,999</span>
+                      </div>
+                    </div>
+                    <button type="button" class="add-to-cart-btn">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                      </svg>
+                      <span>Add to Cart</span>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Favorite Product 2 -->
+                <article class="favorite-card">
+                  <span class="stock-badge">In Stock</span>
+                  <button type="button" class="remove-favorite-btn" aria-label="Remove ASUS ROG Zephyrus G14 from favorites">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                  <a href="./product.html?id=4" class="product-image">
+                    <img src="https://elements-resized.envatousercontent.com/envato-dam-assets-production/EVA/TRX/b2/4c/1b/ba/65/v1_E10/E106Q3M5.jpg?w=1600&cf_fit=scale-down&q=85&format=auto&s=a03b742675bb7a4e7aa718a7da512d79d435be8772415b333c16fd36c32c1a5a" alt="ASUS ROG Zephyrus G14" />
+                  </a>
+                  <div class="product-info">
+                    <span class="product-brand">ASUS</span>
+                    <a href="./product.html?id=4" class="product-name">ASUS ROG Zephyrus G14</a>
+                    <p class="product-model">GA402XY-2023</p>
+                  </div>
+                  <div class="product-footer">
+                    <div class="rating-price-section">
+                      <div class="rating-row">
+                        <div class="product-rating" aria-label="4.8 out of 5 stars">
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg class="filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                        <span class="rating-value">4.8</span>
+                      </div>
+                      <div class="price-row">
+                        <span class="price-current">$4,199</span>
+                      </div>
+                    </div>
+                    <button type="button" class="add-to-cart-btn">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                      </svg>
+                      <span>Add to Cart</span>
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Tab 4: Settings -->
+            <div id="tab-settings" class="tab-panel" role="tabpanel" aria-labelledby="nav-settings" hidden>
+              <header class="content-header">
+                <div class="header-text">
+                  <h1 class="page-title">Account Settings</h1>
+                  <p class="page-subtitle">Manage your security and account preferences</p>
+                </div>
+              </header>
+
+              <div class="form-card settings-card">
+                <div class="card-header">
+                  <h3>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>Change Password</span>
+                  </h3>
+                </div>
+                <div class="card-content">
+                  <form class="password-form" onsubmit="event.preventDefault();">
+                    <div class="form-grid">
+                      <div class="form-group full-width">
+                        <label for="current-password">Current Password <span class="required" aria-hidden="true">*</span></label>
+                        <div class="input-affix-wrapper">
+                          <span class="prefix-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                          </span>
+                          <input type="password" id="current-password" placeholder="Enter your current password" autocomplete="current-password" required />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="new-password">New Password <span class="required" aria-hidden="true">*</span></label>
+                        <div class="input-affix-wrapper">
+                          <span class="prefix-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                          </span>
+                          <input type="password" id="new-password" placeholder="Enter new password" autocomplete="new-password" required />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="confirm-password">Confirm New Password <span class="required" aria-hidden="true">*</span></label>
+                        <div class="input-affix-wrapper">
+                          <span class="prefix-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                          </span>
+                          <input type="password" id="confirm-password" placeholder="Confirm new password" autocomplete="new-password" required />
+                        </div>
+                      </div>
+
+                      <div class="password-requirements">
+                        <p>Password requirements:</p>
+                        <ul>
+                          <li>At least 8 characters long</li>
+                          <li>Include at least one uppercase letter (A-Z)</li>
+                          <li>Include at least one number (0-9)</li>
+                          <li>Include at least one special character (!@#$%^&*)</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="form-actions">
+                      <button type="submit" class="btn-save">
+                        <span class="btn-icon" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </span>
+                        <span>Update Password</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="form-card settings-card danger-card">
+                <div class="card-header danger-header">
+                  <h3>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                      <line x1="12" y1="9" x2="12" y2="13"></line>
+                      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Danger Zone</span>
+                  </h3>
+                </div>
+                <div class="card-content">
+                  <div class="danger-action">
+                    <div class="danger-info">
+                      <h4>Delete Account</h4>
+                      <p>Permanently remove your account and all associated personal data from STech.</p>
+                    </div>
+                    <button type="button" class="btn-danger">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                      <span>Delete Account</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

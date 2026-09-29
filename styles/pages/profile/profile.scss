@@ -1,6 +1,18 @@
 @use "../../abstracts" as *;
 @use "./profile-sidebar";
 @use "./profile-content";
+@use "./profile-cart";
+@use "./profile-favorites";
+@use "./profile-settings";
+
+.tab-panel {
+  display: none;
+  width: 100%;
+
+  &.active {
+    display: block;
+  }
+}
 
 .profile-page {
   background-color: $optional-clr;

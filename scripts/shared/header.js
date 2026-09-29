@@ -293,7 +293,7 @@ function addHeaderButtonControllers() {
         if (!response) {
           window.location.href = loginUrl;
         } else {
-          window.location.href = profileUrl;
+          window.location.href = `${profileUrl}?page=profile`;
         }
       });
     });
