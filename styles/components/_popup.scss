@@ -11,15 +11,14 @@
   pointer-events: none;
 }
 
-.error-popup {
+.error-popup,
+.success-popup {
   pointer-events: auto;
   width: 100%;
   @include flexbox(row, space-between, center, 12px);
   padding: 12px 16px;
-  background-color: $error-clr;
   color: $secondary-font-clr;
   border-radius: $radiusM;
-  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.35);
   font-size: $font-sizeXS;
   font-weight: 500;
   line-height: 1.4;
@@ -62,13 +61,24 @@
   }
 }
 
+.error-popup {
+  background-color: $error-clr;
+  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.35);
+}
+
+.success-popup {
+  background-color: $accent-clr;
+  box-shadow: 0 8px 24px rgba(29, 185, 84, 0.35);
+}
+
 @media (max-width: $breakpointS) {
   .popup-container {
     top: 16px;
     width: 95vw;
   }
 
-  .error-popup {
+  .error-popup,
+  .success-popup {
     padding: 10px 14px;
     font-size: $font-sizeXXS;
   }

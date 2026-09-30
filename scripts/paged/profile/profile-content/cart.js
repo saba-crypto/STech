@@ -1,18 +1,59 @@
-import { fetchCart } from "../../../data/cart.js";
+import { fetchCart, removeFromCart } from "../../../data/cart.js";
+import { checkout } from "../../../data/checkout.js";
 export function renderCart() {
   fetchCart().then((cartData) => {
-    renderCartItems(cartData.items);
-    renderOrderSummary();
+    if (cartData && cartData.items && cartData.items.length > 0) {
+      ensureCartLayout();
+      renderCartItems(cartData.items);
+      renderOrderSummary(cartData);
+      addEventListeners();
+    } else {
+      displayEmptyCartContainer();
+    }
   });
 }
 
+function ensureCartLayout() {
+  const cartLayout = document.querySelector(".cart-layout");
+  if (!cartLayout) return;
+
+  if (!cartLayout.querySelector(".cart-items")) {
+    cartLayout.innerHTML = `
+      <div class="cart-items-section">
+        <div class="section-header">
+          <h2>Cart Items</h2>
+          <button type="button" class="clear-cart-btn" aria-label="Clear all items from cart">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Clear Cart</span>
+          </button>
+        </div>
+        <div class="cart-items"></div>
+        <div class="continue-shopping">
+          <a href="./shop.html" class="continue-link">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Continue Shopping</span>
+          </a>
+        </div>
+      </div>
+      <aside class="order-summary" aria-label="Order Summary">
+        <div class="summary-card"></div>
+      </aside>
+    `;
+  }
+}
+
 function renderCartItems(cartItems) {
-  console.log(cartItems);
   const cartItemsElement = document.querySelector(".cart-items");
   cartItemsElement.innerHTML = cartItems
     .map((cartItem) => {
       return `
-      <article class="cart-item" data-id="${cartItem.id}">
+      <article class="cart-item" data-can-delete="${cartItem.product.canDelete}" data-id="${cartItem.id}">
         <div class="item-image">
           <img src="${cartItem.product.imageUrl}" alt="${cartItem.product.name}">
         </div>
@@ -49,4 +90,113 @@ function renderCartItems(cartItems) {
     .join("");
 }
 
-function renderOrderSummary() {}
+function renderOrderSummary(cartData) {
+  console.log(cartData);
+  const summaryContainer = document.querySelector(".summary-card");
+  let totalCost = 0;
+  let totalCount = 0;
+  cartData.items.forEach((item) => {
+    totalCost += item.totalPrice;
+    totalCount += item.quantity;
+  });
+  document.querySelector(".cart-page-subtitle").innerText =
+    `${totalCount} items in your cart`;
+
+  summaryContainer.innerHTML = `
+      <h3>Order Summary</h3>
+      <div class="summary-rows">
+        <div class="summary-row">
+          <span>Subtotal (${totalCount} items)</span>
+          <span>$${totalCost.toLocaleString()}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span class="shipping-value"><span class="free">FREE</span></span>
+        </div>
+        <div class="shipping-notice">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>You qualify for free shipping!</span>
+        </div>
+      </div>
+
+      <div class="summary-total">
+        <span>Total</span>
+        <span class="total-value">$${totalCost.toLocaleString()}</span>
+      </div>
+
+      <button type="button" class="checkout-btn">
+        <span>Proceed to Checkout</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </button>
+
+      <div class="secure-badge">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Secure checkout guaranteed</span>
+      </div>
+  `;
+}
+
+function addEventListeners() {
+  const removeFromCartButtons = document.querySelectorAll(".remove-btn");
+  const checkoutButton = document.querySelector(".checkout-btn");
+  if (removeFromCartButtons) {
+    removeFromCartButtons.forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        const cartItemId = e.target.closest(".cart-item").dataset.id;
+        const canDelete = e.target.closest(".cart-item").dataset.canDelete;
+        if (cartItemId && canDelete) {
+          await removeFromCart(cartItemId);
+          renderCart();
+        }
+      });
+    });
+  }
+
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", async () => {
+      await checkout();
+      renderCart();
+    });
+  }
+}
+
+function displayEmptyCartContainer() {
+  const cartLayout = document.querySelector(".cart-layout");
+  const subtitle = document.querySelector(".cart-page-subtitle");
+
+  if (subtitle) {
+    subtitle.textContent = "0 items in your cart";
+  }
+
+  if (!cartLayout) return;
+
+  cartLayout.innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+      </div>
+      <h2>Your cart is empty</h2>
+      <p>Start adding products to your cart to see them here.</p>
+      <a href="./shop.html" class="browse-products-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+        <span>Browse Products</span>
+      </a>
+    </div>
+  `;
+}

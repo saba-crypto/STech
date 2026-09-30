@@ -383,7 +383,8 @@ html {
   pointer-events: none;
 }
 
-.error-popup {
+.error-popup,
+.success-popup {
   pointer-events: auto;
   width: 100%;
   display: flex;
@@ -392,21 +393,21 @@ html {
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background-color: #f44336;
   color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.35);
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   font-weight: 500;
   line-height: 1.4;
   animation: popupSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.error-popup.fade-out {
+.error-popup.fade-out,
+.success-popup.fade-out {
   opacity: 0;
   transform: translateY(-10px);
 }
-.error-popup .popup-content {
+.error-popup .popup-content,
+.success-popup .popup-content {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -414,13 +415,15 @@ html {
   gap: 10px;
   flex: 1;
 }
-.error-popup .popup-content svg {
+.error-popup .popup-content svg,
+.success-popup .popup-content svg {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
   stroke: currentColor;
 }
-.error-popup .popup-close {
+.error-popup .popup-close,
+.success-popup .popup-close {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -435,8 +438,19 @@ html {
   line-height: 1;
   transition: color 0.15s ease;
 }
-.error-popup .popup-close:hover {
+.error-popup .popup-close:hover,
+.success-popup .popup-close:hover {
   color: #ffffff;
+}
+
+.error-popup {
+  background-color: #f44336;
+  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.35);
+}
+
+.success-popup {
+  background-color: #1db954;
+  box-shadow: 0 8px 24px rgba(29, 185, 84, 0.35);
 }
 
 @media (max-width: 36rem) {
@@ -444,7 +458,8 @@ html {
     top: 16px;
     width: 95vw;
   }
-  .error-popup {
+  .error-popup,
+  .success-popup {
     padding: 10px 14px;
     font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
   }

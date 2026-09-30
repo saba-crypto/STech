@@ -1,3 +1,4 @@
+import { showPopup } from "../utils/showPopup.js";
 import { API_KEY } from "./secret.js";
 
 export async function fetchCart(take = 8, page = 1) {
@@ -95,16 +96,20 @@ export async function removeFromCart(productId) {
       );
     }
 
-    const response = await fetch(`/api/cart/remove-from-cart/${productId}`, {
-      method: "DELETE",
-      headers: {
-        "X-API-KEY": API_KEY,
-        Authorization: `Bearer ${accessToken}`,
+    const response = await fetch(
+      `https://shopapi.stepacademy.ge/api/cart/remove-from-cart/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "X-API-KEY": API_KEY,
+          Authorization: `Bearer ${accessToken}`,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       const result = await response.json();
+      showPopup(result.detail || result.title);
       throw new Error(
         `failed to remove product from the cart, error message: ${result.detail || result.title}`,
       );

@@ -1,4 +1,4 @@
-export function showPopup(message) {
+export function showPopup(message, type = "error") {
   let container = document.querySelector(".popup-container");
   if (!container) {
     document.body.insertAdjacentHTML(
@@ -8,9 +8,27 @@ export function showPopup(message) {
     container = document.querySelector(".popup-container");
   }
 
-  const popupHtml = `
-    <div class="error-popup" role="alert">
-      <div class="popup-content">
+  const isSuccess = type === "success";
+  const popupClass = isSuccess ? "success-popup" : "error-popup";
+  const role = isSuccess ? "status" : "alert";
+
+  const iconSvg = isSuccess
+    ? `
+        <svg
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      `
+    : `
         <svg
           viewBox="0 0 24 24"
           width="18"
@@ -26,6 +44,12 @@ export function showPopup(message) {
           <line x1="12" y1="8" x2="12" y2="12"></line>
           <line x1="12" y1="16" x2="12.01" y2="16"></line>
         </svg>
+      `;
+
+  const popupHtml = `
+    <div class="${popupClass}" role="${role}">
+      <div class="popup-content">
+        ${iconSvg}
         <span>${message}</span>
       </div>
       <button type="button" class="popup-close" aria-label="Close notification">&times;</button>
@@ -51,4 +75,8 @@ export function showPopup(message) {
     clearTimeout(timer);
     dismiss();
   });
+}
+
+export function showSuccessPopup(message) {
+  showPopup(message, "success");
 }

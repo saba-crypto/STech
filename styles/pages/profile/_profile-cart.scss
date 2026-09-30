@@ -294,6 +294,7 @@
 }
 
 .empty-state {
+  grid-column: 1 / -1;
   @include flexbox(column, center, center, $paddingM);
   text-align: center;
   padding: $padding3XL $paddingXL;
