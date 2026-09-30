@@ -110,7 +110,7 @@ export async function removeFromCart(productId) {
 
     if (!response.ok) {
       const result = await response.json();
-      showPopup(result.detail || result.title);
+
       throw new Error(
         `failed to remove product from the cart, error message: ${result.detail || result.title}`,
       );

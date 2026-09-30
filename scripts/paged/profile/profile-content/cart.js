@@ -1,10 +1,16 @@
 import { fetchCart, removeFromCart } from "../../../data/cart.js";
 import { checkout } from "../../../data/checkout.js";
+import { showPopup } from "../../../utils/showPopup.js";
+
+let currentPage = 1;
+
 export function renderCart() {
-  fetchCart().then((cartData) => {
+  currentPage = 1;
+  fetchCart(8, currentPage).then((cartData) => {
     if (cartData && cartData.items && cartData.items.length > 0) {
       renderCartItems(cartData.items);
       renderOrderSummary(cartData);
+      updateLoadMoreButton(cartData.hasMore);
       addEventListeners();
     } else {
       displayEmptyCartContainer();
@@ -14,56 +20,26 @@ export function renderCart() {
 
 function renderCartItems(cartItems) {
   const cartItemsElement = document.querySelector(".cart-items");
-  cartItemsElement.innerHTML = cartItems
-    .map((cartItem) => {
-      return `
-      <article class="cart-item" data-can-delete="${cartItem.product.canDelete}" data-id="${cartItem.id}">
-        <div class="item-image">
-          <img src="${cartItem.product.imageUrl}" alt="${cartItem.product.name}">
-        </div>
-        <div class="item-info">
-          <a href="./product.html?id=${cartItem.product.id}" class="item-name">${cartItem.product.name}</a>
-          <span class="item-brand">${cartItem.product.brand}</span>
-          <div class="item-price-mobile">$${cartItem.product.price.toLocaleString()}</div>
-        </div>
-        <div class="item-price">$${cartItem.product.price.toLocaleString()}</div>
-        <div class="item-quantity">
-          <button type="button" class="qty-btn minus" aria-label="Decrease quantity">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </button>
-          <span class="qty-value" aria-label="Current quantity">${cartItem.quantity}</span>
-          <button type="button" class="qty-btn plus" aria-label="Increase quantity">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </button>
-        </div>
-        <div class="item-total">$${cartItem.totalPrice.toLocaleString()}</div>
-        <button type="button" class="remove-btn" aria-label="Remove item">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </article>
-    `;
-    })
-    .join("");
+  if (!cartItemsElement) return;
+
+  cartItemsElement.innerHTML = renderCartCards(cartItems);
 }
 
 function renderOrderSummary(cartData) {
   const summaryContainer = document.querySelector(".summary-card");
+  if (!summaryContainer) return;
+
   let totalCost = 0;
   let totalCount = 0;
   cartData.items.forEach((item) => {
     totalCost += item.totalPrice;
     totalCount += item.quantity;
   });
-  document.querySelector(".cart-page-subtitle").innerText =
-    `${totalCount} items in your cart`;
+
+  const subtitle = document.querySelector(".cart-page-subtitle");
+  if (subtitle) {
+    subtitle.innerText = `${totalCount} items in your cart`;
+  }
 
   summaryContainer.innerHTML = `
       <h3>Order Summary</h3>
@@ -111,22 +87,44 @@ function renderOrderSummary(cartData) {
 function addEventListeners() {
   const removeFromCartButtons = document.querySelectorAll(".remove-btn");
   const checkoutButton = document.querySelector(".checkout-btn");
+  const clearCartButton = document.querySelector(".clear-cart-btn");
+
   if (removeFromCartButtons) {
     removeFromCartButtons.forEach((button) => {
-      button.addEventListener("click", async (e) => {
-        const cartItemId = e.target.closest(".cart-item").dataset.id;
-        const canDelete = e.target.closest(".cart-item").dataset.canDelete;
-        if (cartItemId && canDelete) {
-          await removeFromCart(cartItemId);
-          renderCart();
-        }
-      });
+      if (!button.dataset.listenerAttached) {
+        button.dataset.listenerAttached = "true";
+        button.addEventListener("click", async (e) => {
+          const cartItemId = e.target.closest(".cart-item")?.dataset.id;
+          const canDelete = e.target.closest(".cart-item")?.dataset.canDelete;
+          if (cartItemId && canDelete) {
+            await removeFromCart(cartItemId);
+            renderCart();
+          }
+        });
+      }
     });
   }
 
-  if (checkoutButton) {
+  if (checkoutButton && !checkoutButton.dataset.listenerAttached) {
+    checkoutButton.dataset.listenerAttached = "true";
     checkoutButton.addEventListener("click", async () => {
       await checkout();
+      renderCart();
+    });
+  }
+
+  if (clearCartButton && !clearCartButton.dataset.listenerAttached) {
+    clearCartButton.dataset.listenerAttached = "true";
+    clearCartButton.addEventListener("click", async () => {
+      const cartItems = document.querySelectorAll(".cart-item");
+      for (const item of cartItems) {
+        const productId = item.dataset.id;
+        if (productId) {
+          await removeFromCart(productId);
+        } else {
+          showPopup("Failed to remove from cart, please try again");
+        }
+      }
       renderCart();
     });
   }
@@ -139,6 +137,8 @@ function displayEmptyCartContainer() {
   if (subtitle) {
     subtitle.textContent = "0 items in your cart";
   }
+
+  updateLoadMoreButton(false);
 
   if (!cartLayout) return;
 
@@ -162,4 +162,99 @@ function displayEmptyCartContainer() {
       </a>
     </div>
   `;
+}
+
+function updateLoadMoreButton(hasMore) {
+  const cartSection = document.querySelector(".cart-items-section");
+  if (!cartSection) return;
+
+  let loadMoreSection = cartSection.querySelector(".load-more-section");
+
+  if (hasMore) {
+    if (!loadMoreSection) {
+      loadMoreSection = document.createElement("div");
+      loadMoreSection.className = "load-more-section";
+      loadMoreSection.innerHTML = `
+        <button type="button" class="load-more-btn">Load More</button>
+      `;
+      const continueShopping = cartSection.querySelector(".continue-shopping");
+      if (continueShopping) {
+        cartSection.insertBefore(loadMoreSection, continueShopping);
+      } else {
+        cartSection.appendChild(loadMoreSection);
+      }
+
+      const loadMoreBtn = loadMoreSection.querySelector(".load-more-btn");
+      loadMoreBtn.addEventListener("click", handleLoadMore);
+    }
+  } else if (loadMoreSection) {
+    loadMoreSection.remove();
+  }
+}
+
+async function handleLoadMore() {
+  const loadMoreBtn = document.querySelector(".load-more-btn");
+  if (loadMoreBtn) {
+    loadMoreBtn.disabled = true;
+    loadMoreBtn.textContent = "Loading...";
+  }
+
+  currentPage += 1;
+  const data = await fetchCart(8, currentPage);
+
+  if (data && data.items) {
+    const cartItemsElement = document.querySelector(".cart-items");
+    if (cartItemsElement) {
+      cartItemsElement.insertAdjacentHTML(
+        "beforeend",
+        renderCartCards(data.items),
+      );
+      addEventListeners();
+    }
+    updateLoadMoreButton(data.hasMore);
+  } else if (loadMoreBtn) {
+    loadMoreBtn.disabled = false;
+    loadMoreBtn.textContent = "Load More";
+  }
+}
+
+function renderCartCards(cartItems) {
+  return cartItems
+    .map((cartItem) => {
+      return `
+      <article class="cart-item" data-can-delete="${cartItem.product.canDelete}" data-id="${cartItem.id}">
+        <div class="item-image">
+          <img src="${cartItem.product.imageUrl}" alt="${cartItem.product.name}">
+        </div>
+        <div class="item-info">
+          <a href="./product.html?id=${cartItem.product.id}" class="item-name">${cartItem.product.name}</a>
+          <span class="item-brand">${cartItem.product.brand}</span>
+          <div class="item-price-mobile">$${cartItem.product.price.toLocaleString()}</div>
+        </div>
+        <div class="item-price">$${cartItem.product.price.toLocaleString()}</div>
+        <div class="item-quantity">
+          <button type="button" class="qty-btn minus" aria-label="Decrease quantity">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          <span class="qty-value" aria-label="Current quantity">${cartItem.quantity}</span>
+          <button type="button" class="qty-btn plus" aria-label="Increase quantity">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="item-total">$${cartItem.totalPrice.toLocaleString()}</div>
+        <button type="button" class="remove-btn" aria-label="Remove item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </article>
+    `;
+    })
+    .join("");
 }
