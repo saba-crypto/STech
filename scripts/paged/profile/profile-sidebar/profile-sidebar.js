@@ -85,7 +85,6 @@ export function renderProfileSidebar(user) {
     addSidebarNavigationControllers();
     const logoutButton = document.querySelector(".logout");
     if (logoutButton) {
-      console.log("hey");
       logoutButton.addEventListener("click", () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");

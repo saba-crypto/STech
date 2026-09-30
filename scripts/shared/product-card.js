@@ -1,7 +1,6 @@
 import { renderStars } from "../utils/renderRatingStars.js";
-import { fetchUser } from "../data/user.js";
-import { API_KEY } from "../data/secret.js";
-import { showPopup } from "../utils/showPopup.js";
+import { addToFavorites } from "../data/favorites.js";
+import { addToCart } from "../data/cart.js";
 //used for rendering product cards based on provided products array, use it whenever you need to render a product card(s)
 export function renderProductsHtml(products) {
   return products
@@ -106,6 +105,15 @@ export function renderProductsHtml(products) {
     })
     .join("");
 }
+document.addEventListener("click", (e) => {
+  const addToCartButton = e.target.closest(".add-to-cart");
+  if (!addToCartButton) return;
+
+  const card = addToCartButton.closest(".product-card");
+  const productId = card?.dataset?.productId;
+  const quantity = 1;
+  addToCart(productId, quantity);
+});
 
 //view product button event listener
 document.addEventListener("click", (e) => {
@@ -130,44 +138,3 @@ document.addEventListener("click", async (e) => {
   const productId = card?.dataset?.productId;
   await addToFavorites(productId);
 });
-
-async function addToFavorites(productId) {
-  try {
-    const isPagesDir = window.location.pathname.includes("/pages/");
-    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
-
-    const accessToken = localStorage.getItem("accessToken");
-    if (!productId) {
-      console.error(
-        "productId was not provided for the request when trying to add to favorites",
-      );
-    }
-    if (!accessToken) {
-      window.location = loginUrl;
-      return;
-    }
-
-    const userResponse = await fetchUser();
-    if (!userResponse) {
-      window.location.href = loginUrl;
-      return;
-    }
-
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/favorites/${productId}`,
-      {
-        method: "POST",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    if (!response.ok) {
-      const result = await response.json();
-      showPopup(result.detail);
-    }
-  } catch (err) {
-    console.error(err.message);
-  }
-}

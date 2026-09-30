@@ -30,8 +30,10 @@ async function renderHeader() {
   const categories = await fetchCategories();
   const user = await fetchUser();
 
-  firstNameLetter = user.data.firstName.charAt(0);
-  lastNameLetter = user.data.lastName.charAt(0);
+  if (user) {
+    firstNameLetter = user.data.firstName.charAt(0);
+    lastNameLetter = user.data.lastName.charAt(0);
+  }
 
   if (headerElement) {
     headerElement.innerHTML = `
