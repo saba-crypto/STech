@@ -5,7 +5,7 @@
   top: 70px;
   right: 0;
   bottom: 0;
-  width: 280px;
+  width: min(85vw, 280px);
   background-color: $background-clr;
   border-left: 1px solid $primary-border-clr;
   padding: $paddingL;
@@ -74,6 +74,44 @@
         background-color: $optional-clr;
         padding: 2px 6px;
         border-radius: 999px;
+      }
+    }
+  }
+
+  .mobile-user-actions {
+    @include flexbox(column, flex-start, stretch, 4px);
+    margin-top: $paddingS;
+    padding-top: $paddingS;
+    border-top: 1px solid $primary-border-clr;
+
+    .mobile-action-btn {
+      @include flexbox(row, flex-start, center, 10px);
+      width: 100%;
+      padding: $paddingS $paddingM;
+      background: none;
+      border: none;
+      border-radius: $radiusM;
+      font-size: $font-sizeS;
+      font-weight: 600;
+      color: $secondary-clr;
+      cursor: pointer;
+      text-align: left;
+      transition:
+        color 0.16s ease,
+        background-color 0.16s ease;
+
+      svg {
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        color: $accent-clr;
+        background-color: $faded-accent-clr;
+      }
+
+      &.sidebar-logout-btn:hover {
+        color: $error-clr;
+        background-color: rgba(244, 67, 54, 0.08);
       }
     }
   }

@@ -161,7 +161,7 @@ async function renderHeader() {
               </svg>
             </button>
             <button
-              class="action-btn cart-btn"
+              class="action-btn header-cart-btn"
               type="button"
               aria-label="View shopping cart"
             >
@@ -222,6 +222,45 @@ async function renderHeader() {
           >
           <div class="mobile-nav-label">Categories</div>
           <div class="mobile-categories"></div>
+
+          ${
+            user
+              ? `
+          <div class="mobile-nav-label sidebar-account-label">Account</div>
+          <div class="mobile-user-actions">
+            <button type="button" class="mobile-action-btn sidebar-profile-btn" aria-label="Profile">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Profile</span>
+            </button>
+            <button type="button" class="mobile-action-btn sidebar-cart-btn" aria-label="Cart">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>Cart</span>
+            </button>
+            <button type="button" class="mobile-action-btn sidebar-favorites-btn" aria-label="Favorites">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+              <span>Favorites</span>
+            </button>
+            <button type="button" class="mobile-action-btn sidebar-logout-btn" aria-label="Logout">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Logout</span>
+            </button>
+          </div>
+              `
+              : ""
+          }
         </nav>
       </aside>
       <div class="mobile-overlay" aria-hidden="true"></div>`;
@@ -275,6 +314,7 @@ function addHeaderButtonControllers() {
   const headerSearchInput = document.querySelector(".header-search-input");
   const userAvatar = document.querySelector(".user-avatar");
   const favoritesButton = document.querySelector(".header-favorite-btn");
+  const cartButton = document.querySelector(".header-cart-btn");
 
   if (signInButton) {
     signInButton.addEventListener("click", () => {
@@ -304,6 +344,11 @@ function addHeaderButtonControllers() {
   if (favoritesButton) {
     favoritesButton.addEventListener("click", () => {
       window.location.href = `${profileUrl}?page=profile#favorites`;
+    });
+  }
+  if (cartButton) {
+    cartButton.addEventListener("click", () => {
+      window.location.href = `${profileUrl}?page=profile#cart`;
     });
   }
 }

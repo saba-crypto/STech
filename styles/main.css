@@ -892,7 +892,7 @@ html {
   top: 70px;
   right: 0;
   bottom: 0;
-  width: 280px;
+  width: min(85vw, 280px);
   background-color: #ffffff;
   border-left: 1px solid #e0e0e0;
   padding: min(20px, 3vw);
@@ -962,6 +962,45 @@ html {
   background-color: #f6f6f6;
   padding: 2px 6px;
   border-radius: 999px;
+}
+.mobile-menu .mobile-user-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 4px;
+  margin-top: min(10px, 2vw);
+  padding-top: min(10px, 2vw);
+  border-top: 1px solid #e0e0e0;
+}
+.mobile-menu .mobile-user-actions .mobile-action-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: min(10px, 2vw) min(15px, 2.5vw);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(0.8rem, 1.3vw + 0.2rem, 1.1rem);
+  font-weight: 600;
+  color: #131d17;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.16s ease, background-color 0.16s ease;
+}
+.mobile-menu .mobile-user-actions .mobile-action-btn svg {
+  flex-shrink: 0;
+}
+.mobile-menu .mobile-user-actions .mobile-action-btn:hover {
+  color: #1db954;
+  background-color: rgba(29, 185, 84, 0.1019607843);
+}
+.mobile-menu .mobile-user-actions .mobile-action-btn.sidebar-logout-btn:hover {
+  color: #f44336;
+  background-color: rgba(244, 67, 54, 0.08);
 }
 
 .mobile-overlay {
