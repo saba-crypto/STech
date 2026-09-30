@@ -23,13 +23,9 @@
   font-weight: 500;
   line-height: 1.4;
   animation: popupSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
 
   &.fade-out {
-    opacity: 0;
-    transform: translateY(-10px);
+    animation: popupSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .popup-content {
@@ -92,5 +88,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes popupSlideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 }

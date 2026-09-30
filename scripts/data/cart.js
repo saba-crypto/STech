@@ -1,4 +1,4 @@
-import { showPopup } from "../utils/showPopup.js";
+import { showPopup, showSuccessPopup } from "../utils/showPopup.js";
 import { API_KEY } from "./secret.js";
 
 export async function fetchCart(take = 8, page = 1) {
@@ -74,6 +74,7 @@ export async function addToCart(productId, quantity) {
         );
       }
     }
+    showSuccessPopup("Item added to cart!");
   } catch (err) {
     console.error(err.message);
   }

@@ -66,3 +66,41 @@ export async function addToFavorites(productId) {
     console.error(err.message);
   }
 }
+
+export async function removeFromFavorites(productId) {
+  try {
+    const isPagesDir = window.location.pathname.includes("/pages/");
+    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
+
+    const accessToken = localStorage.getItem("accessToken");
+    const userResponse = await fetchUser();
+
+    if (!accessToken || !userResponse) {
+      window.location.href = loginUrl;
+      return;
+    }
+    if (!productId) {
+      throw new Error(
+        "productId is undefined, failed to remove favorite product",
+      );
+    }
+    const response = await fetch(
+      `https://shopapi.stepacademy.ge/api/favorites/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "X-API-KEY": API_KEY,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+
+    if (!response.ok) {
+      const result = await response.json();
+      showPopup(result.detail || result.title);
+      throw new Error(result.detail || result.title);
+    }
+  } catch (err) {
+    console.error(err.message || err);
+  }
+}

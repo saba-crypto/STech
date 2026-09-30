@@ -1,49 +1,77 @@
-import { fetchFavorites } from "../../../data/favorites.js";
-import { fetchUser } from "../../../data/user.js";
+import { fetchFavorites, removeFromFavorites } from "../../../data/favorites.js";
+import { addToCart } from "../../../data/cart.js";
 import { renderStars } from "../../../utils/renderRatingStars.js";
-import { API_KEY } from "../../../data/secret.js";
 import { showPopup } from "../../../utils/showPopup.js";
 
 let currentPage = 1;
 
-export async function renderFavorites() {
-  const favoritesTab = document.getElementById("tab-favorites");
-  const clearAllButton = document.querySelector(".clear-all-btn");
-  const favoritesGrid = document.querySelector(".favorites-grid");
-  const pageSubtitle = document.querySelector(".favorites-subtitle");
-
-  if (!favoritesGrid || !favoritesTab) return;
-
+export function renderFavorites() {
   currentPage = 1;
-  const data = await fetchFavorites(8, currentPage);
-  if (!data) return;
+  fetchFavorites(8, currentPage).then((favoritesData) => {
+    if (
+      favoritesData &&
+      favoritesData.items &&
+      favoritesData.items.length > 0
+    ) {
+      renderFavoriteItems(favoritesData.items);
+      renderFavoritesSummary(favoritesData);
+      addEventListeners();
+    } else {
+      displayEmptyFavoritesContainer();
+    }
+  });
+}
 
-  if (pageSubtitle) {
-    pageSubtitle.textContent = `${data.totalCount || 0} items saved`;
-  }
+function renderFavoriteItems(favoriteItems) {
+  const favoritesGrid = document.querySelector(".favorites-grid");
+  if (!favoritesGrid) return;
 
-  if (
-    !data.totalCount ||
-    data.totalCount === 0 ||
-    !data.items ||
-    data.items.length === 0
-  ) {
-    favoritesGrid.innerHTML = "";
-    favoritesGrid.style.display = "none";
-    if (clearAllButton) clearAllButton.style.display = "none";
-    updateLoadMoreButton(false);
-    renderEmptyFavorites(favoritesTab);
-    return;
-  }
-
-  // If favorites exist, display grid and cards
-  removeEmptyFavorites(favoritesTab);
   favoritesGrid.style.display = "grid";
-  if (clearAllButton) clearAllButton.style.display = "flex";
+  favoritesGrid.innerHTML = renderFavoriteCards(favoriteItems);
+}
 
-  favoritesGrid.innerHTML = renderFavoriteCards(data.items);
-  updateLoadMoreButton(data.hasMore);
-  attachFavoriteCardListeners();
+function renderFavoritesSummary(favoritesData) {
+  const favoritesTab = document.getElementById("tab-favorites");
+  const subtitle = document.querySelector(".favorites-subtitle");
+  const clearAllButton = document.querySelector(".clear-all-btn");
+
+  if (subtitle) {
+    subtitle.textContent = `${favoritesData.totalCount || favoritesData.items.length} items saved`;
+  }
+
+  if (clearAllButton) {
+    clearAllButton.style.display = "flex";
+  }
+
+  if (favoritesTab) {
+    const emptyState = favoritesTab.querySelector(".empty-state");
+    if (emptyState) {
+      emptyState.remove();
+    }
+  }
+
+  updateLoadMoreButton(favoritesData.hasMore);
+}
+
+function addEventListeners() {
+  const removeFavoriteButtons = document.querySelectorAll(
+    ".remove-favorite-btn",
+  );
+  const clearAllButton = document.querySelector(".clear-all-btn");
+  const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+
+  if (removeFavoriteButtons) {
+    removeFavoriteButtons.forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        const card = e.target.closest(".favorite-card");
+        const productId = card?.dataset.productId;
+        if (productId) {
+          await removeFromFavorites(productId);
+          renderFavorites();
+        }
+      });
+    });
+  }
 
   if (clearAllButton && !clearAllButton.dataset.listenerAttached) {
     clearAllButton.dataset.listenerAttached = "true";
@@ -60,9 +88,46 @@ export async function renderFavorites() {
       renderFavorites();
     });
   }
+
+  if (addToCartButtons) {
+    addToCartButtons.forEach((button) => {
+      if (!button.dataset.listenerAttached) {
+        button.dataset.listenerAttached = "true";
+        button.addEventListener("click", async (e) => {
+          const productId = e.target.closest(".add-to-cart-btn")?.dataset.productId;
+          if (productId) {
+            await addToCart(productId, 1);
+            showPopup("Product added to cart", "success");
+          }
+        });
+      }
+    });
+  }
 }
 
-function renderEmptyFavorites(favoritesTab) {
+function displayEmptyFavoritesContainer() {
+  const favoritesTab = document.getElementById("tab-favorites");
+  const favoritesGrid = document.querySelector(".favorites-grid");
+  const subtitle = document.querySelector(".favorites-subtitle");
+  const clearAllButton = document.querySelector(".clear-all-btn");
+
+  if (subtitle) {
+    subtitle.textContent = "0 items saved";
+  }
+
+  if (favoritesGrid) {
+    favoritesGrid.innerHTML = "";
+    favoritesGrid.style.display = "none";
+  }
+
+  if (clearAllButton) {
+    clearAllButton.style.display = "none";
+  }
+
+  updateLoadMoreButton(false);
+
+  if (!favoritesTab) return;
+
   let emptyState = favoritesTab.querySelector(".empty-state");
   if (!emptyState) {
     emptyState = document.createElement("div");
@@ -85,29 +150,6 @@ function renderEmptyFavorites(favoritesTab) {
     `;
     favoritesTab.appendChild(emptyState);
   }
-}
-
-function removeEmptyFavorites(favoritesTab) {
-  const emptyState = favoritesTab.querySelector(".empty-state");
-  if (emptyState) {
-    emptyState.remove();
-  }
-}
-
-function attachFavoriteCardListeners() {
-  const removeFavoriteButtons = document.querySelectorAll(
-    ".remove-favorite-btn",
-  );
-  removeFavoriteButtons.forEach((button) => {
-    button.addEventListener("click", async (e) => {
-      const card = e.target.closest(".favorite-card");
-      const productId = card?.dataset.productId;
-      if (productId) {
-        await removeFromFavorites(productId);
-        renderFavorites();
-      }
-    });
-  });
 }
 
 function updateLoadMoreButton(hasMore) {
@@ -150,7 +192,7 @@ async function handleLoadMore() {
         "beforeend",
         renderFavoriteCards(data.items),
       );
-      attachFavoriteCardListeners();
+      addEventListeners();
     }
     updateLoadMoreButton(data.hasMore);
   } else if (loadMoreBtn) {
@@ -207,39 +249,4 @@ function renderFavoriteCards(favorites) {
       `;
     })
     .join("");
-}
-
-async function removeFromFavorites(productId) {
-  try {
-    const accessToken = localStorage.getItem("accessToken");
-    const isPagesDir = window.location.pathname.includes("/pages/");
-    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
-
-    const userResponse = await fetchUser();
-    if (!accessToken || !userResponse) {
-      window.location.href = loginUrl;
-    }
-    if (!productId) {
-      throw new Error(
-        "productId is undefined, failed to remove favorite product",
-      );
-    }
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/favorites/${productId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      const result = await response.json();
-      throw new Error(result.detail);
-    }
-  } catch (err) {
-    console.error(err.message || err);
-  }
 }

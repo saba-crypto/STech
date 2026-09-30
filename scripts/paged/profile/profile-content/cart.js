@@ -3,7 +3,6 @@ import { checkout } from "../../../data/checkout.js";
 export function renderCart() {
   fetchCart().then((cartData) => {
     if (cartData && cartData.items && cartData.items.length > 0) {
-      ensureCartLayout();
       renderCartItems(cartData.items);
       renderOrderSummary(cartData);
       addEventListeners();
@@ -11,41 +10,6 @@ export function renderCart() {
       displayEmptyCartContainer();
     }
   });
-}
-
-function ensureCartLayout() {
-  const cartLayout = document.querySelector(".cart-layout");
-  if (!cartLayout) return;
-
-  if (!cartLayout.querySelector(".cart-items")) {
-    cartLayout.innerHTML = `
-      <div class="cart-items-section">
-        <div class="section-header">
-          <h2>Cart Items</h2>
-          <button type="button" class="clear-cart-btn" aria-label="Clear all items from cart">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-            <span>Clear Cart</span>
-          </button>
-        </div>
-        <div class="cart-items"></div>
-        <div class="continue-shopping">
-          <a href="./shop.html" class="continue-link">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            <span>Continue Shopping</span>
-          </a>
-        </div>
-      </div>
-      <aside class="order-summary" aria-label="Order Summary">
-        <div class="summary-card"></div>
-      </aside>
-    `;
-  }
 }
 
 function renderCartItems(cartItems) {
@@ -91,7 +55,6 @@ function renderCartItems(cartItems) {
 }
 
 function renderOrderSummary(cartData) {
-  console.log(cartData);
   const summaryContainer = document.querySelector(".summary-card");
   let totalCost = 0;
   let totalCount = 0;
