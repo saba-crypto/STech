@@ -1,4 +1,8 @@
-import { fetchCart, removeFromCart } from "../../../data/cart.js";
+import {
+  fetchCart,
+  removeFromCart,
+  editCartItemQuantity,
+} from "../../../data/cart.js";
 import { checkout } from "../../../data/checkout.js";
 import { showPopup } from "../../../utils/showPopup.js";
 
@@ -88,6 +92,9 @@ function addEventListeners() {
   const removeFromCartButtons = document.querySelectorAll(".remove-btn");
   const checkoutButton = document.querySelector(".checkout-btn");
   const clearCartButton = document.querySelector(".clear-cart-btn");
+  const quantityMinusButtons = document.querySelectorAll(".qty-btn.minus");
+  const quantityPlusButtons = document.querySelectorAll(".qty-btn.plus");
+  const quantityValues = document.querySelectorAll(".qty-value");
 
   if (removeFromCartButtons) {
     removeFromCartButtons.forEach((button) => {
@@ -126,6 +133,45 @@ function addEventListeners() {
         }
       }
       renderCart();
+    });
+  }
+
+  if (quantityMinusButtons) {
+    quantityMinusButtons.forEach((button, i) => {
+      button.addEventListener("click", async (e) => {
+        const cartItemId = e.target.closest(".cart-item")?.dataset.id;
+        let currentQuantity = e.target.closest(".cart-item").dataset.quantity;
+        if (cartItemId && currentQuantity && currentQuantity > 1) {
+          quantityValues[i].innerText = currentQuantity - 1;
+          await editCartItemQuantity(cartItemId, Number(currentQuantity) - 1);
+          renderCart();
+        } else {
+          console.error(
+            "Unexpected error occurred while trying to decrease cart item quantity, provided values for editing cart quantity are invalid.",
+          );
+        }
+      });
+    });
+  }
+
+  if (quantityPlusButtons) {
+    quantityPlusButtons.forEach((button, i) => {
+      button.addEventListener("click", async (e) => {
+        const cartItemId = e.target.closest(".cart-item")?.dataset.id;
+        let currentQuantity = Number(
+          e.target.closest(".cart-item")?.dataset.quantity,
+        );
+        if (cartItemId && currentQuantity) {
+          quantityValues[i].innerText = `${currentQuantity + 1}`;
+
+          await editCartItemQuantity(cartItemId, currentQuantity + 1);
+          renderCart();
+        } else {
+          console.error(
+            "Unexpected error occurred while trying to decrease cart item quantity, provided values for editing cart quantity are invalid.",
+          );
+        }
+      });
     });
   }
 }
@@ -221,8 +267,11 @@ async function handleLoadMore() {
 function renderCartCards(cartItems) {
   return cartItems
     .map((cartItem) => {
+      const isMinusQuantityDisabled =
+        cartItem.quantity === 1 || cartItem.quantity < 1 ? "disabled" : "";
+
       return `
-      <article class="cart-item" data-can-delete="${cartItem.product.canDelete}" data-id="${cartItem.id}">
+      <article class="cart-item" data-quantity="${cartItem.quantity}" data-can-delete="${cartItem.product.canDelete}" data-id="${cartItem.id}">
         <div class="item-image">
           <img src="${cartItem.product.imageUrl}" alt="${cartItem.product.name}">
         </div>
@@ -233,7 +282,7 @@ function renderCartCards(cartItems) {
         </div>
         <div class="item-price">$${cartItem.product.price.toLocaleString()}</div>
         <div class="item-quantity">
-          <button type="button" class="qty-btn minus" aria-label="Decrease quantity">
+          <button type="button" class="qty-btn minus" ${isMinusQuantityDisabled}  aria-label="Decrease quantity">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>

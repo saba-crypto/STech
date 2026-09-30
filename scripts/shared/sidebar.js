@@ -161,7 +161,7 @@ function addSidebarButtonControllers({ homeUrl, loginUrl, profileUrl }) {
         if (!response) {
           window.location.href = loginUrl;
         } else {
-          window.location.href = `${profileUrl}?page=profile`;
+          window.location.href = `${profileUrl}?page=profile#profile`;
         }
       });
     });

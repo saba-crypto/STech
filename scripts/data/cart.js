@@ -69,6 +69,7 @@ export async function addToCart(productId, quantity) {
     if (!response.ok) {
       const result = await response.json();
       if (result.detail || result.title) {
+        showPopup(result.detail);
         throw new Error(
           `failed to add product to cart, error message: ${result.detail || result.title}`,
         );
@@ -113,6 +114,50 @@ export async function removeFromCart(productId) {
 
       throw new Error(
         `failed to remove product from the cart, error message: ${result.detail || result.title}`,
+      );
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+export async function editCartItemQuantity(itemId, quantity) {
+  try {
+    const isPagesDir = window.location.pathname.includes("/pages/");
+    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!itemId || !quantity || quantity < 1) {
+      throw new Error(
+        "Couldn't edit product quantity, itemId or quantity provided is not valid",
+      );
+    }
+
+    if (!accessToken) {
+      window.location.href = loginUrl;
+      return;
+    }
+
+    const response = await fetch(
+      "https://shopapi.stepacademy.ge/api/cart/edit-quantity",
+      {
+        method: "PUT",
+        headers: {
+          "X-API-KEY": API_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          itemId: itemId,
+          quantity: quantity,
+        }),
+      },
+    );
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(
+        `Couldn't update cart item quantity, server responded with error: ${result.detail || result.title}`,
       );
     }
   } catch (err) {

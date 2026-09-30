@@ -19,17 +19,25 @@
       transition: all 0.5s ease;
     }
     .card-badges {
+      @include flexbox(column, flex-start, flex-start, 5px);
       position: absolute;
       left: 5%;
       top: 5%;
-      .new-badge {
-        color: white;
+      z-index: 2;
+      .new-badge,
+      .out-of-stock-badge {
+        color: $secondary-font-clr;
         font-size: $font-sizeXXS;
-        background-color: $accent-clr;
         padding: $paddingXXS $paddingS;
         border-radius: $radiusM;
         font-weight: 500;
         letter-spacing: -5%;
+      }
+      .new-badge {
+        background-color: $accent-clr;
+      }
+      .out-of-stock-badge {
+        background-color: $error-clr;
       }
     }
 
@@ -112,9 +120,12 @@
       border-radius: $radiusL;
       cursor: pointer;
       transition-duration: 0.25s;
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: $accent-clr;
         color: white;
+      }
+      &:disabled {
+        cursor: not-allowed;
       }
     }
   }

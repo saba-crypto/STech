@@ -1,4 +1,7 @@
-import { fetchFavorites, removeFromFavorites } from "../../../data/favorites.js";
+import {
+  fetchFavorites,
+  removeFromFavorites,
+} from "../../../data/favorites.js";
 import { addToCart } from "../../../data/cart.js";
 import { renderStars } from "../../../utils/renderRatingStars.js";
 import { showPopup } from "../../../utils/showPopup.js";
@@ -94,10 +97,10 @@ function addEventListeners() {
       if (!button.dataset.listenerAttached) {
         button.dataset.listenerAttached = "true";
         button.addEventListener("click", async (e) => {
-          const productId = e.target.closest(".add-to-cart-btn")?.dataset.productId;
+          const productId =
+            e.target.closest(".add-to-cart-btn")?.dataset.productId;
           if (productId) {
             await addToCart(productId, 1);
-            showPopup("Product added to cart", "success");
           }
         });
       }

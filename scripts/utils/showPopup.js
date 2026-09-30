@@ -61,7 +61,6 @@ export function showPopup(message, type = "error") {
 
   const dismiss = () => {
     popup.classList.add("fade-out");
-    console.log(popup);
     setTimeout(() => {
       popup.remove();
       if (container.children.length === 0) {
