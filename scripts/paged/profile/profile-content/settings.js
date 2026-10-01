@@ -1,4 +1,4 @@
-import { updateUserPassword } from "../../../data/user.js";
+import { deleteUser, updateUserPassword } from "../../../data/user.js";
 import { showPopup, showSuccessPopup } from "../../../utils/showPopup.js";
 
 export function renderSettings() {
@@ -11,6 +11,9 @@ function addEventListeners() {
   const newPasswordInput = document.getElementById("new-password");
   const confirmNewPasswordInput = document.getElementById("confirm-password");
   const deleteAccountButton = document.querySelector(".delete-account-btn");
+
+  const isPagesDir = window.location.pathname.includes("/pages/");
+  const homeUrl = isPagesDir ? "../index.html" : "./index.html";
 
   if (updatePasswordBtn) {
     updatePasswordBtn.addEventListener("click", async () => {
@@ -25,11 +28,10 @@ function addEventListeners() {
         showPopup("Passwords do not match");
         return;
       }
-      const response = await updateUserPassword(currentPassword, newPassword);
-      if (!response) {
+      const result = await updateUserPassword(currentPassword, newPassword);
+      if (!result) {
         return;
       }
-      showSuccessPopup("Password was Changed Successfully!");
 
       //reset input values
       currentPassword = "";
@@ -39,6 +41,12 @@ function addEventListeners() {
   }
 
   if (deleteAccountButton) {
-    deleteAccountButton.addEventListener("click", () => {});
+    deleteAccountButton.addEventListener("click", async () => {
+      await deleteUser();
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+
+      window.location.href = homeUrl;
+    });
   }
 }

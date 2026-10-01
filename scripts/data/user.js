@@ -1,5 +1,5 @@
 import { displayErrorPopups } from "../utils/displayErrors.js";
-import { showPopup } from "../utils/showPopup.js";
+import { showPopup, showSuccessPopup } from "../utils/showPopup.js";
 import { API_KEY } from "./secret.js";
 
 export async function fetchUser() {
@@ -76,7 +76,47 @@ export async function updateUserPassword(currentPassword, newPassword) {
         `Error occurred while trying to change user password, error message: ${result.detail || result.title || "unknown error"}`,
       );
     }
+    showSuccessPopup("Password was Changed Successfully!");
     return result;
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+export async function deleteUser() {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      return null;
+    }
+    const userResponse = await fetchUser();
+    if (!userResponse) {
+      return null;
+    }
+
+    const response = await fetch(
+      "https://shopapi.stepacademy.ge/api/users/delete-profile",
+      {
+        method: "DELETE",
+        headers: {
+          "X-API-KEY": API_KEY,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    const result = await response.json();
+    if (!response.ok) {
+      if (Object.keys(result.errors).length <= 0) {
+        showPopup(result.detail);
+      } else {
+        displayErrorPopups(result.errors);
+      }
+      throw new Error(
+        `Error occurred while trying to delete user account, error message: ${result.detail || result.title || "unknown error"}`,
+      );
+    }
+    showSuccessPopup("Account was Deleted Successfully!");
   } catch (err) {
     console.error(err.message);
   }

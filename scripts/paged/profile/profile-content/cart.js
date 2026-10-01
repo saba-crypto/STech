@@ -111,10 +111,8 @@ function addEventListeners() {
   const quantityMinusButtons = document.querySelectorAll(".qty-btn.minus");
   const quantityPlusButtons = document.querySelectorAll(".qty-btn.plus");
   const quantityValues = document.querySelectorAll(".qty-value");
-  const totalItemsPriceElement = document.querySelector(".item-total");
-  const itemPrice = document.querySelector(".item-price");
-  let itemTotalPrice = Number(totalItemsPriceElement.dataset.totalPrice);
-  let singleItemPrice = Number(itemPrice.dataset.price);
+  const totalItemsPriceElements = document.querySelectorAll(".item-total");
+  const itemPrices = document.querySelectorAll(".item-price");
 
   //remove from cart
   if (removeFromCartButtons) {
@@ -163,11 +161,16 @@ function addEventListeners() {
   if (quantityMinusButtons) {
     quantityMinusButtons.forEach((button, i) => {
       button.addEventListener("click", async (e) => {
+        let itemTotalPrice = Number(
+          totalItemsPriceElements[i].dataset.totalPrice,
+        );
+        let singleItemPrice = Number(itemPrices[i].dataset.price);
         const cartItemId = e.target.closest(".cart-item")?.dataset.id;
         let currentQuantity = e.target.closest(".cart-item").dataset.quantity;
         if (cartItemId && currentQuantity && currentQuantity > 1) {
           quantityValues[i].innerText = currentQuantity - 1;
-          totalItemsPriceElement.innerHTML = `$${(itemTotalPrice -= singleItemPrice).toLocaleString()}`;
+          totalItemsPriceElements[i].innerHTML =
+            `$${(itemTotalPrice -= singleItemPrice).toLocaleString()}`;
 
           await editCartItemQuantity(cartItemId, Number(currentQuantity) - 1);
           renderCart();
@@ -184,13 +187,18 @@ function addEventListeners() {
   if (quantityPlusButtons) {
     quantityPlusButtons.forEach((button, i) => {
       button.addEventListener("click", async (e) => {
+        let itemTotalPrice = Number(
+          totalItemsPriceElements[i].dataset.totalPrice,
+        );
+        let singleItemPrice = Number(itemPrices[i].dataset.price);
         const cartItemId = e.target.closest(".cart-item")?.dataset.id;
         let currentQuantity = Number(
           e.target.closest(".cart-item")?.dataset.quantity,
         );
         if (cartItemId && currentQuantity) {
           quantityValues[i].innerText = `${currentQuantity + 1}`;
-          totalItemsPriceElement.innerHTML = `$${(itemTotalPrice += singleItemPrice).toLocaleString()}`;
+          totalItemsPriceElements[i].innerHTML =
+            `$${(itemTotalPrice += singleItemPrice).toLocaleString()}`;
 
           await editCartItemQuantity(cartItemId, currentQuantity + 1);
           renderCart();
