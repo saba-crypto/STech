@@ -146,15 +146,20 @@
   .stock-status {
     margin-bottom: 20px;
 
-    .in-stock {
+    .stock-badge {
       @include flexbox(inline-flex, flex-start, center, 6px);
       padding: 6px 12px;
       border-radius: $radiusM;
       font-size: $font-sizeXS;
       font-weight: 600;
-      background-color: $faded-accent-clr;
-      color: $accent-clr;
+      color: $secondary-font-clr;
 
+      &.in-stock {
+        color: $accent-clr;
+      }
+      &.out-of-stock {
+        background-color: $faded-error-clr;
+      }
       svg {
         width: 16px;
         height: 16px;
@@ -205,9 +210,13 @@
           background-color 0.16s ease,
           color 0.16s ease;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background-color: $accent-clr;
           color: $secondary-font-clr;
+        }
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
 
         svg {
@@ -259,12 +268,16 @@
         transform 0.2s ease,
         box-shadow 0.2s ease;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: $accent-clr;
         border-color: $accent-clr;
         color: $secondary-font-clr;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
 
       svg {

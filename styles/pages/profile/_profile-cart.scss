@@ -1,7 +1,7 @@
 @use "../../abstracts" as *;
 
 .cart-layout {
-  @include grid(1fr 360px, auto, $paddingXL);
+  @include grid(1fr, auto, $paddingXL);
   align-items: start;
 }
 
@@ -269,7 +269,9 @@
       font-weight: 600;
       cursor: pointer;
       @include flexbox(row, center, center, $paddingS);
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
 
       &:hover {
         background-color: #1ed760;

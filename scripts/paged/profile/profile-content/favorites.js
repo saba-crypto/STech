@@ -5,6 +5,12 @@ import {
 import { addToCart } from "../../../data/cart.js";
 import { renderStars } from "../../../utils/renderRatingStars.js";
 import { showPopup } from "../../../utils/showPopup.js";
+import {
+  renderEmptyState,
+  removeEmptyState,
+  EMPTY_FAVORITES_ICON,
+} from "../../../shared/empty-state.js";
+import { updateLoadMoreButton } from "../../../shared/load-more.js";
 
 let currentPage = 1;
 
@@ -47,13 +53,10 @@ function renderFavoritesSummary(favoritesData) {
   }
 
   if (favoritesTab) {
-    const emptyState = favoritesTab.querySelector(".empty-state");
-    if (emptyState) {
-      emptyState.remove();
-    }
+    removeEmptyState(favoritesTab);
   }
 
-  updateLoadMoreButton(favoritesData.hasMore);
+  updateFavoritesLoadMoreButton(favoritesData.hasMore);
 }
 
 function addEventListeners() {
@@ -109,14 +112,8 @@ function addEventListeners() {
 }
 
 function displayEmptyFavoritesContainer() {
-  const favoritesTab = document.getElementById("tab-favorites");
   const favoritesGrid = document.querySelector(".favorites-grid");
-  const subtitle = document.querySelector(".favorites-subtitle");
   const clearAllButton = document.querySelector(".clear-all-btn");
-
-  if (subtitle) {
-    subtitle.textContent = "0 items saved";
-  }
 
   if (favoritesGrid) {
     favoritesGrid.innerHTML = "";
@@ -127,64 +124,29 @@ function displayEmptyFavoritesContainer() {
     clearAllButton.style.display = "none";
   }
 
-  updateLoadMoreButton(false);
+  updateFavoritesLoadMoreButton(false);
 
-  if (!favoritesTab) return;
-
-  let emptyState = favoritesTab.querySelector(".empty-state");
-  if (!emptyState) {
-    emptyState = document.createElement("div");
-    emptyState.className = "empty-state";
-    emptyState.innerHTML = `
-      <div class="empty-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-        </svg>
-      </div>
-      <h2>No favorites yet</h2>
-      <p>Start adding products to your favorites to see them here. Click the heart icon on any product!</p>
-      <a href="./shop.html" class="browse-products-btn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-        <span>Browse Products</span>
-      </a>
-    `;
-    favoritesTab.appendChild(emptyState);
-  }
+  const favoritesTab = document.getElementById("tab-favorites");
+  renderEmptyState(favoritesTab, {
+    iconSvg: EMPTY_FAVORITES_ICON,
+    title: "No favorites yet",
+    description: "Start adding products to your favorites to see them here. Click the heart icon on any product!",
+    subtitleSelector: ".favorites-subtitle",
+    subtitleText: "0 items saved",
+  });
 }
 
-function updateLoadMoreButton(hasMore) {
+function updateFavoritesLoadMoreButton(hasMore) {
   const favoritesTab = document.getElementById("tab-favorites");
-  if (!favoritesTab) return;
 
-  let loadMoreSection = favoritesTab.querySelector(".load-more-section");
-
-  if (hasMore) {
-    if (!loadMoreSection) {
-      loadMoreSection = document.createElement("div");
-      loadMoreSection.className = "load-more-section";
-      loadMoreSection.innerHTML = `
-        <button type="button" class="load-more-btn">Load More</button>
-      `;
-      favoritesTab.appendChild(loadMoreSection);
-
-      const loadMoreBtn = loadMoreSection.querySelector(".load-more-btn");
-      loadMoreBtn.addEventListener("click", handleLoadMore);
-    }
-  } else if (loadMoreSection) {
-    loadMoreSection.remove();
-  }
+  updateLoadMoreButton({
+    container: favoritesTab,
+    hasMore,
+    onLoadMore: handleLoadMore,
+  });
 }
 
 async function handleLoadMore() {
-  const loadMoreBtn = document.querySelector(".load-more-btn");
-  if (loadMoreBtn) {
-    loadMoreBtn.disabled = true;
-    loadMoreBtn.textContent = "Loading...";
-  }
-
   currentPage += 1;
   const data = await fetchFavorites(8, currentPage);
 
@@ -197,10 +159,7 @@ async function handleLoadMore() {
       );
       addEventListeners();
     }
-    updateLoadMoreButton(data.hasMore);
-  } else if (loadMoreBtn) {
-    loadMoreBtn.disabled = false;
-    loadMoreBtn.textContent = "Load More";
+    updateFavoritesLoadMoreButton(data.hasMore);
   }
 }
 
@@ -208,6 +167,8 @@ function renderFavoriteCards(favorites) {
   return favorites
     .map((product) => {
       const rating = product.rating || 0;
+      const outOfStock = product.stock === 0 ? true : false;
+      const isDisabled = outOfStock ? "disabled" : "";
       return `
         <article data-product-id="${product.id}" class="favorite-card">
           <span class="stock-badge ${product.stock > 0 ? "" : "out-of-stock"}">
@@ -239,13 +200,13 @@ function renderFavoriteCards(favorites) {
                 <span class="price-current">$${product.price.toLocaleString()}</span>
               </div>
             </div>
-            <button type="button" class="add-to-cart-btn" data-product-id="${product.id}">
+            <button ${isDisabled} type="button" class="add-to-cart-btn" data-product-id="${product.id}">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
-              <span>Add to Cart</span>
+              <span>${outOfStock ? "Out of Stock" : "Add to Cart"}</span>
             </button>
           </div>
         </article>

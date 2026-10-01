@@ -59,6 +59,8 @@ function addThumbnailLister(product, reviews) {
 let productQuantity = 1;
 //product info
 function renderProductInfo(product, reviews) {
+  const isDisabled = product.stock === 0 ? "disabled" : "";
+  const outOfStock = product.stock === 0 ? true : false;
   return `
 
       <div class="product-meta">
@@ -83,12 +85,33 @@ function renderProductInfo(product, reviews) {
       </div>
 
       <div class="stock-status">
-        <span class="in-stock">
+      ${
+        outOfStock
+          ? `<span class="stock-badge out-of-stock">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          Sold out
+        </span>`
+          : `<span class="stock-badge in-stock">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
-          In Stock (${product.stock} available)
-        </span>
+          in Stock(${product.stock} available)
+        </span>`
+      }
+        
       </div>
 
       <div class="product-description-short">
@@ -100,13 +123,13 @@ function renderProductInfo(product, reviews) {
       <div class="quantity-selector">
         <label>Quantity</label>
         <div class="quantity-controls">
-          <button class="qty-btn quantity decrease-quantity" type="button" aria-label="Decrease quantity">
+          <button ${isDisabled} class="qty-btn quantity decrease-quantity" type="button" aria-label="Decrease quantity">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
           </button>
           <span class="qty-value">${productQuantity}</span>
-          <button class="qty-btn add-quantity" type="button" aria-label="Increase quantity">
+          <button ${isDisabled} class="qty-btn add-quantity" type="button" aria-label="Increase quantity">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -116,13 +139,54 @@ function renderProductInfo(product, reviews) {
       </div>
 
       <div class="action-buttons">
-        <button class="btn-add-cart" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        <button ${isDisabled} class="btn-add-cart"  type="button" >
+          ${
+            outOfStock
+              ? `
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
-          <span>Add to Cart</span>
+          `
+              : `
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle
+              cx="9"
+              cy="21"
+              r="1"
+            ></circle>
+            <circle
+              cx="20"
+              cy="21"
+              r="1"
+            ></circle>
+            <path
+              d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+            ></path>
+          </svg>
+          `
+          }
+          <span>${outOfStock ? "Out of Stock" : "Add to Cart"}</span>
         </button>
         <button class="btn-favorite" type="button" aria-label="Add to wishlist">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

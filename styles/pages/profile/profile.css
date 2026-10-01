@@ -548,7 +548,7 @@
 }
 .cart-layout {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr;
   grid-template-rows: auto;
   gap: min(30px, 4vw);
   align-items: start;

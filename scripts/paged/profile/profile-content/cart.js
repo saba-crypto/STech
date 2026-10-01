@@ -5,6 +5,12 @@ import {
 } from "../../../data/cart.js";
 import { checkout } from "../../../data/checkout.js";
 import { showPopup } from "../../../utils/showPopup.js";
+import {
+  renderEmptyState,
+  removeEmptyState,
+  EMPTY_CART_ICON,
+} from "../../../shared/empty-state.js";
+import { updateLoadMoreButton } from "../../../shared/load-more.js";
 
 let currentPage = 1;
 
@@ -12,9 +18,17 @@ export function renderCart() {
   currentPage = 1;
   fetchCart(8, currentPage).then((cartData) => {
     if (cartData && cartData.items && cartData.items.length > 0) {
+      const cartSection = document.querySelector(".cart-items-section");
+      const orderSummary = document.querySelector(".order-summary");
+      if (cartSection) cartSection.style.display = "";
+      if (orderSummary) orderSummary.style.display = "";
+
+      const cartLayout = document.querySelector(".cart-layout");
+      removeEmptyState(cartLayout);
+
       renderCartItems(cartData.items);
       renderOrderSummary(cartData);
-      updateLoadMoreButton(cartData.hasMore);
+      updateCartLoadMoreButton(cartData.hasMore);
       addEventListeners();
     } else {
       displayEmptyCartContainer();
@@ -41,6 +55,7 @@ function renderOrderSummary(cartData) {
   });
 
   const subtitle = document.querySelector(".cart-page-subtitle");
+
   if (subtitle) {
     subtitle.innerText = `${totalCount} items in your cart`;
   }
@@ -89,13 +104,19 @@ function renderOrderSummary(cartData) {
 }
 
 function addEventListeners() {
+  //elements
   const removeFromCartButtons = document.querySelectorAll(".remove-btn");
   const checkoutButton = document.querySelector(".checkout-btn");
   const clearCartButton = document.querySelector(".clear-cart-btn");
   const quantityMinusButtons = document.querySelectorAll(".qty-btn.minus");
   const quantityPlusButtons = document.querySelectorAll(".qty-btn.plus");
   const quantityValues = document.querySelectorAll(".qty-value");
+  const totalItemsPriceElement = document.querySelector(".item-total");
+  const itemPrice = document.querySelector(".item-price");
+  let itemTotalPrice = Number(totalItemsPriceElement.dataset.totalPrice);
+  let singleItemPrice = Number(itemPrice.dataset.price);
 
+  //remove from cart
   if (removeFromCartButtons) {
     removeFromCartButtons.forEach((button) => {
       if (!button.dataset.listenerAttached) {
@@ -112,6 +133,7 @@ function addEventListeners() {
     });
   }
 
+  //checkout button
   if (checkoutButton && !checkoutButton.dataset.listenerAttached) {
     checkoutButton.dataset.listenerAttached = "true";
     checkoutButton.addEventListener("click", async () => {
@@ -120,6 +142,7 @@ function addEventListeners() {
     });
   }
 
+  //clear all cart items button
   if (clearCartButton && !clearCartButton.dataset.listenerAttached) {
     clearCartButton.dataset.listenerAttached = "true";
     clearCartButton.addEventListener("click", async () => {
@@ -136,6 +159,7 @@ function addEventListeners() {
     });
   }
 
+  //increase quantity
   if (quantityMinusButtons) {
     quantityMinusButtons.forEach((button, i) => {
       button.addEventListener("click", async (e) => {
@@ -143,6 +167,8 @@ function addEventListeners() {
         let currentQuantity = e.target.closest(".cart-item").dataset.quantity;
         if (cartItemId && currentQuantity && currentQuantity > 1) {
           quantityValues[i].innerText = currentQuantity - 1;
+          totalItemsPriceElement.innerHTML = `$${(itemTotalPrice -= singleItemPrice).toLocaleString()}`;
+
           await editCartItemQuantity(cartItemId, Number(currentQuantity) - 1);
           renderCart();
         } else {
@@ -154,6 +180,7 @@ function addEventListeners() {
     });
   }
 
+  //decrease quantity
   if (quantityPlusButtons) {
     quantityPlusButtons.forEach((button, i) => {
       button.addEventListener("click", async (e) => {
@@ -163,6 +190,7 @@ function addEventListeners() {
         );
         if (cartItemId && currentQuantity) {
           quantityValues[i].innerText = `${currentQuantity + 1}`;
+          totalItemsPriceElement.innerHTML = `$${(itemTotalPrice += singleItemPrice).toLocaleString()}`;
 
           await editCartItemQuantity(cartItemId, currentQuantity + 1);
           renderCart();
@@ -177,74 +205,36 @@ function addEventListeners() {
 }
 
 function displayEmptyCartContainer() {
+  const cartSection = document.querySelector(".cart-items-section");
+  const orderSummary = document.querySelector(".order-summary");
+  if (cartSection) cartSection.style.display = "none";
+  if (orderSummary) orderSummary.style.display = "none";
+
+  updateCartLoadMoreButton(false);
+
   const cartLayout = document.querySelector(".cart-layout");
-  const subtitle = document.querySelector(".cart-page-subtitle");
-
-  if (subtitle) {
-    subtitle.textContent = "0 items in your cart";
-  }
-
-  updateLoadMoreButton(false);
-
-  if (!cartLayout) return;
-
-  cartLayout.innerHTML = `
-    <div class="empty-state">
-      <div class="empty-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-      </div>
-      <h2>Your cart is empty</h2>
-      <p>Start adding products to your cart to see them here.</p>
-      <a href="./shop.html" class="browse-products-btn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-        <span>Browse Products</span>
-      </a>
-    </div>
-  `;
+  renderEmptyState(cartLayout, {
+    iconSvg: EMPTY_CART_ICON,
+    title: "Your cart is empty",
+    description: "Start adding products to your cart to see them here.",
+    subtitleSelector: ".cart-page-subtitle",
+    subtitleText: "0 items in your cart",
+  });
 }
 
-function updateLoadMoreButton(hasMore) {
+function updateCartLoadMoreButton(hasMore) {
   const cartSection = document.querySelector(".cart-items-section");
-  if (!cartSection) return;
+  const continueShopping = cartSection?.querySelector(".continue-shopping");
 
-  let loadMoreSection = cartSection.querySelector(".load-more-section");
-
-  if (hasMore) {
-    if (!loadMoreSection) {
-      loadMoreSection = document.createElement("div");
-      loadMoreSection.className = "load-more-section";
-      loadMoreSection.innerHTML = `
-        <button type="button" class="load-more-btn">Load More</button>
-      `;
-      const continueShopping = cartSection.querySelector(".continue-shopping");
-      if (continueShopping) {
-        cartSection.insertBefore(loadMoreSection, continueShopping);
-      } else {
-        cartSection.appendChild(loadMoreSection);
-      }
-
-      const loadMoreBtn = loadMoreSection.querySelector(".load-more-btn");
-      loadMoreBtn.addEventListener("click", handleLoadMore);
-    }
-  } else if (loadMoreSection) {
-    loadMoreSection.remove();
-  }
+  updateLoadMoreButton({
+    container: cartSection,
+    hasMore,
+    insertBefore: continueShopping,
+    onLoadMore: handleLoadMore,
+  });
 }
 
 async function handleLoadMore() {
-  const loadMoreBtn = document.querySelector(".load-more-btn");
-  if (loadMoreBtn) {
-    loadMoreBtn.disabled = true;
-    loadMoreBtn.textContent = "Loading...";
-  }
-
   currentPage += 1;
   const data = await fetchCart(8, currentPage);
 
@@ -257,10 +247,7 @@ async function handleLoadMore() {
       );
       addEventListeners();
     }
-    updateLoadMoreButton(data.hasMore);
-  } else if (loadMoreBtn) {
-    loadMoreBtn.disabled = false;
-    loadMoreBtn.textContent = "Load More";
+    updateCartLoadMoreButton(data.hasMore);
   }
 }
 
@@ -280,7 +267,7 @@ function renderCartCards(cartItems) {
           <span class="item-brand">${cartItem.product.brand}</span>
           <div class="item-price-mobile">$${cartItem.product.price.toLocaleString()}</div>
         </div>
-        <div class="item-price">$${cartItem.product.price.toLocaleString()}</div>
+        <div data-price="${cartItem.product.price}" class="item-price">$${cartItem.product.price.toLocaleString()}</div>
         <div class="item-quantity">
           <button type="button" class="qty-btn minus" ${isMinusQuantityDisabled}  aria-label="Decrease quantity">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -295,7 +282,7 @@ function renderCartCards(cartItems) {
             </svg>
           </button>
         </div>
-        <div class="item-total">$${cartItem.totalPrice.toLocaleString()}</div>
+        <div data-total-price="${cartItem.totalPrice}" class="item-total">$${cartItem.totalPrice.toLocaleString()}</div>
         <button type="button" class="remove-btn" aria-label="Remove item">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"></line>

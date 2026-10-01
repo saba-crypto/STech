@@ -149,7 +149,7 @@
 .product-info .stock-status {
   margin-bottom: 20px;
 }
-.product-info .stock-status .in-stock {
+.product-info .stock-status .stock-badge {
   display: flex;
   flex-direction: inline-flex;
   justify-content: flex-start;
@@ -159,10 +159,15 @@
   border-radius: 6px;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   font-weight: 600;
-  background-color: rgba(29, 185, 84, 0.1019607843);
+  color: #ffffff;
+}
+.product-info .stock-status .stock-badge.in-stock {
   color: #1db954;
 }
-.product-info .stock-status .in-stock svg {
+.product-info .stock-status .stock-badge.out-of-stock {
+  background-color: rgba(244, 67, 54, 0.5960784314);
+}
+.product-info .stock-status .stock-badge svg {
   width: 16px;
   height: 16px;
   stroke: currentColor;
@@ -212,9 +217,13 @@
   cursor: pointer;
   transition: background-color 0.16s ease, color 0.16s ease;
 }
-.product-info .quantity-selector .quantity-controls .qty-btn:hover {
+.product-info .quantity-selector .quantity-controls .qty-btn:hover:not(:disabled) {
   background-color: #1db954;
   color: #ffffff;
+}
+.product-info .quantity-selector .quantity-controls .qty-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .product-info .quantity-selector .quantity-controls .qty-btn svg {
   width: 16px;
@@ -265,12 +274,16 @@
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-.product-info .action-buttons .btn-add-cart:hover {
+.product-info .action-buttons .btn-add-cart:hover:not(:disabled) {
   background-color: #1db954;
   border-color: #1db954;
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+}
+.product-info .action-buttons .btn-add-cart:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .product-info .action-buttons .btn-add-cart svg {
   width: 20px;
