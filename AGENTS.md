@@ -36,7 +36,8 @@ I don't want you to make any git commits or git push, this job is only for owner
 scss indentations should not exceed 4.
 media queries are only written at the end of the file separately(animations go below media queries).
 
-when writing javascript code, code should be minimal, easy to understand non-complex code that is easy to understand.
+when writing javascript code, code should be minimal, easy to understand non-complex code without any unnecessary functionality.
+try to avoid higher order functions and low level code implementations if not necessary.
 
 [click this link to learn more about styles architecture](./docs/styles.md)
 
