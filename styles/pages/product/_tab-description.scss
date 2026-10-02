@@ -1,0 +1,25 @@
+@use "../../abstracts" as *;
+
+.tab-description {
+  width: 100%;
+  padding: $paddingXL 0;
+
+  .description-content {
+    @include flexbox(column, flex-start, flex-start, $paddingM);
+    width: 100%;
+  }
+
+  .description-title {
+    font-size: $font-sizeL;
+    font-weight: 700;
+    color: $secondary-clr;
+    margin: 0;
+  }
+
+  .description-text {
+    font-size: $font-sizeS;
+    color: $optional-font-clr;
+    line-height: 1.75;
+    margin: 0;
+  }
+}

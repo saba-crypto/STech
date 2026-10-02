@@ -1,0 +1,49 @@
+@use "../../abstracts" as *;
+
+.tab-specifications {
+  width: 100%;
+  padding: $paddingXL 0;
+
+  .specifications-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .specifications-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 1px solid $primary-border-clr;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: $paddingM 0;
+      font-size: $font-sizeS;
+
+      &.spec-label {
+        font-weight: 600;
+        color: $secondary-clr;
+        width: 30%;
+      }
+
+      &.spec-value {
+        color: $optional-font-clr;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .tab-specifications {
+    .specifications-table {
+      td.spec-label {
+        width: 40%;
+      }
+    }
+  }
+}

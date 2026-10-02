@@ -1,0 +1,234 @@
+@use "../../abstracts" as *;
+
+.tab-reviews {
+  width: 100%;
+  padding: $paddingXL 0;
+
+  .auth-prompt {
+    width: 100%;
+    padding: $paddingXL;
+    background-color: $optional-clr;
+    border-radius: $radiusL;
+    text-align: center;
+    margin-bottom: $padding2XL;
+
+    .auth-prompt-text {
+      margin: 0;
+      font-size: $font-sizeS;
+      color: $optional-font-clr;
+    }
+
+    .auth-prompt-link {
+      color: $accent-clr;
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .rating-summary {
+    @include grid(1fr 2fr, auto, $padding2XL);
+    width: 100%;
+    margin-bottom: $paddingXL;
+  }
+
+  .summary-left {
+    @include flexbox(column, center, center, $paddingXS);
+    text-align: center;
+
+    .average-rating {
+      font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+      font-weight: 700;
+      color: $secondary-clr;
+      line-height: 1;
+    }
+
+    .rating-stars {
+      @include flexbox(row, center, center, 4px);
+      color: $product-rating-clr;
+
+      svg {
+        width: 22px;
+        height: 22px;
+        stroke: currentColor;
+        fill: transparent;
+
+        &.filled {
+          fill: currentColor;
+        }
+      }
+    }
+
+    .total-reviews {
+      font-size: $font-sizeXS;
+      color: $optional-font-clr;
+      margin: 0;
+    }
+  }
+
+  .summary-right {
+    @include flexbox(column, center, stretch, $paddingS);
+
+    .rating-bar {
+      @include grid(50px 1fr 40px, auto, $paddingM);
+      align-items: center;
+
+      .star-label {
+        font-size: $font-sizeXS;
+        color: $optional-font-clr;
+        font-weight: 600;
+      }
+
+      .bar-container {
+        height: 8px;
+        background-color: $optional-clr;
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        height: 100%;
+        background-color: $product-rating-clr;
+        border-radius: 9999px;
+        transition: width 0.3s ease;
+
+        &--64 {
+          width: 64%;
+        }
+
+        &--18 {
+          width: 18%;
+        }
+
+        &--9 {
+          width: 9%;
+        }
+
+        &--0 {
+          width: 0%;
+        }
+      }
+
+      .bar-count {
+        font-size: $font-sizeXS;
+        color: $optional-font-clr;
+        text-align: right;
+      }
+    }
+  }
+
+  .review-divider {
+    border: none;
+    border-top: 1px solid $primary-border-clr;
+    margin: $paddingXL 0;
+  }
+
+  .reviews-list {
+    @include flexbox(column, flex-start, stretch, $paddingL);
+    width: 100%;
+  }
+
+  .review-item {
+    padding: $paddingL;
+    background-color: $optional-clr;
+    border-radius: $radiusL;
+    border: 1px solid $primary-border-clr;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: $shadow-card-hover;
+    }
+
+    .review-header {
+      @include flexbox(row, space-between, flex-start, $paddingM);
+    }
+
+    .reviewer-info {
+      @include flexbox(row, flex-start, center, $paddingM);
+    }
+
+    .reviewer-avatar {
+      @include flexbox(row, center, center);
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      background-color: $accent-clr;
+      color: $secondary-font-clr;
+      font-size: $font-sizeM;
+      font-weight: 700;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .reviewer-details {
+      @include flexbox(column, flex-start, flex-start, 2px);
+
+      .reviewer-name {
+        font-size: $font-sizeS;
+        font-weight: 600;
+        color: $secondary-clr;
+        margin: 0;
+      }
+
+      .review-date {
+        font-size: $font-sizeXS;
+        color: $faded-font-clr;
+      }
+    }
+
+    .review-header-right {
+      @include flexbox(row, flex-end, center, $paddingS);
+
+      .rating-stars {
+        @include flexbox(row, flex-start, center, 2px);
+        color: $product-rating-clr;
+
+        svg {
+          width: 16px;
+          height: 16px;
+          stroke: currentColor;
+          fill: transparent;
+
+          &.filled {
+            fill: currentColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointM) {
+  .tab-reviews {
+    .rating-summary {
+      @include grid(1fr, auto, $paddingXL);
+    }
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .tab-reviews {
+    .review-item {
+      .review-header {
+        @include flexbox(column, flex-start, flex-start, $paddingS);
+      }
+    }
+
+    .summary-right {
+      .rating-bar {
+        @include grid(40px 1fr 30px, auto, $paddingS);
+      }
+    }
+  }
+}

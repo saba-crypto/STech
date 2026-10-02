@@ -7,14 +7,6 @@
     width: min(100% - 3.5rem, 70.8rem);
     padding: $paddingXL 0;
   }
-
-  .section-content {
-    width: 100%;
-  }
-
-  .content-panel {
-    width: 100%;
-  }
 }
 
 .details-tabs {
@@ -31,7 +23,7 @@
   background-color: transparent;
   border: none;
   font-family: $primary-font, "Segoe UI", sans-serif;
-  font-size: $font-sizeS;
+  font-size: $font-sizeM;
   font-weight: 600;
   color: $optional-font-clr;
   cursor: pointer;

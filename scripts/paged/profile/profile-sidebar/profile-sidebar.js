@@ -5,8 +5,10 @@ export function renderProfileSidebar(user) {
     window.location.hash.replace("#", "") ||
     sessionStorage.getItem("currentProfilePage") ||
     "profile";
-  const userFirstLetterName = (user.firstName || "U").charAt(0);
-  const userLastLetterName = (user.lastName || "").charAt(0);
+
+  const userFirstLetterName = user.firstName.charAt(0);
+  const userLastLetterName = user.lastName.charAt(0);
+
   const profileSidebar = document.querySelector(".profile-sidebar");
 
   if (profileSidebar) {
@@ -82,22 +84,16 @@ export function renderProfileSidebar(user) {
           <span>Logout</span>
         </button>
       </nav>`;
-    addSidebarNavigationControllers();
-    const logoutButton = document.querySelector(".logout");
-    if (logoutButton) {
-      logoutButton.addEventListener("click", () => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        window.location.href = "../index.html";
-      });
-    }
+    addSidebarEventListeners();
   }
 }
 
-function addSidebarNavigationControllers() {
+function addSidebarEventListeners() {
   const navItems = document.querySelectorAll(
     ".profile-nav .nav-item[data-page]",
   );
+  const logoutButton = document.querySelector(".logout");
+
   navItems.forEach((item) => {
     const page = item.dataset.page;
     item.addEventListener("click", (e) => {
@@ -105,4 +101,11 @@ function addSidebarNavigationControllers() {
       switchTab(page);
     });
   });
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      window.location.href = "../index.html";
+    });
+  }
 }

@@ -34,6 +34,10 @@ async function renderHeader() {
   if (user) {
     firstNameLetter = user.data.firstName.charAt(0);
     lastNameLetter = user.data.lastName.charAt(0);
+    sessionStorage.setItem(
+      "userProfilePicture",
+      `${user.data.details.pictureUrl}`,
+    );
   }
 
   if (headerElement) {
@@ -356,6 +360,8 @@ function addHeaderButtonControllers() {
 
 //used for initial render when page loads to avoid header flickering.
 function renderStaticHeader() {
+  const userProfilePicture = sessionStorage.getItem("userProfilePicture");
+
   headerElement.innerHTML = `
       <div class="header-container">
         <div class="header-content">
@@ -493,7 +499,7 @@ function renderStaticHeader() {
               </svg>
             </button>
             <div class="user-btn">
-              <img class="user-avatar" aria-hidden="true" src="" alt="Loading"/>
+              <img class="user-avatar" aria-hidden="true" src="${userProfilePicture || ""}" alt="Loading"/>
             </div>
           
             
