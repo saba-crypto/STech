@@ -49,7 +49,7 @@ export async function addToCart(productId, quantity) {
       return;
     }
 
-    if (!productId || !quantity > 0) {
+    if (!productId || quantity <= 0) {
       throw new Error(
         "couldn't add product to cart, productId or quantity is not valid",
       );

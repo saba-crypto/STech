@@ -3,7 +3,8 @@ import {
   removeFromCart,
   editCartItemQuantity,
 } from "../../../data/cart.js";
-import { checkout } from "../../../data/checkout.js";
+
+import { checkout } from "../../../data/user.js";
 import { showPopup } from "../../../utils/showPopup.js";
 import {
   renderEmptyState,
