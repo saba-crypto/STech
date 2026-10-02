@@ -150,6 +150,40 @@ export async function resendEmailVerification(email) {
   }
 }
 
-export async function forgetPassword() {}
+export async function forgetPassword(email) {
+  try {
+    if (!email) {
+      throw new Error(
+        "Unexpected Error occurred while trying to to send a password reset link, provided email for forgetPassword function is not found.",
+      );
+    }
+
+    const response = await fetch(
+      `https://shopapi.stepacademy.ge/api/auth/forget-password/${email}`,
+      {
+        method: "POST",
+        headers: {
+          "X-API-KEY": API_KEY,
+        },
+      },
+    );
+    const result = await response.json();
+    if (!response.ok) {
+      if (Object.keys(result.errors).length <= 0) {
+        showPopup(
+          result.detail || "Verification Failed, Please try Again Later.",
+        );
+      } else {
+        displayErrorPopups(result.errors);
+      }
+      throw new Error(
+        `Error occurred while trying to resend email verification, error message: ${result.detail || result.title || "unknown error"}`,
+      );
+    }
+    return result;
+  } catch (err) {
+    console.error(err.message);
+  }
+}
 
 export async function resetPassword() {}
