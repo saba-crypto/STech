@@ -1,7 +1,7 @@
 import "../../shared/header.js";
 import { fetchProduct } from "../../data/product.js";
 import { renderMainProductInfo } from "./mainProductInfo.js";
-
+import { renderReviews } from "./reviews.js";
 import { fetchProductReviews } from "../../data/productReviews.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -16,6 +16,7 @@ async function renderProductsPage(productId) {
   const productReviewsData = await fetchProductReviews(productId);
   renderMainProductInfo(productData, productReviewsData);
   handleTabNavigation();
+  await renderReviews(productId);
 }
 
 renderProductsPage(productId);
