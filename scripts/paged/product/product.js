@@ -10,15 +10,17 @@ const productId = params.get("id");
 const panels = document.querySelectorAll(".content-panel");
 let currentTab = window.location.hash.replace("#", "") || "description";
 
-switchTab(currentTab);
+
 async function renderProductsPage(productId) {
   const productData = await fetchProduct(productId);
   const productReviewsData = await fetchProductReviews(productId);
+  document.title = `STeck | ${productData.name}`
   renderMainProductInfo(productData, productReviewsData);
   handleTabNavigation();
-  await renderReviews(productId);
+  await renderReviews(productId, productReviewsData);
 }
 
+switchTab(currentTab);
 renderProductsPage(productId);
 renderCorrectTab();
 
@@ -52,6 +54,7 @@ window.addEventListener("hashchange", () => {
 });
 
 const tabButtons = document.querySelectorAll(".details-tab-btn");
+updateTabsNavigation();
 
 function handleTabNavigation() {
   if (tabButtons) {
@@ -65,7 +68,6 @@ function handleTabNavigation() {
     });
   }
 }
-updateTabsNavigation();
 
 function updateTabsNavigation() {
   const currentTab = window.location.hash.replace("#", "");

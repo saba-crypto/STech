@@ -5,6 +5,7 @@
   padding: $paddingXL 0;
 
   .auth-prompt {
+    @include flexbox(row, flex-end, center);
     width: 100%;
     padding: $paddingXL;
     background-color: $optional-clr;
@@ -16,6 +17,19 @@
       margin: 0;
       font-size: $font-sizeS;
       color: $optional-font-clr;
+    }
+    .write-review-btn {
+      @include flexbox(row, center, center, 5px);
+      background-color: $accent-clr;
+      color: $secondary-font-clr;
+      border-radius: $radiusL;
+      border: none;
+      padding: $paddingXS $paddingL;
+      cursor: pointer;
+      transition-duration: 0.2s;
+      &:hover {
+        opacity: 0.7;
+      }
     }
 
     .auth-prompt-link {
@@ -128,6 +142,17 @@
     &:hover {
       box-shadow: $shadow-card-hover;
     }
+    &.my-review {
+      border: $accent-clr 1px solid;
+      background-color: $faded-accent-clr;
+      .badge {
+        background-color: $accent-clr;
+        color: $secondary-font-clr;
+        padding: $paddingXS $paddingM;
+        border-radius: $radiusL;
+        font-size: $font-sizeXXS
+      }
+    }
 
     .review-header {
       @include flexbox(row, space-between, flex-start, $paddingM);
@@ -174,7 +199,7 @@
     }
 
     .review-header-right {
-      @include flexbox(row, flex-end, center, $paddingS);
+      @include flexbox(column, flex-end, flex-end, $paddingS);
 
       .rating-stars {
         @include flexbox(row, flex-start, center, 2px);
@@ -192,6 +217,31 @@
         }
       }
     }
+
+    .review-actions {
+      @include flexbox(row, flex-end, center, $paddingXS);
+    }
+
+    .delete-review-btn {
+      @include flexbox(row, center, center);
+      background: transparent;
+      border: none;
+      color: $optional-font-clr;
+      cursor: pointer;
+      padding: $paddingXXS;
+      border-radius: $radiusM;
+      transition: color 0.15s ease;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+      }
+
+      &:hover {
+        color: $error-clr;
+      }
+    }
   }
 }
 
@@ -205,6 +255,11 @@
 
 @media (max-width: $breakpointS) {
   .tab-reviews {
+    .auth-prompt {
+      .write-review-btn {
+        width: 100%;
+      }
+    }
     .review-item {
       .review-header {
         @include flexbox(column, flex-start, flex-start, $paddingS);

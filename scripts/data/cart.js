@@ -60,8 +60,6 @@ export async function addToCart(productId, quantity) {
         method: "POST",
         headers: {
           "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
         },
         body: JSON.stringify({ productId: productId, quantity: quantity }),
       },

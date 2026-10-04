@@ -1,0 +1,187 @@
+@use "../../abstracts" as *;
+
+.modal-open {
+  overflow: hidden;
+}
+
+.review-modal-backdrop {
+  @include flexbox(row, center, center);
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: $paddingM;
+  background-color: rgba($primary-font-clr, 0.5);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.review-modal-card {
+  width: 100%;
+  max-width: 580px;
+  background-color: $background-clr;
+  border-radius: $radiusL;
+  box-shadow: $shadow-card-hover;
+  animation: reviewModalFadeIn 0.2s ease-out;
+  overflow: hidden;
+}
+
+.review-modal-header {
+  @include flexbox(row, space-between, center);
+  padding: $paddingL $paddingXL;
+  border-bottom: 1px solid $primary-border-clr;
+
+  .review-modal-title {
+    margin: 0;
+    font-size: $font-sizeM;
+    font-weight: 700;
+    color: $secondary-clr;
+  }
+
+  .review-modal-close {
+    @include flexbox(row, center, center);
+    background: transparent;
+    border: none;
+    padding: $paddingXS;
+    color: $optional-font-clr;
+    border-radius: $radiusM;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+      color: $secondary-clr;
+      background-color: $optional-clr;
+    }
+  }
+}
+
+.review-modal-form {
+  @include flexbox(column, flex-start, stretch, $paddingXL);
+  padding: $paddingXL;
+}
+
+.review-form-group {
+  @include flexbox(column, flex-start, stretch, $paddingS);
+
+  .review-form-label {
+    font-size: $font-sizeS;
+    font-weight: 600;
+    color: $secondary-clr;
+
+    .required-indicator {
+      color: $error-clr;
+      margin-left: 2px;
+    }
+  }
+
+  .rating-feedback-text {
+    font-size: $font-sizeXS;
+    color: $optional-font-clr;
+    min-height: 18px;
+  }
+}
+
+.review-rating-stars {
+  @include flexbox(row, flex-start, center, 8px);
+}
+
+.rating-star-btn {
+  @include flexbox(row, center, center);
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: $product-rating-clr;
+  border-radius: $radiusM;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  svg {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: transparent;
+    transition: fill 0.15s ease;
+
+    &.filled {
+      fill: currentColor;
+    }
+  }
+}
+
+.review-modal-actions {
+  @include flexbox(row, flex-end, center, $paddingM);
+
+  .review-btn-cancel {
+    @include flexbox(row, center, center);
+    padding: $paddingS $paddingXL;
+    border: 1px solid $primary-border-clr;
+    border-radius: $radiusL;
+    background-color: transparent;
+    color: $optional-font-clr;
+    font-size: $font-sizeXS;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      color: $secondary-clr;
+      border-color: $secondary-clr;
+      background-color: $optional-clr;
+    }
+  }
+
+  .review-btn-submit {
+    @include flexbox(row, center, center);
+    padding: $paddingS $paddingXL;
+    border: 1px solid transparent;
+    border-radius: $radiusL;
+    background-color: $accent-clr;
+    color: $secondary-font-clr;
+    font-size: $font-sizeXS;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .review-modal-card {
+    width: 95vw;
+  }
+
+  .review-modal-actions {
+    @include flexbox(column-reverse, stretch, stretch, $paddingS);
+
+    .review-btn-cancel,
+    .review-btn-submit {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes reviewModalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

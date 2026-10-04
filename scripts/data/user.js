@@ -25,10 +25,12 @@ export async function fetchUser() {
       return null;
     }
 
-    const user = await response.json();
-    return user;
+    const result = await response.json();
+    sessionStorage.setItem('userId', result.data.id);
+
+    return result;
   } catch (error) {
-    console.error("Failed to fetch user:", error);
+    console.error("Failed to fetch user:", error.message);
     return null;
   }
 }
@@ -116,6 +118,8 @@ export async function deleteUser() {
         `Error occurred while trying to delete user account, error message: ${result.detail || result.title || "unknown error"}`,
       );
     }
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     showSuccessPopup("Account was Deleted Successfully!");
   } catch (err) {
     console.error(err.message);
