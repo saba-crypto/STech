@@ -1,4 +1,4 @@
-export async function renderSpecifications(product) {
+export function renderSpecifications(product) {
   const specTableBody = document.querySelector('.specifications-table-body');
   if (specTableBody) {
     let html = ``

@@ -123,8 +123,8 @@ function renderRatingSummary(ratingInfo) {
 
   ratingSummary.innerHTML = `
     <div class="summary-left">
-      <div class="average-rating">${averageRating}</div>
-      <div class="rating-stars" aria-label="Average rating: ${averageRating} out of 5 stars">
+      <div class="average-rating">${averageRating || 0}</div>
+      <div class="rating-stars" aria-label="Average rating: ${averageRating || 0} out of 5 stars">
         ${renderStars(averageRating)} 
       </div>
       <p class="total-reviews">Based on ${ratingInfo.totalCount} reviews</p>
