@@ -3,6 +3,7 @@ import { fetchProduct } from "../../data/product.js";
 import { renderMainProductInfo } from "./mainProductInfo.js";
 import { renderReviews } from "./reviews.js";
 import { fetchProductReviews } from "../../data/productReviews.js";
+import { renderSpecifications } from "./specifications.js";
 
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
@@ -18,6 +19,7 @@ async function renderProductsPage(productId) {
   renderMainProductInfo(productData, productReviewsData);
   handleTabNavigation();
   await renderReviews(productId, productReviewsData);
+  await renderSpecifications(productData);
 }
 
 switchTab(currentTab);
