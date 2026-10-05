@@ -1,5 +1,6 @@
-import { showPopup, showSuccessPopup } from "../utils/showPopup.js";
+import { showSuccessPopup } from "../utils/showPopup.js";
 import { API_KEY } from "./secret.js";
+import { apiRequest } from "./apiClient.js";
 
 export async function login(email, password) {
   if (!email || !password) {
@@ -7,37 +8,24 @@ export async function login(email, password) {
       "Error Occurred while trying to login, email or/and password provided for login function are invalid",
     );
   }
-  const response = await fetch(
-    "https://shopapi.stepacademy.ge/api/auth/login",
-    {
-      method: "POST",
-      headers: {
-        "X-API-KEY": API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    },
-  );
-  const result = await response.json();
 
-  if (!response.ok) {
-    if (Object.keys(result.errors).length <= 0) {
-      showPopup(
-        result.detail || "Registration Failed, Please try Again Later.",
-      );
-    } else {
-      displayErrorPopups(result.errors);
-    }
-    throw new Error(
-      `Error occurred while trying to Login, error message: ${result.detail || result.title || "unknown error"}`,
-    );
-  }
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+
+  const result = await apiRequest("/auth/login", {
+    method: "POST",
+    body: { email, password },
+  });
+
   showSuccessPopup("Login Successful!");
   localStorage.setItem("accessToken", result.data.accessToken);
   localStorage.setItem("refreshToken", result.data.refreshToken);
+
   setTimeout(() => {
     window.location.href = "../index.html";
   }, 700);
+
+  return result;
 }
 
 export async function register(userDetails) {
@@ -46,35 +34,12 @@ export async function register(userDetails) {
       throw new Error("user details provided for register are not valid.");
     }
 
-    const response = await fetch(
-      "https://shopapi.stepacademy.ge/api/auth/register",
-      {
-        method: "POST",
-        headers: {
-          "X-API-KEY": API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userDetails),
-      },
-    );
-    const result = await response.json();
-
-    if (!response.ok) {
-      if (Object.keys(result.errors).length <= 0) {
-        showPopup(
-          result.detail || "Registration Failed, Please try Again Later.",
-        );
-      } else {
-        displayErrorPopups(result.errors);
-      }
-      throw new Error(
-        `Error occurred while trying to Login, error message: ${result.detail || result.title || "unknown error"}`,
-      );
-    }
-
-    return result;
+    return await apiRequest("/auth/register", {
+      method: "POST",
+      body: userDetails,
+    });
   } catch (err) {
-    console.error(err);
+    console.error(err.message || err);
   }
 }
 
@@ -84,34 +49,12 @@ export async function verifyEmail(verificationData) {
       throw new Error("user details provided for verifyEmail are not valid.");
     }
 
-    const response = await fetch(
-      "https://shopapi.stepacademy.ge/api/auth/verify-email",
-      {
-        method: "PUT",
-        headers: {
-          "X-API-KEY": API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(verificationData),
-      },
-    );
-    const result = await response.json();
-
-    if (!response.ok) {
-      if (Object.keys(result.errors).length <= 0) {
-        showPopup(
-          result.detail || "Verification Failed, Please try Again Later.",
-        );
-      } else {
-        displayErrorPopups(result.errors);
-      }
-      throw new Error(
-        `Error occurred while trying to Login, error message: ${result.detail || result.title || "unknown error"}`,
-      );
-    }
-    return result;
+    return await apiRequest("/auth/verify-email", {
+      method: "PUT",
+      body: verificationData,
+    });
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
 
@@ -123,30 +66,11 @@ export async function resendEmailVerification(email) {
       );
     }
 
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/auth/resend-email-verification/${email}`,
-      {
-        method: "POST",
-        headers: {
-          "X-API-KEY": API_KEY,
-        },
-      },
-    );
-    if (!response.ok) {
-      if (Object.keys(result.errors).length <= 0) {
-        showPopup(
-          result.detail || "Verification Failed, Please try Again Later.",
-        );
-      } else {
-        displayErrorPopups(result.errors);
-      }
-      throw new Error(
-        `Error occurred while trying to resend email verification, error message: ${result.detail || result.title || "unknown error"}`,
-      );
-    }
-    return result;
+    return await apiRequest(`/auth/resend-email-verification/${email}`, {
+      method: "POST",
+    });
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
 
@@ -154,14 +78,28 @@ export async function forgetPassword(email) {
   try {
     if (!email) {
       throw new Error(
-        "Unexpected Error occurred while trying to to send a password reset link, provided email for forgetPassword function is not found.",
+        "Unexpected Error occurred while trying to send a password reset link, provided email for forgetPassword function is not found.",
       );
     }
 
+    return await apiRequest(`/auth/forget-password/${email}`, {
+      method: "POST",
+    });
+  } catch (err) {
+    console.error(err.message || err);
+  }
+}
+
+export async function refreshAccessToken(token) {
+  try {
+    if (!token) {
+      throw new Error(
+        "refresh token was not provided for refreshAccessToken function",
+      );
+    }
     const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/auth/forget-password/${email}`,
+      `https://shopapi.stepacademy.ge/api/auth/refresh-access-token/${token}`,
       {
-        method: "POST",
         headers: {
           "X-API-KEY": API_KEY,
         },
@@ -169,21 +107,17 @@ export async function forgetPassword(email) {
     );
     const result = await response.json();
     if (!response.ok) {
-      if (Object.keys(result.errors).length <= 0) {
-        showPopup(
+      if (!result.errors || Object.keys(result.errors).length <= 0) {
+        throw new Error(
           result.detail || "Verification Failed, Please try Again Later.",
         );
       } else {
-        displayErrorPopups(result.errors);
+        throw new Error(JSON.stringify(result.errors));
       }
-      throw new Error(
-        `Error occurred while trying to resend email verification, error message: ${result.detail || result.title || "unknown error"}`,
-      );
     }
-    return result;
+    return result.data;
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
+    return null;
   }
 }
-
-export async function resetPassword() {}

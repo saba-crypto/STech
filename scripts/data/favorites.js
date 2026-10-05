@@ -1,105 +1,67 @@
-import { API_KEY } from "./secret.js";
 import { fetchUser } from "./user.js";
-import { showPopup } from "../utils/showPopup.js";
+import { apiRequest } from "./apiClient.js";
+
+function getLoginUrl() {
+  const isPagesDir = window.location.pathname.includes("/pages/");
+  return isPagesDir ? "./login.html" : "./pages/login.html";
+}
+
+async function ensureAuthenticated() {
+  const accessToken = localStorage.getItem("accessToken");
+  const user = await fetchUser();
+  if (!accessToken || !user) {
+    window.location.href = getLoginUrl();
+    return false;
+  }
+  return true;
+}
 
 export async function fetchFavorites(take = 8, page = 1) {
   try {
-    const isPagesDir = window.location.pathname.includes("/pages/");
-    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
-    const accessToken = localStorage.getItem("accessToken");
+    const isAuthed = await ensureAuthenticated();
+    if (!isAuthed) return;
 
-    const userResult = await fetchUser();
-    if (!accessToken || !userResult) {
-      window.location.href = loginUrl;
-    }
-
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/favorites?Take=${take}&Page=${page}`,
-      {
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    if (!response.ok) {
-      throw new Error(`unable to fetch favorites.`);
-    }
-    const result = await response.json();
-    return result.data;
+    const result = await apiRequest(`/favorites?Take=${take}&Page=${page}`);
+    return result ? result.data : null;
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
 
 export async function addToFavorites(productId) {
   try {
-    const isPagesDir = window.location.pathname.includes("/pages/");
-    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
+    const isAuthed = await ensureAuthenticated();
+    if (!isAuthed) return;
 
-    const accessToken = localStorage.getItem("accessToken");
     if (!productId) {
       console.error(
         "productId was not provided for the request when trying to add to favorites",
       );
-    }
-    if (!accessToken) {
-      window.location.href = loginUrl;
       return;
     }
 
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/favorites/${productId}`,
-      {
-        method: "POST",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    if (!response.ok) {
-      const result = await response.json();
-      showPopup(result.detail);
-    }
+    await apiRequest(`/favorites/${productId}`, {
+      method: "POST",
+    });
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
 
 export async function removeFromFavorites(productId) {
   try {
-    const isPagesDir = window.location.pathname.includes("/pages/");
-    const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
+    const isAuthed = await ensureAuthenticated();
+    if (!isAuthed) return;
 
-    const accessToken = localStorage.getItem("accessToken");
-    const userResponse = await fetchUser();
-
-    if (!accessToken || !userResponse) {
-      window.location.href = loginUrl;
-      return;
-    }
     if (!productId) {
       throw new Error(
         "productId is undefined, failed to remove favorite product",
       );
     }
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/favorites/${productId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
 
-    if (!response.ok) {
-      const result = await response.json();
-      showPopup(result.detail || result.title);
-      throw new Error(result.detail || result.title);
-    }
+    await apiRequest(`/favorites/${productId}`, {
+      method: "DELETE",
+    });
   } catch (err) {
     console.error(err.message || err);
   }

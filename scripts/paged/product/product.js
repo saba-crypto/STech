@@ -2,7 +2,7 @@ import "../../shared/header.js";
 import { fetchProduct } from "../../data/product.js";
 import { renderMainProductInfo } from "./mainProductInfo.js";
 import { renderReviews } from "./reviews.js";
-import { fetchProductReviews } from "../../data/productReviews.js";
+import { fetchProductReviews } from "../../data/reviews.js";
 import { renderSpecifications } from "./specifications.js";
 import { renderDescription } from "./description.js";
 

@@ -1,36 +1,23 @@
-import { displayErrorPopups } from "../utils/displayErrors.js";
-import { showPopup, showSuccessPopup } from "../utils/showPopup.js";
-import { API_KEY } from "./secret.js";
+import { showSuccessPopup } from "../utils/showPopup.js";
+import { apiRequest } from "./apiClient.js";
 
+// Used for fetching current user profile and session validation
 export async function fetchUser() {
   const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
 
-  if (!accessToken) {
+  if (!accessToken && !refreshToken) {
     return null;
   }
 
   try {
-    const response = await fetch(
-      "https://shopapi.stepacademy.ge/api/users/me",
-      {
-        method: "GET",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      return null;
+    const result = await apiRequest("/users/me");
+    if (result && result.data) {
+      sessionStorage.setItem("userId", result.data.id);
     }
-
-    const result = await response.json();
-    sessionStorage.setItem('userId', result.data.id);
-
     return result;
   } catch (error) {
-    console.error("Failed to fetch user:", error.message);
+    console.error("Failed to fetch user:", error.message || error);
     return null;
   }
 }
@@ -42,87 +29,34 @@ export async function updateUserPassword(currentPassword, newPassword) {
         "Couldn't change user password, currentPassword or/and newPassword is undefined in updateUserPassword function",
       );
     }
-    const accessToken = localStorage.getItem("accessToken");
 
-    if (!accessToken) {
-      return null;
-    }
-    const userResponse = await fetchUser();
-    if (!userResponse) {
-      return null;
-    }
-
-    const response = await fetch(
-      "https://shopapi.stepacademy.ge/api/users/change-password",
-      {
-        method: "PUT",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          currentPassword: currentPassword,
-          newPassword: newPassword,
-        }),
+    const result = await apiRequest("/users/change-password", {
+      method: "PUT",
+      body: {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
       },
-    );
-    const result = await response.json();
-    if (!response.ok) {
-      if (Object.keys(result.errors).length <= 0) {
-        showPopup(result.detail || "Unexpected Error");
-      } else {
-        displayErrorPopups(result.errors);
-      }
-      throw new Error(
-        `Error occurred while trying to change user password, error message: ${result.detail || result.title || "unknown error"}`,
-      );
-    }
+    });
+
     showSuccessPopup("Password was Changed Successfully!");
     return result;
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
 
 export async function deleteUser() {
   try {
-    const accessToken = localStorage.getItem("accessToken");
+    const result = await apiRequest("/users/delete-profile", {
+      method: "DELETE",
+    });
 
-    if (!accessToken) {
-      return null;
-    }
-    const userResponse = await fetchUser();
-    if (!userResponse) {
-      return null;
-    }
-
-    const response = await fetch(
-      "https://shopapi.stepacademy.ge/api/users/delete-profile",
-      {
-        method: "DELETE",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    const result = await response.json();
-    if (!response.ok) {
-      if (Object.keys(result.errors).length <= 0) {
-        showPopup(result.detail);
-      } else {
-        displayErrorPopups(result.errors);
-      }
-      throw new Error(
-        `Error occurred while trying to delete user account, error message: ${result.detail || result.title || "unknown error"}`,
-      );
-    }
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     showSuccessPopup("Account was Deleted Successfully!");
+    return result;
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
 
@@ -132,31 +66,18 @@ export async function checkout() {
     const loginUrl = isPagesDir ? "./login.html" : "./pages/login.html";
 
     const accessToken = localStorage.getItem("accessToken");
-
     if (!accessToken) {
       window.location.href = loginUrl;
       return;
     }
-    const response = await fetch(
-      `https://shopapi.stepacademy.ge/api/users/checkout`,
-      {
-        method: "POST",
-        headers: {
-          "X-API-KEY": API_KEY,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    if (!response.ok) {
-      const result = await response.json();
-      showPopup(result.detail || "Checkout Unsuccessful");
-      throw new Error(
-        `Unexpected error occurred while trying to do checkout, error message: ${result.detail}`,
-      );
-    }
-    const result = await response.json();
-    showSuccessPopup(result.message);
+
+    const result = await apiRequest("/users/checkout", {
+      method: "POST",
+    });
+
+    showSuccessPopup(result.message || "Checkout Successful");
+    return result;
   } catch (err) {
-    console.error(err.message);
+    console.error(err.message || err);
   }
 }
