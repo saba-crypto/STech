@@ -1,0 +1,260 @@
+@use "../abstracts" as *;
+
+.chatbot-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
+
+.chatbot-trigger {
+  @include flexbox(row, center, center);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: $accent-clr;
+  color: $secondary-font-clr;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(29, 185, 84, 0.4);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent-clr;
+    outline-offset: 3px;
+  }
+
+  svg {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    fill: none;
+  }
+}
+
+.chatbot-window {
+  @include flexbox(column, space-between, stretch);
+  position: fixed;
+  bottom: 92px;
+  right: 24px;
+  width: 360px;
+  height: 480px;
+  max-height: calc(100vh - 120px);
+  background-color: $background-clr;
+  border: 1px solid $primary-border-clr;
+  border-radius: $radiusXL;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.96);
+  pointer-events: none;
+  transition:
+    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+}
+
+.chatbot-header {
+  @include flexbox(row, space-between, center);
+  padding: $paddingM $paddingL;
+  background-color: $primary-clr;
+  border-bottom: 1px solid $primary-border-clr;
+
+  .chatbot-title-group {
+    @include flexbox(row, flex-start, center, 8px);
+
+    .chatbot-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: $accent-clr;
+      box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+    }
+
+    .chatbot-title {
+      font-size: $font-sizeS;
+      font-weight: 700;
+      color: $primary-font-clr;
+    }
+  }
+
+  .chatbot-close-btn {
+    @include flexbox(row, center, center);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $optional-font-clr;
+    padding: 4px;
+    border-radius: $radiusM;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+
+    &:hover {
+      color: $primary-font-clr;
+      background-color: $optional-clr;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $accent-clr;
+      outline-offset: 1px;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+    }
+  }
+}
+
+.chatbot-messages {
+  @include flexbox(column, flex-start, stretch, 12px);
+  flex: 1;
+  padding: $paddingL;
+  overflow-y: auto;
+  background-color: $background-clr;
+
+  .chat-message {
+    @include flexbox(column, flex-start, flex-start, 4px);
+    max-width: 84%;
+
+    .chat-bubble {
+      padding: 10px 14px;
+      border-radius: $radiusL;
+      font-size: $font-sizeXS;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .chat-time {
+      font-size: $font-sizeXXS;
+      color: $faded-font-clr;
+    }
+
+    &.bot-message {
+      align-self: flex-start;
+
+      .chat-bubble {
+        background-color: $optional-clr;
+        color: $primary-font-clr;
+        border-bottom-left-radius: 2px;
+      }
+    }
+
+    &.user-message {
+      align-self: flex-end;
+      align-items: flex-end;
+
+      .chat-bubble {
+        background-color: $accent-clr;
+        color: $secondary-font-clr;
+        border-bottom-right-radius: 2px;
+      }
+    }
+  }
+}
+
+.chatbot-footer {
+  padding: $paddingM $paddingL;
+  border-top: 1px solid $primary-border-clr;
+  background-color: $primary-clr;
+
+  .chatbot-input-form {
+    @include flexbox(row, space-between, center, 8px);
+    width: 100%;
+
+    .chatbot-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid $primary-border-clr;
+      border-radius: $radiusM;
+      font-size: $font-sizeXS;
+      background-color: $optional-clr;
+      color: $primary-font-clr;
+      transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $accent-clr;
+        background-color: $background-clr;
+      }
+
+      &::placeholder {
+        color: $faded-font-clr;
+      }
+    }
+
+    .chatbot-send-btn {
+      @include flexbox(row, center, center);
+      width: 38px;
+      height: 38px;
+      border-radius: $radiusM;
+      border: none;
+      background-color: $accent-clr;
+      color: $secondary-font-clr;
+      cursor: pointer;
+      transition:
+        transform 0.15s ease,
+        background-color 0.15s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      &:focus-visible {
+        outline: 2px solid $accent-clr;
+        outline-offset: 1px;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+        fill: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpointS) {
+  .chatbot-widget {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .chatbot-window {
+    right: 12px;
+    bottom: 84px;
+    width: calc(100vw - 24px);
+    height: min(480px, calc(100vh - 100px));
+  }
+}

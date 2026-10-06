@@ -1,5 +1,6 @@
 import "./filters.js";
 import "../../shared/header.js";
+import "../../shared/chatbot.js";
 import { API_KEY } from "../../data/secret.js";
 import { filterState } from "../../data/filterData.js";
 import { buildFilteredUrl } from "../../utils/buildFilteredUrl.js";

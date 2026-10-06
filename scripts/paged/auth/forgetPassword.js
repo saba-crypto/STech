@@ -1,5 +1,6 @@
 import { forgetPassword } from "../../data/authentication.js";
 import { showSuccessPopup } from "../../utils/showPopup.js";
+import "../../shared/chatbot.js";
 
 const form = document.querySelector(".forgot-password-form");
 

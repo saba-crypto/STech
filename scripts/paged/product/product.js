@@ -1,4 +1,5 @@
 import "../../shared/header.js";
+import "../../shared/chatbot.js";
 import { fetchProduct } from "../../data/product.js";
 import { renderMainProductInfo } from "./mainProductInfo.js";
 import { renderReviews } from "./reviews.js";

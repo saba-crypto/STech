@@ -3,6 +3,7 @@ import {
   resendEmailVerification,
 } from "../../data/authentication.js";
 import { showSuccessPopup } from "../../utils/showPopup.js";
+import "../../shared/chatbot.js";
 
 const form = document.querySelector(".verification-form");
 const resendButton = document.querySelector(".resend-button");

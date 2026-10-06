@@ -1,4 +1,5 @@
 import { register } from "../../data/authentication.js";
+import "../../shared/chatbot.js";
 
 const form = document.querySelector(".register-form");
 

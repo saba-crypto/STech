@@ -1,4 +1,5 @@
 import "../../shared/header.js";
+import "../../shared/chatbot.js";
 import { fetchUser } from "../../data/user.js";
 import { renderProfileSidebar } from "./profile-sidebar/profile-sidebar.js";
 import { renderMyProfile } from "./profile-content/myProfile.js";

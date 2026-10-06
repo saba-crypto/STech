@@ -1,4 +1,5 @@
 import { login } from "../../data/authentication.js";
+import "../../shared/chatbot.js";
 
 const form = document.querySelector(".login-form");
 
