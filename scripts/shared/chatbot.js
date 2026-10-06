@@ -1,6 +1,9 @@
 // Chatbot component - site-wide floating AI Assistant widget
-
+import { steckAi } from "../data/AI.js";
+import { formatChatMessageDate } from "../utils/formatDate.js";
+import { showPopup } from "../utils/showPopup.js";
 function renderChatbotHtml() {
+  const messageHistory = steckAi.getMessageHistory();
   return `
     <div class="chatbot-widget">
       <div
@@ -37,27 +40,10 @@ function renderChatbotHtml() {
           </button>
         </div>
 
+        
         <div class="chatbot-messages" role="log" aria-live="polite">
-          <div class="chat-message bot-message">
-            <div class="chat-bubble">
-              Hello! 👋 I'm STech's AI Assistant. How can I help you find the right tech products today?
-            </div>
-            <span class="chat-time">Just now</span>
-          </div>
-
-          <div class="chat-message user-message">
-            <div class="chat-bubble">
-              Can you recommend a good Wi-Fi router for gaming?
-            </div>
-            <span class="chat-time">Just now</span>
-          </div>
-
-          <div class="chat-message bot-message">
-            <div class="chat-bubble">
-              Sure! Check out the Netgear Nighthawk RS700S or TP-Link Deco series in our Networking category for ultra-low latency.
-            </div>
-            <span class="chat-time">Just now</span>
-          </div>
+        ${renderMessagesHtml(messageHistory)}
+          
         </div>
 
         <div class="chatbot-footer">
@@ -131,14 +117,28 @@ function initChatbot() {
 
   if (!triggerBtn || !chatWindow) return;
 
-  const toggleChat = (open) => {
-    const shouldOpen = typeof open === "boolean" ? open : !chatWindow.classList.contains("open");
+  const scrollToBottom = () => {
+    if (messagesList) {
+      messagesList.scrollTop = messagesList.scrollHeight;
+    }
+  };
+
+  scrollToBottom();
+
+  const toggleChat = open => {
+    const shouldOpen =
+      typeof open === "boolean" ? open : !chatWindow.classList.contains("open");
     chatWindow.classList.toggle("open", shouldOpen);
     triggerBtn.setAttribute("aria-expanded", String(shouldOpen));
     chatWindow.setAttribute("aria-hidden", String(!shouldOpen));
 
-    if (shouldOpen && input) {
-      setTimeout(() => input.focus(), 150);
+    if (shouldOpen) {
+      scrollToBottom();
+      requestAnimationFrame(scrollToBottom);
+      setTimeout(() => {
+        scrollToBottom();
+        if (input) input.focus();
+      }, 150);
     }
   };
 
@@ -149,20 +149,28 @@ function initChatbot() {
   }
 
   // Close on Escape key press
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", e => {
     if (e.key === "Escape" && chatWindow.classList.contains("open")) {
       toggleChat(false);
       triggerBtn.focus();
     }
   });
 
+  let AiMessageLoading = false;
   // Basic message handling ready for AI backend integration
   if (form && input && messagesList) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async e => {
       e.preventDefault();
       const text = input.value.trim();
-      if (!text) return;
-
+      if (!text) {
+        showPopup("Input Text is Invalid");
+        return;
+      }
+      if (AiMessageLoading) {
+        showPopup("Please Wait Until AI Finishes response");
+        return;
+      }
+      //creates chat message
       const userMessage = document.createElement("div");
       userMessage.className = "chat-message user-message";
       userMessage.innerHTML = `
@@ -174,6 +182,11 @@ function initChatbot() {
 
       input.value = "";
       messagesList.scrollTop = messagesList.scrollHeight;
+
+      //sends message
+      AiMessageLoading = true;
+      const botResponse = await steckAi.sendMessage(text, "user");
+      AiMessageLoading = false;
     });
   }
 }
@@ -186,3 +199,18 @@ if (document.readyState === "loading") {
 }
 
 export { initChatbot };
+
+function renderMessagesHtml(messages) {
+  return messages
+    .map(message => {
+      return `
+      <div class="chat-message ${message.role === "bot" ? "bot-message" : "user-message"}">
+        <div class="chat-bubble">
+          ${message.text}
+        </div>
+        <span class="chat-time">${formatChatMessageDate(message.date)}</span>
+      </div>
+    `;
+    })
+    .join("");
+}
