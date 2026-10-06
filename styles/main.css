@@ -255,6 +255,21 @@ html {
   color: #1db954;
   scale: 1.08;
 }
+.product-card .card-image .quick-actions .action-btn.favorite-btn.active {
+  color: #f44336;
+  border-color: #f44336;
+}
+.product-card .card-image .quick-actions .action-btn.favorite-btn.active svg {
+  fill: currentColor;
+}
+.product-card .card-image .quick-actions .action-btn.favorite-btn.active:hover {
+  background-color: #f44336;
+  border-color: #f44336;
+  color: #ffffff;
+}
+.product-card .card-image .quick-actions .action-btn.favorite-btn.active:hover svg {
+  fill: currentColor;
+}
 .product-card .card-content {
   display: flex;
   flex-direction: column;
@@ -1038,4 +1053,6 @@ html {
   .mobile-overlay {
     display: none;
   }
-}/*# sourceMappingURL=main.css.map */
+}
+
+/*# sourceMappingURL=main.css.map */

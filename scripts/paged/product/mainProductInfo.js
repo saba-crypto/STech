@@ -1,13 +1,70 @@
 import { renderStars } from "../../utils/renderRatingStars.js";
-
+import { addToCart } from "../../data/cart.js";
+import { showPopup } from "../../utils/showPopup.js";
+import { addToFavorites, removeFromFavorites } from "../../data/favorites.js";
 const productGalleryContainer = document.querySelector(".product-gallery");
 const productInfoContainer = document.querySelector(".product-info");
+
+let productQuantity = 1;
 
 export function renderMainProductInfo(product, reviews) {
   productGalleryContainer.innerHTML = renderGallery(product);
   productInfoContainer.innerHTML = renderProductInfo(product, reviews);
   addThumbnailLister(product, reviews);
   addQuantityControllers();
+  const addToCartButton = document.querySelector(".btn-add-cart");
+  const favoriteButton = document.querySelector(".btn-favorite");
+
+  //add to cart
+  if (addToCartButton) {
+    addToCartButton.addEventListener("click", () => {
+      const productId = addToCartButton.dataset.productId;
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        showPopup("Please Register First");
+        return;
+      }
+      addToCart(productId, productQuantity);
+    });
+  }
+  //favorite
+  if (favoriteButton) {
+    favoriteButton.addEventListener("click", async () => {
+      const productId = favoriteButton.dataset.productId;
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        showPopup("Please Login");
+        return;
+      }
+
+      const isCurrentlyFavorite = favoriteButton.classList.contains("active");
+      const svg = favoriteButton.querySelector("svg");
+
+      if (isCurrentlyFavorite) {
+        favoriteButton.classList.remove("active");
+        favoriteButton.setAttribute("aria-label", "Add to wishlist");
+        if (svg) svg.setAttribute("fill", "none");
+
+        const result = await removeFromFavorites(productId);
+        if (!result) {
+          favoriteButton.classList.add("active");
+          favoriteButton.setAttribute("aria-label", "Remove from wishlist");
+          if (svg) svg.setAttribute("fill", "currentColor");
+        }
+      } else {
+        favoriteButton.classList.add("active");
+        favoriteButton.setAttribute("aria-label", "Remove from wishlist");
+        if (svg) svg.setAttribute("fill", "currentColor");
+
+        const result = await addToFavorites(productId);
+        if (!result) {
+          favoriteButton.classList.remove("active");
+          favoriteButton.setAttribute("aria-label", "Add to wishlist");
+          if (svg) svg.setAttribute("fill", "none");
+        }
+      }
+    });
+  }
 }
 
 let currentlySelectedImage;
@@ -44,8 +101,8 @@ function renderGalleryImages(images, product) {
 }
 
 function addThumbnailLister(product, reviews) {
-  document.querySelectorAll(".thumbnail").forEach((thumbnail) => {
-    thumbnail.addEventListener("click", (e) => {
+  document.querySelectorAll(".thumbnail").forEach(thumbnail => {
+    thumbnail.addEventListener("click", e => {
       const imageUrl = e.target.closest(".thumbnail-image").src;
       if (!imageUrl) {
         return;
@@ -56,7 +113,6 @@ function addThumbnailLister(product, reviews) {
   });
 }
 
-let productQuantity = 1;
 //product info
 function renderProductInfo(product, reviews) {
   const isDisabled = product.stock === 0 ? "disabled" : "";
@@ -139,7 +195,7 @@ function renderProductInfo(product, reviews) {
       </div>
 
       <div class="action-buttons">
-        <button ${isDisabled} class="btn-add-cart"  type="button" >
+        <button ${isDisabled} class="btn-add-cart" data-product-id="${product.id}"  type="button" >
           ${
             outOfStock
               ? `
@@ -188,8 +244,8 @@ function renderProductInfo(product, reviews) {
           }
           <span>${outOfStock ? "Out of Stock" : "Add to Cart"}</span>
         </button>
-        <button class="btn-favorite" type="button" aria-label="Add to wishlist">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <button data-product-id="${product.id}" class="btn-favorite ${product.isFavorite ? "active" : ""}" type="button" aria-label="${product.isFavorite ? "Remove from wishlist" : "Add to wishlist"}">
+          <svg viewBox="0 0 24 24" fill="${product.isFavorite ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
         </button>

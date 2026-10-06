@@ -68,8 +68,14 @@ export async function renderProducts(filters = filterState) {
       productsGrid.setAttribute("aria-busy", "true");
     }
 
+    const headers = { "X-API-KEY": API_KEY };
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      headers["Authorization"] = `Bearer ${accessToken}`;
+    }
+
     const response = await fetch(url, {
-      headers: { "X-API-KEY": API_KEY },
+      headers,
     });
 
     if (!response.ok) {

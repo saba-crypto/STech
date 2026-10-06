@@ -1,10 +1,12 @@
 import { renderStars } from "../utils/renderRatingStars.js";
-import { addToFavorites } from "../data/favorites.js";
+import { addToFavorites, removeFromFavorites } from "../data/favorites.js";
 import { addToCart } from "../data/cart.js";
+import { showPopup } from "../utils/showPopup.js";
 //used for rendering product cards based on provided products array, use it whenever you need to render a product card(s)
 export function renderProductsHtml(products) {
   return products
-    .map((product) => {
+    .map(product => {
+      const isFavorite = Boolean(product.isFavorite);
       return `
     <div data-product-id=${product.id} class="product-card">
       <div class="card-image">
@@ -15,13 +17,13 @@ export function renderProductsHtml(products) {
         </div>
         
         <div class="quick-actions">
-          <button class="action-btn favorite-btn">
+          <button class="action-btn favorite-btn ${isFavorite ? "active" : ""}" type="button" aria-label="${isFavorite ? "Remove from favorites" : "Add to favorites"}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
               viewBox="0 0 24 24"
-              fill="none"
+              fill="${isFavorite ? "currentColor" : "none"}"
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
@@ -31,7 +33,7 @@ export function renderProductsHtml(products) {
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
               ></path>
             </svg></button
-          ><button class="action-btn view-btn">
+          ><button class="action-btn view-btn" type="button" aria-label="View product">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -125,18 +127,21 @@ export function renderProductsHtml(products) {
     })
     .join("");
 }
-document.addEventListener("click", (e) => {
+document.addEventListener("click", async e => {
   const addToCartButton = e.target.closest(".add-to-cart");
   if (!addToCartButton || addToCartButton.disabled) return;
 
   const card = addToCartButton.closest(".product-card");
   const productId = card?.dataset?.productId;
   const quantity = 1;
-  addToCart(productId, quantity);
+  await addToCart(productId, quantity);
+  if (!localStorage.getItem("accessToken")) {
+    showPopup("Please Login");
+  }
 });
 
 //view product button event listener
-document.addEventListener("click", (e) => {
+document.addEventListener("click", e => {
   const viewBtn = e.target.closest(".view-btn");
   if (!viewBtn) return;
 
@@ -151,10 +156,43 @@ document.addEventListener("click", (e) => {
 });
 
 //favorites button event listener
-document.addEventListener("click", async (e) => {
+document.addEventListener("click", async e => {
   const favoriteBtn = e.target.closest(".favorite-btn");
   if (!favoriteBtn) return;
   const card = favoriteBtn.closest(".product-card");
   const productId = card?.dataset?.productId;
-  await addToFavorites(productId);
+  if (!productId) return;
+
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    showPopup("Please Login");
+    return;
+  }
+
+  const isCurrentlyFavorite = favoriteBtn.classList.contains("active");
+  const svg = favoriteBtn.querySelector("svg");
+
+  if (isCurrentlyFavorite) {
+    favoriteBtn.classList.remove("active");
+    favoriteBtn.setAttribute("aria-label", "Add to favorites");
+    if (svg) svg.setAttribute("fill", "none");
+
+    const result = await removeFromFavorites(productId);
+    if (!result) {
+      favoriteBtn.classList.add("active");
+      favoriteBtn.setAttribute("aria-label", "Remove from favorites");
+      if (svg) svg.setAttribute("fill", "currentColor");
+    }
+  } else {
+    favoriteBtn.classList.add("active");
+    favoriteBtn.setAttribute("aria-label", "Remove from favorites");
+    if (svg) svg.setAttribute("fill", "currentColor");
+
+    const result = await addToFavorites(productId);
+    if (!result) {
+      favoriteBtn.classList.remove("active");
+      favoriteBtn.setAttribute("aria-label", "Add to favorites");
+      if (svg) svg.setAttribute("fill", "none");
+    }
+  }
 });

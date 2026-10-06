@@ -304,12 +304,27 @@
   border-radius: 6px;
   color: #535353;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .product-info .action-buttons .btn-favorite:hover {
   border-color: #f44336;
   color: #f44336;
   transform: translateY(-2px);
+}
+.product-info .action-buttons .btn-favorite.active {
+  border-color: #f44336;
+  color: #f44336;
+}
+.product-info .action-buttons .btn-favorite.active svg {
+  fill: currentColor;
+}
+.product-info .action-buttons .btn-favorite.active:hover {
+  background-color: #f44336;
+  border-color: #f44336;
+  color: #ffffff;
+}
+.product-info .action-buttons .btn-favorite.active:hover svg {
+  fill: currentColor;
 }
 .product-info .action-buttons .btn-favorite svg {
   width: 20px;

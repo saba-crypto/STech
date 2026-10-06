@@ -2,13 +2,17 @@ import { API_KEY } from "../../data/secret.js";
 import { renderProductsHtml } from "../../shared/product-card.js";
 
 export async function fetchFeaturedProducts() {
+  const headers = { "X-API-KEY": API_KEY };
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    headers["Authorization"] = `Bearer ${accessToken}`;
+  }
+
   let response = await fetch(
     "https://shopapi.stepacademy.ge/api/products/filter?InStock=true&MinRating=4&Take=4&Page=1",
     {
       method: "GET",
-      headers: {
-        "X-API-KEY": API_KEY,
-      },
+      headers,
     },
   );
   let data = await response.json();

@@ -63,6 +63,25 @@
           color: $accent-clr;
           scale: 1.08;
         }
+
+        &.favorite-btn.active {
+          color: $error-clr;
+          border-color: $error-clr;
+
+          svg {
+            fill: currentColor;
+          }
+
+          &:hover {
+            background-color: $error-clr;
+            border-color: $error-clr;
+            color: $secondary-font-clr;
+
+            svg {
+              fill: currentColor;
+            }
+          }
+        }
       }
     }
   }

@@ -298,14 +298,34 @@
       color: $optional-font-clr;
       cursor: pointer;
       transition:
+        background-color 0.2s ease,
         border-color 0.2s ease,
         color 0.2s ease,
         transform 0.2s ease;
 
       &:hover {
-        border-color: #f44336;
-        color: #f44336;
+        border-color: $error-clr;
+        color: $error-clr;
         transform: translateY(-2px);
+      }
+
+      &.active {
+        border-color: $error-clr;
+        color: $error-clr;
+
+        svg {
+          fill: currentColor;
+        }
+
+        &:hover {
+          background-color: $error-clr;
+          border-color: $error-clr;
+          color: $secondary-font-clr;
+
+          svg {
+            fill: currentColor;
+          }
+        }
       }
 
       svg {
