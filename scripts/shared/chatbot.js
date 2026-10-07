@@ -186,11 +186,12 @@ function initChatbot() {
 
       try {
         const botResponse = await steckAi.sendMessage(text);
-        botMessageElement.querySelector(".chat-bubble").textContent = botResponse;
+        botMessageElement.querySelector(".chat-bubble").innerHTML =
+          formatMarkdown(botResponse);
       } catch (error) {
         console.error(error);
-        botMessageElement.querySelector(".chat-bubble").textContent =
-          "Sorry, I couldn't reach the assistant right now.";
+        botMessageElement.querySelector(".chat-bubble").innerHTML =
+          "<p>Sorry, I couldn't reach the assistant right now.</p>";
       } finally {
         AiMessageLoading = false;
         messagesList.scrollTop = messagesList.scrollHeight;
@@ -208,14 +209,94 @@ if (document.readyState === "loading") {
 
 export { initChatbot };
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// Converts Gemini markdown (bold, lists, paragraphs) into clean HTML
+function formatMarkdown(text) {
+  if (!text) return "";
+  const lines = text.split("\n");
+  const out = [];
+  let inUl = false;
+  let inOl = false;
+
+  const renderInline = str => {
+    return escapeHtml(str)
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>");
+  };
+
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) {
+      if (inUl) {
+        out.push("</ul>");
+        inUl = false;
+      }
+      if (inOl) {
+        out.push("</ol>");
+        inOl = false;
+      }
+      continue;
+    }
+
+    const bulletMatch = line.match(/^[\*\-]\s+(.*)/);
+    const numMatch = line.match(/^\d+\.\s+(.*)/);
+
+    if (bulletMatch) {
+      if (inOl) {
+        out.push("</ol>");
+        inOl = false;
+      }
+      if (!inUl) {
+        out.push("<ul>");
+        inUl = true;
+      }
+      out.push("<li>" + renderInline(bulletMatch[1]) + "</li>");
+    } else if (numMatch) {
+      if (inUl) {
+        out.push("</ul>");
+        inUl = false;
+      }
+      if (!inOl) {
+        out.push("<ol>");
+        inOl = true;
+      }
+      out.push("<li>" + renderInline(numMatch[1]) + "</li>");
+    } else {
+      if (inUl) {
+        out.push("</ul>");
+        inUl = false;
+      }
+      if (inOl) {
+        out.push("</ol>");
+        inOl = false;
+      }
+      out.push("<p>" + renderInline(line) + "</p>");
+    }
+  }
+
+  if (inUl) out.push("</ul>");
+  if (inOl) out.push("</ol>");
+  return out.join("");
+}
+
 function renderMessagesHtml(messages) {
   return messages
     .map(message => {
       const isModel = message.role === "model" || message.role === "bot";
+      const bubbleContent = isModel
+        ? formatMarkdown(message.text)
+        : `<p>${escapeHtml(message.text)}</p>`;
+
       return `
       <div class="chat-message ${isModel ? "model-message" : "user-message"}">
         <div class="chat-bubble">
-          ${message.text}
+          ${bubbleContent}
         </div>
         <span class="chat-time">${formatChatMessageDate(message.date)}</span>
       </div>
@@ -228,10 +309,9 @@ function createUserMessage(text) {
   const userMessage = document.createElement("div");
   userMessage.className = "chat-message user-message";
   userMessage.innerHTML = `
-        <div class="chat-bubble"></div>
+        <div class="chat-bubble"><p>${escapeHtml(text)}</p></div>
         <span class="chat-time">Just now</span>
       `;
-  userMessage.querySelector(".chat-bubble").textContent = text;
   return userMessage;
 }
 
@@ -239,9 +319,8 @@ function createBotMessage(text) {
   const botMessage = document.createElement("div");
   botMessage.className = "chat-message model-message";
   botMessage.innerHTML = `
-        <div class="chat-bubble"></div>
+        <div class="chat-bubble">${formatMarkdown(text)}</div>
         <span class="chat-time">Just now</span>
       `;
-  botMessage.querySelector(".chat-bubble").textContent = text;
   return botMessage;
 }

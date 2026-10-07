@@ -3,7 +3,7 @@ import { apiRequest } from "./apiClient.js";
 
 // You can edit or provide your custom instructions for Gemini here:
 export const SYSTEM_INSTRUCTION =
-  "You are STech Assistant, a helpful AI shopping assistant for the STech electronics store. Help users discover products, check stock, look up specifications, and browse categories. Always use the available tools to fetch accurate real-time data from the store catalog when answering questions about products or categories. when user ask questions beyond STeck, answer them that you only answer questions about STeck and everything related to STeck";
+  "You are STech Assistant, a helpful AI shopping assistant for the STech electronics store. Help users discover products, check stock, look up specifications, and browse categories. Always use the available tools to fetch accurate real-time data from the store catalog when answering questions about products or categories. when user ask questions beyond STeck, answer them that you only answer questions about STeck and everything related to STeck.";
 
 const MODEL_NAME = "gemini-3.5-flash-lite";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${GEMINI_API_KEY}`;
@@ -105,9 +105,12 @@ async function executeTool(name, args = {}) {
         id: product.id,
         name: product.name,
         brand: product.brand,
+        model: product.model,
         price: product.price,
         stock: product.stock,
+        rating: product.rating,
         description: product.description,
+        specifications: product.specifications,
         category: product.category?.name
       };
     }
@@ -117,6 +120,17 @@ async function executeTool(name, args = {}) {
     console.error(`Failed to execute tool ${name}:`, err);
     return { error: err.message || "Failed to execute backend request" };
   }
+}
+
+// Safely extracts combined text from all parts of a Gemini candidate
+function extractTextFromCandidate(candidate) {
+  if (!candidate?.content?.parts) return null;
+  const textParts = candidate.content.parts
+    .filter(
+      part => typeof part.text === "string" && part.text.trim().length > 0
+    )
+    .map(part => part.text);
+  return textParts.length > 0 ? textParts.join("\n") : null;
 }
 
 export const steckAi = {
@@ -138,45 +152,14 @@ export const steckAi = {
     };
 
     try {
-      const response = await fetch(GEMINI_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...basePayload,
-          contents
-        })
-      });
+      let rounds = 0;
+      const MAX_ROUNDS = 4;
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(
-          data.error?.message || "Failed to communicate with Gemini"
-        );
-      }
+      // Allows Gemini to chain multiple tools (e.g., search product -> fetch details by ID -> format reply)
+      while (rounds < MAX_ROUNDS) {
+        rounds++;
 
-      const candidate = data?.candidates?.[0]?.content?.parts?.[0];
-
-      // If Gemini decided to call a backend tool:
-      if (candidate?.functionCall) {
-        const { name, args } = candidate.functionCall;
-        const toolResult = await executeTool(name, args);
-
-        // Append assistant's functionCall turn & user's functionResponse turn
-        contents.push(data.candidates[0].content);
-        contents.push({
-          role: "user",
-          parts: [
-            {
-              functionResponse: {
-                name,
-                response: { content: toolResult }
-              }
-            }
-          ]
-        });
-
-        // Request final synthesized response from Gemini
-        const followUpResponse = await fetch(GEMINI_URL, {
+        const response = await fetch(GEMINI_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -185,18 +168,53 @@ export const steckAi = {
           })
         });
 
-        const followUpData = await followUpResponse.json();
-        const finalText =
-          followUpData?.candidates?.[0]?.content?.parts?.[0]?.text ||
-          "I found the information for you, but couldn't format the response.";
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(
+            data.error?.message || "Failed to communicate with Gemini"
+          );
+        }
 
-        this.addMessageToHistory(finalText, "model");
-        return finalText;
+        const candidate = data?.candidates?.[0];
+        const functionCallPart = candidate?.content?.parts?.find(
+          p => p.functionCall
+        );
+
+        // If Gemini wants to execute a tool:
+        if (functionCallPart?.functionCall) {
+          const { name, args } = functionCallPart.functionCall;
+          const toolResult = await executeTool(name, args);
+
+          contents.push(candidate.content);
+          contents.push({
+            role: "user",
+            parts: [
+              {
+                functionResponse: {
+                  name,
+                  response: { content: toolResult }
+                }
+              }
+            ]
+          });
+
+          // Continue loop so Gemini can examine the result, call next tool if needed, or answer
+          continue;
+        }
+
+        // If no function call was made, Gemini provided the final synthesized answer
+        const botReply =
+          extractTextFromCandidate(candidate) ||
+          "I couldn't process that request.";
+
+        this.addMessageToHistory(botReply, "model");
+        return botReply;
       }
 
-      const botReply = candidate?.text || "I couldn't process that request.";
-      this.addMessageToHistory(botReply, "model");
-      return botReply;
+      const fallbackReply =
+        "I was unable to complete the request within the allowed steps.";
+      this.addMessageToHistory(fallbackReply, "model");
+      return fallbackReply;
     } catch (err) {
       console.error("Gemini Error:", err);
       const fallbackMessage =

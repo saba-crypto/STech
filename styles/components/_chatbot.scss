@@ -145,8 +145,39 @@
       padding: 10px 14px;
       border-radius: $radiusL;
       font-size: $font-sizeXS;
-      line-height: 1.45;
+      line-height: 1.5;
       word-break: break-word;
+
+      p {
+        margin: 0 0 6px 0;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      ul,
+      ol {
+        margin: 4px 0 6px 0;
+        padding-left: 18px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      li {
+        margin-bottom: 4px;
+        line-height: 1.4;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      strong {
+        font-weight: 700;
+      }
     }
 
     .chat-time {

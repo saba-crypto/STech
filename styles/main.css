@@ -665,8 +665,33 @@ html {
   padding: 10px 14px;
   border-radius: 8px;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
-  line-height: 1.45;
+  line-height: 1.5;
   word-break: break-word;
+}
+.chatbot-messages .chat-message .chat-bubble p {
+  margin: 0 0 6px 0;
+}
+.chatbot-messages .chat-message .chat-bubble p:last-child {
+  margin-bottom: 0;
+}
+.chatbot-messages .chat-message .chat-bubble ul,
+.chatbot-messages .chat-message .chat-bubble ol {
+  margin: 4px 0 6px 0;
+  padding-left: 18px;
+}
+.chatbot-messages .chat-message .chat-bubble ul:last-child,
+.chatbot-messages .chat-message .chat-bubble ol:last-child {
+  margin-bottom: 0;
+}
+.chatbot-messages .chat-message .chat-bubble li {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.chatbot-messages .chat-message .chat-bubble li:last-child {
+  margin-bottom: 0;
+}
+.chatbot-messages .chat-message .chat-bubble strong {
+  font-weight: 700;
 }
 .chatbot-messages .chat-message .chat-time {
   font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
