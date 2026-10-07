@@ -157,7 +157,7 @@ function initChatbot() {
   });
 
   let AiMessageLoading = false;
-  // Basic message handling ready for AI backend integration
+
   if (form && input && messagesList) {
     form.addEventListener("submit", async e => {
       e.preventDefault();
@@ -170,23 +170,31 @@ function initChatbot() {
         showPopup("Please Wait Until AI Finishes response");
         return;
       }
+
       //creates chat message
-      const userMessage = document.createElement("div");
-      userMessage.className = "chat-message user-message";
-      userMessage.innerHTML = `
-        <div class="chat-bubble"></div>
-        <span class="chat-time">Just now</span>
-      `;
-      userMessage.querySelector(".chat-bubble").textContent = text;
-      messagesList.appendChild(userMessage);
+      const userMessageElement = createUserMessage(text);
+      messagesList.appendChild(userMessageElement);
 
       input.value = "";
       messagesList.scrollTop = messagesList.scrollHeight;
 
-      //sends message
+      //sends message to Google Gemini
       AiMessageLoading = true;
-      const botResponse = await steckAi.sendMessage(text, "user");
-      AiMessageLoading = false;
+      const botMessageElement = createBotMessage("Thinking...");
+      messagesList.appendChild(botMessageElement);
+      messagesList.scrollTop = messagesList.scrollHeight;
+
+      try {
+        const botResponse = await steckAi.sendMessage(text);
+        botMessageElement.querySelector(".chat-bubble").textContent = botResponse;
+      } catch (error) {
+        console.error(error);
+        botMessageElement.querySelector(".chat-bubble").textContent =
+          "Sorry, I couldn't reach the assistant right now.";
+      } finally {
+        AiMessageLoading = false;
+        messagesList.scrollTop = messagesList.scrollHeight;
+      }
     });
   }
 }
@@ -203,8 +211,9 @@ export { initChatbot };
 function renderMessagesHtml(messages) {
   return messages
     .map(message => {
+      const isModel = message.role === "model" || message.role === "bot";
       return `
-      <div class="chat-message ${message.role === "bot" ? "bot-message" : "user-message"}">
+      <div class="chat-message ${isModel ? "model-message" : "user-message"}">
         <div class="chat-bubble">
           ${message.text}
         </div>
@@ -213,4 +222,26 @@ function renderMessagesHtml(messages) {
     `;
     })
     .join("");
+}
+
+function createUserMessage(text) {
+  const userMessage = document.createElement("div");
+  userMessage.className = "chat-message user-message";
+  userMessage.innerHTML = `
+        <div class="chat-bubble"></div>
+        <span class="chat-time">Just now</span>
+      `;
+  userMessage.querySelector(".chat-bubble").textContent = text;
+  return userMessage;
+}
+
+function createBotMessage(text) {
+  const botMessage = document.createElement("div");
+  botMessage.className = "chat-message model-message";
+  botMessage.innerHTML = `
+        <div class="chat-bubble"></div>
+        <span class="chat-time">Just now</span>
+      `;
+  botMessage.querySelector(".chat-bubble").textContent = text;
+  return botMessage;
 }
