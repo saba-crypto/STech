@@ -2,192 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
     <title>STech</title>
-    <link rel="stylesheet" href="../styles/main.css" />
-    <link rel="stylesheet" href="../styles/pages/shop/shop.css" />
+    <script>
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("colorTheme") || "light"
+      );
+    </script>
+    <link
+      rel="stylesheet"
+      href="../styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="../styles/pages/shop/shop.css" />
   </head>
   <body>
-    <header class="header">
-      <!-- <div class="header-container">
-        <div class="header-content">
-          <a class="brand-link" href="../index.html" aria-label="STech Home">
-            <span class="brand-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-              </svg>
-            </span>
-            <span class="brand-name">STECH</span>
-          </a>
-
-          <nav class="nav-links" aria-label="Main Navigation">
-            <a class="nav-link" href="../index.html">Home</a>
-            <a class="nav-link active" href="./shop.html" aria-current="page"
-              >Shop</a
-            >
-            <div class="nav-dropdown">
-              <button
-                class="nav-link dropdown-trigger categories-dropdown-btn"
-                type="button"
-                aria-expanded="false"
-                aria-haspopup="true"
-                aria-label="Browse categories"
-              >
-                <span>Categories</span>
-                <svg
-                  class="dropdown-chevron"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-              <div
-                class="dropdown-menu"
-                role="menu"
-                aria-label="Categories"
-              ></div>
-            </div>
-          </nav>
-
-          <form class="header-search-bar" role="search">
-            <button
-              class="search-toggle"
-              type="button"
-              aria-label="Toggle search"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-            <input
-              class="search-input"
-              type="search"
-              name="search"
-              placeholder="Search products..."
-              autocomplete="off"
-              aria-label="Search products"
-            />
-            <button
-              class="clear-search"
-              type="button"
-              aria-label="Clear search"
-              style="display: none"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </form>
-
-          <div class="nav-actions" aria-label="User shortcuts">
-            <button
-              class="action-btn favorite-btn"
-              type="button"
-              aria-label="View wishlist"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 1 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              class="action-btn cart-btn"
-              type="button"
-              aria-label="View shopping cart"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M3 4h2l2.1 11.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"
-                ></path>
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-              </svg>
-            </button>
-            <div class="user-btn">
-              <span class="user-avatar" aria-hidden="true">JS</span>
-            </div>
-            <button
-              class="mobile-menu-btn"
-              type="button"
-              aria-label="Toggle navigation menu"
-              aria-expanded="false"
-              aria-controls="mobile-menu"
-            >
-              <svg
-                class="menu-open-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-              <svg
-                class="menu-close-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-                style="display: none"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-        <nav class="mobile-nav">
-          <a class="mobile-nav-link" href="../index.html">Home</a>
-          <a
-            class="mobile-nav-link active"
-            href="./shop.html"
-            aria-current="page"
-            >Shop</a
-          >
-          <div class="mobile-nav-label">Categories</div>
-          <div class="mobile-categories"></div>
-        </nav>
-      </div>
-      <div class="mobile-overlay" aria-hidden="true"></div> -->
-    </header>
+    <header class="header"></header>
     <main>
       <section id="section1">
         <div class="section-container">
           <div class="header-content">
-            <nav class="breadcrumb" aria-label="Breadcrumb">
+            <nav
+              class="breadcrumb"
+              aria-label="Breadcrumb">
               <a href="../index.html">Home</a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -199,8 +39,7 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                aria-hidden="true"
-              >
+                aria-hidden="true">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
               <span>Shop</span>
@@ -213,16 +52,19 @@
         </div>
       </section>
       <section id="section2">
-        <div class="filters-overlay" aria-hidden="true"></div>
+        <div
+          class="filters-overlay"
+          aria-hidden="true"></div>
         <div class="section-container">
-          <aside class="filter-sidebar" aria-label="Product filters">
+          <aside
+            class="filter-sidebar"
+            aria-label="Product filters">
             <div class="sidebar-header">
               <h2>Filters</h2>
               <button
                 class="close-filters"
                 type="button"
-                aria-label="Close filters"
-              >
+                aria-label="Close filters">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -233,10 +75,17 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                  aria-hidden="true">
+                  <line
+                    x1="18"
+                    y1="6"
+                    x2="6"
+                    y2="18"></line>
+                  <line
+                    x1="6"
+                    y1="6"
+                    x2="18"
+                    y2="18"></line>
                 </svg>
               </button>
             </div>
@@ -253,27 +102,25 @@
                     height="15"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    aria-hidden="true"
-                  >
+                    aria-hidden="true">
                     <polygon
-                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                    ></polygon>
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                   </svg>
                   Min Rating
                 </legend>
                 <div
                   class="rating-options"
                   role="group"
-                  aria-label="Minimum star rating filter"
-                >
+                  aria-label="Minimum star rating filter">
                   <button
                     data-min-rating="4"
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 4 and up"
-                  >
-                    <span class="stars-display" aria-hidden="true">
+                    aria-label="Minimum rating: 4 and up">
+                    <span
+                      class="stars-display"
+                      aria-hidden="true">
                       <span class="star star-filled">★</span>
                       <span class="star star-filled">★</span>
                       <span class="star star-filled">★</span>
@@ -287,9 +134,10 @@
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 3 and up"
-                  >
-                    <span class="stars-display" aria-hidden="true">
+                    aria-label="Minimum rating: 3 and up">
+                    <span
+                      class="stars-display"
+                      aria-hidden="true">
                       <span class="star star-filled">★</span>
                       <span class="star star-filled">★</span>
                       <span class="star star-filled">★</span>
@@ -303,9 +151,10 @@
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 2 and up"
-                  >
-                    <span class="stars-display" aria-hidden="true">
+                    aria-label="Minimum rating: 2 and up">
+                    <span
+                      class="stars-display"
+                      aria-hidden="true">
                       <span class="star star-filled">★</span>
                       <span class="star star-filled">★</span>
                       <span class="star">★</span>
@@ -319,9 +168,10 @@
                     type="button"
                     class="rating-option"
                     aria-pressed="false"
-                    aria-label="Minimum rating: 1 and up"
-                  >
-                    <span class="stars-display" aria-hidden="true">
+                    aria-label="Minimum rating: 1 and up">
+                    <span
+                      class="stars-display"
+                      aria-hidden="true">
                       <span class="star star-filled">★</span>
                       <span class="star">★</span>
                       <span class="star">★</span>
@@ -342,8 +192,7 @@
                       id="price-min"
                       type="number"
                       placeholder="$0"
-                      min="0"
-                    />
+                      min="0" />
                   </div>
                   <span class="price-separator">-</span>
                   <div class="price-input">
@@ -353,8 +202,7 @@
                       id="price-max"
                       type="number"
                       placeholder="$9999"
-                      min="0"
-                    />
+                      min="0" />
                   </div>
                 </div>
               </fieldset>
@@ -365,8 +213,7 @@
                     class="brand-input"
                     id="brand-search"
                     type="text"
-                    placeholder="Search brands..."
-                  />
+                    placeholder="Search brands..." />
                 </div>
               </fieldset>
               <fieldset class="filter-group">
@@ -375,13 +222,14 @@
                   <input
                     class="in-stock-input"
                     type="checkbox"
-                    name="in-stock"
-                  />
+                    name="in-stock" />
                   <span class="checkbox-mark"></span>
                   <span class="option-label">In Stock Only</span>
                 </div>
               </fieldset>
-              <button class="clear-filters-btn" type="button">
+              <button
+                class="clear-filters-btn"
+                type="button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -392,8 +240,7 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   <polyline points="1 4 1 10 7 10"></polyline>
                   <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                 </svg>
@@ -404,7 +251,9 @@
           <div class="products-container">
             <div class="products-toolbar">
               <div class="toolbar-left">
-                <button class="filter-toggle" type="button">
+                <button
+                  class="filter-toggle"
+                  type="button">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -415,20 +264,59 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="4" y1="21" x2="4" y2="14"></line>
-                    <line x1="4" y1="10" x2="4" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="3"></line>
-                    <line x1="20" y1="21" x2="20" y2="16"></line>
-                    <line x1="20" y1="12" x2="20" y2="3"></line>
-                    <line x1="1" y1="14" x2="7" y2="14"></line>
-                    <line x1="9" y1="8" x2="15" y2="8"></line>
-                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                    aria-hidden="true">
+                    <line
+                      x1="4"
+                      y1="21"
+                      x2="4"
+                      y2="14"></line>
+                    <line
+                      x1="4"
+                      y1="10"
+                      x2="4"
+                      y2="3"></line>
+                    <line
+                      x1="12"
+                      y1="21"
+                      x2="12"
+                      y2="12"></line>
+                    <line
+                      x1="12"
+                      y1="8"
+                      x2="12"
+                      y2="3"></line>
+                    <line
+                      x1="20"
+                      y1="21"
+                      x2="20"
+                      y2="16"></line>
+                    <line
+                      x1="20"
+                      y1="12"
+                      x2="20"
+                      y2="3"></line>
+                    <line
+                      x1="1"
+                      y1="14"
+                      x2="7"
+                      y2="14"></line>
+                    <line
+                      x1="9"
+                      y1="8"
+                      x2="15"
+                      y2="8"></line>
+                    <line
+                      x1="17"
+                      y1="16"
+                      x2="23"
+                      y2="16"></line>
                   </svg>
                   <span>Filters</span>
-                  <span class="filter-badge" style="display: none">0</span>
+                  <span
+                    class="filter-badge"
+                    style="display: none"
+                    >0</span
+                  >
                 </button>
                 <div class="search-box">
                   <svg
@@ -441,23 +329,27 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    aria-hidden="true">
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="8"></circle>
+                    <line
+                      x1="21"
+                      y1="21"
+                      x2="16.65"
+                      y2="16.65"></line>
                   </svg>
                   <input
                     class="shop-search-input"
                     id="shop-search"
                     type="text"
-                    placeholder="Search products..."
-                  />
+                    placeholder="Search products..." />
                   <button
                     class="clear-search"
                     type="button"
                     aria-label="Clear search"
-                    style="display: none"
-                  >
+                    style="display: none">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -468,56 +360,90 @@
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                      aria-hidden="true">
+                      <line
+                        x1="18"
+                        y1="6"
+                        x2="6"
+                        y2="18"></line>
+                      <line
+                        x1="6"
+                        y1="6"
+                        x2="18"
+                        y2="18"></line>
                     </svg>
                   </button>
                 </div>
               </div>
               <div class="toolbar-right">
                 <span class="results-count">40 products</span>
-                <select id="sort-by" class="sort-select">
-                  <option disabled selected value="">sort by</option>
-                  <option value="price" class="sort-option">
+                <select
+                  id="sort-by"
+                  class="sort-select">
+                  <option
+                    disabled
+                    selected
+                    value="">
+                    sort by
+                  </option>
+                  <option
+                    value="price"
+                    class="sort-option">
                     Price: Low to High
                   </option>
-                  <option value="price descending" class="sort-option">
+                  <option
+                    value="price descending"
+                    class="sort-option">
                     Price: High to Low
                   </option>
-                  <option value="name" class="sort-option">Name: A-Z</option>
-                  <option value="rating descending" class="sort-option">
+                  <option
+                    value="name"
+                    class="sort-option">
+                    Name: A-Z
+                  </option>
+                  <option
+                    value="rating descending"
+                    class="sort-option">
                     Top Rated
                   </option>
-                  <option value="createdAt descending" class="sort-option">
+                  <option
+                    value="createdAt descending"
+                    class="sort-option">
                     Newest
                   </option>
                 </select>
               </div>
             </div>
-            <div class="active-filters" aria-label="Active filters"></div>
+            <div
+              class="active-filters"
+              aria-label="Active filters"></div>
             <div class="products-grid"></div>
-            <nav class="pagination" aria-label="Product pages">
+            <nav
+              class="pagination"
+              aria-label="Product pages">
               <div class="pagination-list">
                 <button
                   class="pagination-btn pagination-previous"
                   type="button"
-                  aria-label="Previous page"
-                >
+                  aria-label="Previous page">
                   ‹
                 </button>
                 <div class="pagination-nav-btns"></div>
                 <button
                   class="pagination-btn pagination-next"
                   type="button"
-                  aria-label="Next page"
-                >
+                  aria-label="Next page">
                   ›
                 </button>
 
-                <select id="page-size" class="page-size-select">
-                  <option value="8" selected>8 / page</option>
+                <select
+                  id="page-size"
+                  class="page-size-select">
+                  <option
+                    value="8"
+                    selected>
+                    8 / page
+                  </option>
                   <option value="12">12 / page</option>
                   <option value="24">24 / page</option>
                   <option value="48">48 / page</option>
@@ -529,10 +455,15 @@
       </section>
     </main>
     <footer class="footer-default">
-      <a target="_blank" href="https://github.com/saba-crypto" class="logo"
+      <a
+        target="_blank"
+        href="https://github.com/saba-crypto"
+        class="logo"
         ><span class="logo-text">Created by Saba himself</span></a
       >
     </footer>
-    <script type="module" src="../scripts/paged/shop/shop.js"></script>
+    <script
+      type="module"
+      src="../scripts/paged/shop/shop.js"></script>
   </body>
 </html>

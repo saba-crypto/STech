@@ -15,6 +15,9 @@
     }
     .promo-content {
       @include flexbox(column, center, flex-start, 20px);
+      h2 {
+        color: $secondary-font-clr;
+      }
       strong {
         background-color: $faded-clr;
         padding: $paddingXXS $paddingXS;

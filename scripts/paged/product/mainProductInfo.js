@@ -137,7 +137,7 @@ function renderProductInfo(product, reviews) {
       </div>
 
       <div class="product-price">
-        <span class="current-price">$${product.price}</span>
+        <span class="current-price">$${product.price.toLocaleString()}</span>
       </div>
 
       <div class="stock-status">

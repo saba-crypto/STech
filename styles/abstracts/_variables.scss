@@ -1,15 +1,15 @@
 //colors
-$background-clr: #ffffff;
-$primary-clr: #ffffff;
-$secondary-clr: #131d17;
-$accent-clr: #1db954;
 
-$faded-accent-clr: #1db9541a;
-$optional-clr: #f6f6f6;
+$background-clr: var(--bg-clr);
+
+$primary-clr: var(--primary-clr);
+$secondary-clr: var(--secondary-clr);
+$accent-clr: var(--accent-clr);
+$faded-accent-clr: var(--faded-accent-clr);
+$optional-clr: var(--optional-clr);
 $faded-clr: #fff3;
-
-$primary-border-clr: #e0e0e0;
-
+$primary-border-clr: var(--primary-border-clr);
+$banner-bg-clr: var(--banner-bg, #131d17);
 $product-rating-clr: #ffb300;
 $error-clr: #f44336;
 $faded-error-clr: #f4433698;
@@ -67,7 +67,7 @@ $font-sizeS: clamp(0.8rem, 1.3vw + 0.2rem, 1.1rem);
 $font-sizeXS: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
 $font-sizeXXS: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
 
-$primary-font-clr: #000000;
-$secondary-font-clr: #ffffff;
-$faded-font-clr: #b3b3b3;
-$optional-font-clr: #535353;
+$primary-font-clr: var(--primary-font-clr);
+$secondary-font-clr: var(--secondary-font-clr);
+$faded-font-clr: var(--faded-font-clr);
+$optional-font-clr: var(--optional-font-clr);

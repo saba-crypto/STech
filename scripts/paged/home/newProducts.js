@@ -1,4 +1,4 @@
-import { API_KEY } from "../../data/secret.js";
+import { API_KEY } from "../../data/secrets.js";
 import { renderProductsHtml } from "../../shared/product-card.js";
 export async function fetchNewProducts() {
   const headers = { "X-API-KEY": API_KEY };
@@ -11,8 +11,8 @@ export async function fetchNewProducts() {
     "https://shopapi.stepacademy.ge/api/products/filter?InStock=true&SortBy=createdAt&SortDescending=true&Take=4",
     {
       method: "GET",
-      headers,
-    },
+      headers
+    }
   );
   let data = await response.json();
   return data.data.items;
@@ -22,7 +22,7 @@ renderNewProducts();
 async function renderNewProducts() {
   let productsGridElement = document.querySelector(".new-products-grid");
   let products = await fetchNewProducts();
-  products.forEach((product) => {
+  products.forEach(product => {
     product.isNew = true;
   });
 

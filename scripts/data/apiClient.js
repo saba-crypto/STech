@@ -1,4 +1,4 @@
-import { API_KEY } from "./secret.js";
+import { API_KEY } from "./secrets.js";
 import { displayErrorPopups } from "../utils/displayErrors.js";
 import { showPopup } from "../utils/showPopup.js";
 import { refreshAccessToken } from "./authentication.js";
@@ -11,11 +11,11 @@ export async function apiRequest(endpoint, options = {}) {
   const refreshToken = localStorage.getItem("refreshToken");
 
   //helper function for building headers
-  const buildHeaders = (token) => {
+  const buildHeaders = token => {
     const headers = {
       "X-API-KEY": API_KEY,
       "Content-Type": "application/json",
-      ...(options.headers || {}),
+      ...(options.headers || {})
     };
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
@@ -25,7 +25,7 @@ export async function apiRequest(endpoint, options = {}) {
 
   const fetchOptions = {
     method: options.method || "GET",
-    headers: buildHeaders(accessToken),
+    headers: buildHeaders(accessToken)
   };
 
   if (fetchOptions.method !== "GET" && options.body) {
@@ -44,6 +44,7 @@ export async function apiRequest(endpoint, options = {}) {
     if (!newAccessToken) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      localStorage.removeItem("colorTheme");
       showPopup("Session expired. Please log in again.");
       return null;
     }
@@ -68,7 +69,7 @@ function handleErrors(result) {
     showPopup(
       result.detail ||
         result.title ||
-        "Something failed, please try again later.",
+        "Something failed, please try again later."
     );
   } else {
     displayErrorPopups(result.errors);

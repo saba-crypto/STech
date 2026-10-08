@@ -10,6 +10,7 @@
     gap: 10px;
     box-sizing: border-box;
     padding: $paddingXL $paddingXL;
+    background-color: $primary-clr;
     border: 1px solid $primary-border-clr;
     border-radius: $radiusXL;
     transition-duration: 0.25s;
@@ -23,13 +24,16 @@
       flex-grow: 1;
       .category-name {
         font-size: $font-sizeXS;
+        font-weight: 600;
+        color: $primary-font-clr;
       }
       .product-count {
         font-size: $font-sizeXXS;
+        color: $optional-font-clr;
       }
     }
     .category-arrow {
-      color: grey;
+      color: $faded-font-clr;
       transition-duration: 0.25s;
     }
     &:hover {

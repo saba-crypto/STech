@@ -2,6 +2,21 @@
 //this file contains general css that are used for global styling
 html {
   scroll-behavior: smooth;
+  background-color: $background-clr;
+  color: $primary-font-clr;
+}
+
+body {
+  color: $primary-font-clr;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $primary-font-clr;
 }
 
 a {
@@ -22,4 +37,3 @@ section {
 body.no-scroll {
   overflow: hidden;
 }
-

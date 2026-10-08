@@ -1,9 +1,19 @@
 import { fetchCategories } from "../../data/categories.js";
 import { filterState, initialFilterState } from "../../data/filterData.js";
 import { debounce } from "../../utils/debounce.js";
+import { showPopup } from "../../utils/showPopup.js";
 import { renderProducts } from "./shop.js";
 
 const debouncedRenderProducts = debounce(() => {
+  if (filterState.maxPrice && filterState.minPrice) {
+    if (filterState.maxPrice < filterState.minPrice) {
+      showPopup("Min Price Should be Lower Than Max Price");
+      return;
+    } else if (filterState.minPrice > filterState.maxPrice) {
+      showPopup("Max Price Should be Higher Than Min Price");
+      return;
+    }
+  }
   renderProducts();
   renderActiveFilterChips();
   updateFilterBadge();
@@ -35,7 +45,7 @@ async function renderCategories() {
   const categories = await fetchCategories();
   categoriesMap = {};
   if (Array.isArray(categories)) {
-    categories.forEach((cat) => {
+    categories.forEach(cat => {
       categoriesMap[cat.id] = cat.name;
     });
   }
@@ -73,7 +83,7 @@ function handleFilterSidebar() {
 function renderCategoriesHtml(categories) {
   if (!categoriesElement || !Array.isArray(categories)) return;
   categoriesElement.innerHTML = categories
-    .map((category) => {
+    .map(category => {
       const isChecked =
         Number(filterState.categoryId) === category.id ? "checked" : "";
       return `
@@ -88,18 +98,18 @@ function renderCategoriesHtml(categories) {
 }
 
 function handleCategoryController() {
-  document.querySelectorAll(".filter-category").forEach((category) => {
+  document.querySelectorAll(".filter-category").forEach(category => {
     const categoryId = Number(category.dataset.categoryId);
     const radio = category.querySelector(".category-input");
 
-    category.addEventListener("click", (e) => {
+    category.addEventListener("click", e => {
       e.preventDefault();
       if (filterState.categoryId === categoryId) {
         filterState.categoryId = "";
         if (radio) radio.checked = false;
       } else {
         filterState.categoryId = categoryId;
-        document.querySelectorAll(".category-input").forEach((r) => {
+        document.querySelectorAll(".category-input").forEach(r => {
           r.checked = false;
         });
         if (radio) radio.checked = true;
@@ -114,14 +124,14 @@ function handleCategoryController() {
 
 function handleMinRatingController() {
   if (minRatingOptions) {
-    minRatingOptions.forEach((option) => {
+    minRatingOptions.forEach(option => {
       if (option) {
         const minRating = Number(option.dataset.minRating);
 
         option.addEventListener("click", () => {
           const isSelected = option.classList.contains("selected");
 
-          minRatingOptions.forEach((opt) => {
+          minRatingOptions.forEach(opt => {
             opt.classList.remove("selected", "active");
             opt.setAttribute("aria-pressed", "false");
           });
@@ -146,10 +156,11 @@ function handleMinRatingController() {
 
 function handleMinPriceController() {
   if (minPriceInput) {
-    minPriceInput.addEventListener("input", (e) => {
+    minPriceInput.addEventListener("input", e => {
       const val = e.target.value;
       filterState.minPrice = val !== "" ? Number(val) : null;
       filterState.page = 1;
+
       debouncedRenderProducts();
     });
   }
@@ -157,10 +168,11 @@ function handleMinPriceController() {
 
 function handleMaxPriceController() {
   if (maxPriceInput) {
-    maxPriceInput.addEventListener("input", (e) => {
+    maxPriceInput.addEventListener("input", e => {
       const val = e.target.value;
       filterState.maxPrice = val !== "" ? Number(val) : null;
       filterState.page = 1;
+
       debouncedRenderProducts();
     });
   }
@@ -168,7 +180,7 @@ function handleMaxPriceController() {
 
 function handleBrandController() {
   if (brandInput) {
-    brandInput.addEventListener("input", (e) => {
+    brandInput.addEventListener("input", e => {
       filterState.brand = e.target.value.trim();
       filterState.page = 1;
       debouncedRenderProducts();
@@ -178,7 +190,7 @@ function handleBrandController() {
 
 function handleInStockController() {
   if (inStockContainer) {
-    inStockContainer.addEventListener("click", (e) => {
+    inStockContainer.addEventListener("click", e => {
       e.preventDefault();
       inStockInput.checked = !inStockInput.checked;
       filterState.inStock = inStockInput.checked ? true : null;
@@ -198,7 +210,7 @@ function toggleClearSearchButton() {
 function handleSearchController() {
   if (!searchInput) return;
 
-  searchInput.addEventListener("input", (e) => {
+  searchInput.addEventListener("input", e => {
     filterState.search = e.target.value.trim();
     filterState.page = 1;
     toggleClearSearchButton();
@@ -263,7 +275,7 @@ function renderActiveFilterChips() {
         filterState.search = "";
         if (searchInput) searchInput.value = "";
         toggleClearSearchButton();
-      },
+      }
     });
   }
 
@@ -272,10 +284,10 @@ function renderActiveFilterChips() {
       label: `Category: ${categoriesMap[filterState.categoryId]}`,
       clear: () => {
         filterState.categoryId = "";
-        document.querySelectorAll(".category-input").forEach((input) => {
+        document.querySelectorAll(".category-input").forEach(input => {
           input.checked = false;
         });
-      },
+      }
     });
   }
 
@@ -284,11 +296,11 @@ function renderActiveFilterChips() {
       label: `Rating: ${filterState.minRating}★ & up`,
       clear: () => {
         filterState.minRating = null;
-        minRatingOptions.forEach((opt) => {
+        minRatingOptions.forEach(opt => {
           opt.classList.remove("selected", "active");
           opt.setAttribute("aria-pressed", "false");
         });
-      },
+      }
     });
   }
 
@@ -304,7 +316,7 @@ function renderActiveFilterChips() {
         filterState.maxPrice = null;
         if (minPriceInput) minPriceInput.value = "";
         if (maxPriceInput) maxPriceInput.value = "";
-      },
+      }
     });
   }
 
@@ -314,7 +326,7 @@ function renderActiveFilterChips() {
       clear: () => {
         filterState.brand = "";
         if (brandInput) brandInput.value = "";
-      },
+      }
     });
   }
 
@@ -324,7 +336,7 @@ function renderActiveFilterChips() {
       clear: () => {
         filterState.inStock = null;
         if (inStockInput) inStockInput.checked = false;
-      },
+      }
     });
   }
 
@@ -334,13 +346,13 @@ function renderActiveFilterChips() {
       <div class="filter-chip">
         <span>${chip.label}</span>
         <button type="button" data-chip-idx="${idx}" aria-label="Remove filter: ${chip.label}">✕</button>
-      </div>`,
+      </div>`
     )
     .join("");
 
   activeFiltersContainer
     .querySelectorAll(".filter-chip button")
-    .forEach((btn) => {
+    .forEach(btn => {
       btn.addEventListener("click", () => {
         const idx = Number(btn.dataset.chipIdx);
         if (chips[idx]) {
@@ -365,7 +377,7 @@ if (clearFilterButton) {
 }
 
 function resetFilterElements() {
-  document.querySelectorAll(".category-input").forEach((input) => {
+  document.querySelectorAll(".category-input").forEach(input => {
     input.checked = false;
   });
   if (minPriceInput) minPriceInput.value = "";
@@ -376,7 +388,7 @@ function resetFilterElements() {
   if (sortBySelect) sortBySelect.value = "";
   toggleClearSearchButton();
 
-  minRatingOptions.forEach((option) => {
+  minRatingOptions.forEach(option => {
     option.classList.remove("selected", "active");
     option.setAttribute("aria-pressed", "false");
   });

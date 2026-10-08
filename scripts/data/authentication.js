@@ -1,11 +1,11 @@
 import { showSuccessPopup } from "../utils/showPopup.js";
-import { API_KEY } from "./secret.js";
+import { API_KEY } from "./secrets.js";
 import { apiRequest } from "./apiClient.js";
 
 export async function login(email, password) {
   if (!email || !password) {
     throw new Error(
-      "Error Occurred while trying to login, email or/and password provided for login function are invalid",
+      "Error Occurred while trying to login, email or/and password provided for login function are invalid"
     );
   }
 
@@ -14,7 +14,7 @@ export async function login(email, password) {
 
   const result = await apiRequest("/auth/login", {
     method: "POST",
-    body: { email, password },
+    body: { email, password }
   });
 
   showSuccessPopup("Login Successful!");
@@ -36,7 +36,7 @@ export async function register(userDetails) {
 
     return await apiRequest("/auth/register", {
       method: "POST",
-      body: userDetails,
+      body: userDetails
     });
   } catch (err) {
     console.error(err.message || err);
@@ -51,7 +51,7 @@ export async function verifyEmail(verificationData) {
 
     return await apiRequest("/auth/verify-email", {
       method: "PUT",
-      body: verificationData,
+      body: verificationData
     });
   } catch (err) {
     console.error(err.message || err);
@@ -62,12 +62,12 @@ export async function resendEmailVerification(email) {
   try {
     if (!email) {
       throw new Error(
-        "Unexpected Error occurred while trying to resend email verification code, make sure that email was provided for resendEmailVerification function.",
+        "Unexpected Error occurred while trying to resend email verification code, make sure that email was provided for resendEmailVerification function."
       );
     }
 
     return await apiRequest(`/auth/resend-email-verification/${email}`, {
-      method: "POST",
+      method: "POST"
     });
   } catch (err) {
     console.error(err.message || err);
@@ -78,12 +78,12 @@ export async function forgetPassword(email) {
   try {
     if (!email) {
       throw new Error(
-        "Unexpected Error occurred while trying to send a password reset link, provided email for forgetPassword function is not found.",
+        "Unexpected Error occurred while trying to send a password reset link, provided email for forgetPassword function is not found."
       );
     }
 
     return await apiRequest(`/auth/forget-password/${email}`, {
-      method: "POST",
+      method: "POST"
     });
   } catch (err) {
     console.error(err.message || err);
@@ -94,22 +94,22 @@ export async function refreshAccessToken(token) {
   try {
     if (!token) {
       throw new Error(
-        "refresh token was not provided for refreshAccessToken function",
+        "refresh token was not provided for refreshAccessToken function"
       );
     }
     const response = await fetch(
       `https://shopapi.stepacademy.ge/api/auth/refresh-access-token/${token}`,
       {
         headers: {
-          "X-API-KEY": API_KEY,
-        },
-      },
+          "X-API-KEY": API_KEY
+        }
+      }
     );
     const result = await response.json();
     if (!response.ok) {
       if (!result.errors || Object.keys(result.errors).length <= 0) {
         throw new Error(
-          result.detail || "Verification Failed, Please try Again Later.",
+          result.detail || "Verification Failed, Please try Again Later."
         );
       } else {
         throw new Error(JSON.stringify(result.errors));

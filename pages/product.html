@@ -2,10 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
     <title>Product - STech</title>
-    <link rel="stylesheet" href="../styles/main.css" />
-    <link rel="stylesheet" href="../styles/pages/product/product.css" />
+    <script>
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("colorTheme") || "light"
+      );
+    </script>
+    <link
+      rel="stylesheet"
+      href="../styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="../styles/pages/product/product.css" />
   </head>
   <body>
     <header class="header"></header>
@@ -28,8 +40,7 @@
           <div
             class="details-tabs"
             role="tablist"
-            aria-label="Product details tabs"
-          >
+            aria-label="Product details tabs">
             <button
               data-tab-page="description"
               type="button"
@@ -38,8 +49,7 @@
               id="tab-btn-description"
               aria-selected="true"
               aria-controls="tab-description"
-              tabindex="0"
-            >
+              tabindex="0">
               <span>Description</span>
             </button>
             <button
@@ -50,8 +60,7 @@
               id="tab-btn-specifications"
               aria-selected="false"
               aria-controls="tab-specifications"
-              tabindex="-1"
-            >
+              tabindex="-1">
               <span>Specifications</span>
             </button>
             <button
@@ -62,10 +71,13 @@
               id="tab-btn-reviews"
               aria-selected="false"
               aria-controls="tab-reviews"
-              tabindex="-1"
-            >
+              tabindex="-1">
               <span>Reviews</span>
-              <span class="details-tab-badge reviews-badge" aria-label="11 reviews">11</span>
+              <span
+                class="details-tab-badge reviews-badge"
+                aria-label="11 reviews"
+                >11</span
+              >
             </button>
           </div>
           <div class="section-content">
@@ -74,12 +86,14 @@
               id="tab-description"
               class="content-panel tab-description"
               role="tabpanel"
-              aria-labelledby="tab-btn-description"
-            >
+              aria-labelledby="tab-btn-description">
               <div class="description-content">
                 <h3 class="description-title">Product Description</h3>
                 <p class="description-text">
-                  A next-generation Wi-Fi 7 router delivering quad-band performance up to 19Gbps. MLO technology bonds multiple bands simultaneously for the lowest latency possible — ideal for competitive gaming and 8K streaming.
+                  A next-generation Wi-Fi 7 router delivering quad-band
+                  performance up to 19Gbps. MLO technology bonds multiple bands
+                  simultaneously for the lowest latency possible — ideal for
+                  competitive gaming and 8K streaming.
                 </p>
               </div>
             </div>
@@ -89,8 +103,7 @@
               id="tab-specifications"
               class="content-panel tab-specifications"
               role="tabpanel"
-              aria-labelledby="tab-btn-specifications"
-            >
+              aria-labelledby="tab-btn-specifications">
               <div class="specifications-table-wrapper">
                 <table class="specifications-table">
                   <tbody class="specifications-table-body">
@@ -116,7 +129,9 @@
                     </tr>
                     <tr>
                       <td class="spec-label">Ports</td>
-                      <td class="spec-value">10G WAN, 4x Gigabit LAN, 2.5G LAN</td>
+                      <td class="spec-value">
+                        10G WAN, 4x Gigabit LAN, 2.5G LAN
+                      </td>
                     </tr>
                     <tr>
                       <td class="spec-label">MLO</td>
@@ -136,23 +151,24 @@
               id="tab-reviews"
               class="content-panel tab-reviews"
               role="tabpanel"
-              aria-labelledby="tab-btn-reviews"
-            >
+              aria-labelledby="tab-btn-reviews">
               <div class="auth-prompt">
                 <p class="auth-prompt-text">
-                  Please <a href="./login.html" class="auth-prompt-link">login</a> to write a review.
+                  Please
+                  <a
+                    href="./login.html"
+                    class="auth-prompt-link"
+                    >login</a
+                  >
+                  to write a review.
                 </p>
               </div>
 
-              <div class="rating-summary">
-               
-              </div>
+              <div class="rating-summary"></div>
 
               <hr class="review-divider" />
 
-              <div class="reviews-list">
-             
-              </div>
+              <div class="reviews-list"></div>
             </div>
           </div>
         </div>
@@ -166,17 +182,19 @@
       hidden
       role="dialog"
       aria-modal="true"
-      aria-labelledby="review-modal-title"
-    >
+      aria-labelledby="review-modal-title">
       <div class="review-modal-card">
         <header class="review-modal-header">
-          <h3 id="review-modal-title" class="review-modal-title">Write a Review</h3>
+          <h3
+            id="review-modal-title"
+            class="review-modal-title">
+            Write a Review
+          </h3>
           <button
             type="button"
             class="review-modal-close"
             id="close-review-modal-btn"
-            aria-label="Close review dialog"
-          >
+            aria-label="Close review dialog">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -187,32 +205,46 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
+              aria-hidden="true">
+              <line
+                x1="18"
+                y1="6"
+                x2="6"
+                y2="18"></line>
+              <line
+                x1="6"
+                y1="6"
+                x2="18"
+                y2="18"></line>
             </svg>
           </button>
         </header>
 
-        <form class="review-modal-form" id="review-modal-form">
+        <form
+          class="review-modal-form"
+          id="review-modal-form">
           <div class="review-form-group">
-            <span class="review-form-label" id="review-rating-label">
-              Rating <span class="required-indicator" aria-hidden="true">*</span>
+            <span
+              class="review-form-label"
+              id="review-rating-label">
+              Rating
+              <span
+                class="required-indicator"
+                aria-hidden="true"
+                >*</span
+              >
             </span>
             <div
               class="review-rating-stars"
               role="radiogroup"
-              aria-labelledby="review-rating-label"
-            >
+              aria-labelledby="review-rating-label">
               <button
                 type="button"
                 class="rating-star-btn"
                 role="radio"
                 aria-checked="false"
                 aria-label="1 star"
-                data-rating="1"
-              >
+                data-rating="1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="26"
@@ -224,9 +256,9 @@
                   stroke-linejoin="round"
                   class="star"
                   fill="none"
-                  aria-hidden="true"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  aria-hidden="true">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
               </button>
               <button
@@ -235,8 +267,7 @@
                 role="radio"
                 aria-checked="false"
                 aria-label="2 stars"
-                data-rating="2"
-              >
+                data-rating="2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="26"
@@ -248,9 +279,9 @@
                   stroke-linejoin="round"
                   class="star"
                   fill="none"
-                  aria-hidden="true"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  aria-hidden="true">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
               </button>
               <button
@@ -259,8 +290,7 @@
                 role="radio"
                 aria-checked="false"
                 aria-label="3 stars"
-                data-rating="3"
-              >
+                data-rating="3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="26"
@@ -272,9 +302,9 @@
                   stroke-linejoin="round"
                   class="star"
                   fill="none"
-                  aria-hidden="true"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  aria-hidden="true">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
               </button>
               <button
@@ -283,8 +313,7 @@
                 role="radio"
                 aria-checked="false"
                 aria-label="4 stars"
-                data-rating="4"
-              >
+                data-rating="4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="26"
@@ -296,9 +325,9 @@
                   stroke-linejoin="round"
                   class="star"
                   fill="none"
-                  aria-hidden="true"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  aria-hidden="true">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
               </button>
               <button
@@ -307,8 +336,7 @@
                 role="radio"
                 aria-checked="false"
                 aria-label="5 stars"
-                data-rating="5"
-              >
+                data-rating="5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="26"
@@ -320,29 +348,29 @@
                   stroke-linejoin="round"
                   class="star"
                   fill="none"
-                  aria-hidden="true"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  aria-hidden="true">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
               </button>
             </div>
-            <div class="rating-feedback-text" aria-live="polite"></div>
+            <div
+              class="rating-feedback-text"
+              aria-live="polite"></div>
           </div>
 
           <div class="review-modal-actions">
             <button
               type="button"
               class="review-btn-cancel"
-              id="cancel-review-btn"
-            >
+              id="cancel-review-btn">
               Cancel
             </button>
             <button
               type="submit"
               class="review-btn-submit"
               id="submit-review-btn"
-              disabled
-            >
+              disabled>
               Submit Review
             </button>
           </div>
@@ -351,11 +379,16 @@
     </div>
 
     <footer class="footer-default">
-      <a target="_blank" href="https://github.com/saba-crypto" class="logo">
+      <a
+        target="_blank"
+        href="https://github.com/saba-crypto"
+        class="logo">
         <span class="logo-text">Created by Saba himself</span>
       </a>
     </footer>
 
-    <script type="module" src="../scripts/paged/product/product.js"></script>
+    <script
+      type="module"
+      src="../scripts/paged/product/product.js"></script>
   </body>
 </html>

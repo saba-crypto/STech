@@ -1,7 +1,7 @@
 import "./filters.js";
 import "../../shared/header.js";
 import "../../shared/chatbot.js";
-import { API_KEY } from "../../data/secret.js";
+import { API_KEY } from "../../data/secrets.js";
 import { filterState } from "../../data/filterData.js";
 import { buildFilteredUrl } from "../../utils/buildFilteredUrl.js";
 import { renderProductsHtml } from "../../shared/product-card.js";
@@ -43,7 +43,7 @@ function updatePaginationControls(data) {
   if (paginationButtons) {
     paginationButtons.innerHTML = renderPaginationNavButtons(
       data.totalPages,
-      filterState.page,
+      filterState.page
     );
   }
 
@@ -76,7 +76,7 @@ export async function renderProducts(filters = filterState) {
     }
 
     const response = await fetch(url, {
-      headers,
+      headers
     });
 
     if (!response.ok) {
@@ -132,7 +132,7 @@ if (nextPageButton) {
 }
 
 if (pageSizeSelect) {
-  pageSizeSelect.addEventListener("change", (e) => {
+  pageSizeSelect.addEventListener("change", e => {
     filterState.take = Number(e.target.value);
     filterState.page = 1;
     renderProducts(filterState);
@@ -140,7 +140,7 @@ if (pageSizeSelect) {
 }
 
 if (paginationButtons) {
-  paginationButtons.addEventListener("click", (e) => {
+  paginationButtons.addEventListener("click", e => {
     const button = e.target.closest(".pagination-nav-btn");
     if (!button) return;
 

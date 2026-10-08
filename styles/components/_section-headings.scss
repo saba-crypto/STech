@@ -2,10 +2,17 @@
 .section-title {
   font-weight: bold;
   font-size: $font-sizeM;
+  color: $primary-font-clr;
 }
 .splitter {
   @include flexbox(row, space-between, center);
   font-size: $font-sizeXXS;
+  color: $optional-font-clr;
+
+  p {
+    color: $optional-font-clr;
+  }
+
   .view-all-link {
     @include flexbox(row, center, center, 10px);
     font-size: $font-sizeXXS;

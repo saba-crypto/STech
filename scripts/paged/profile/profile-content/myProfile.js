@@ -1,4 +1,4 @@
-import { API_KEY } from "../../../data/secret.js";
+import { API_KEY } from "../../../data/secrets.js";
 import { renderProfilePage } from "../profile.js";
 const profileForm = document.querySelector(".profile-form");
 
@@ -19,7 +19,7 @@ let initialInputValues = {
   phoneNumber: "",
   address: "",
   pictureUrl: "",
-  dateOfBirth: "",
+  dateOfBirth: ""
 };
 
 function hasChanges() {
@@ -62,7 +62,7 @@ export function renderMyProfile(user) {
       phoneNumber: phoneNumberInput.value,
       address: addressInput.value,
       pictureUrl: pictureUrlInput.value,
-      dateOfBirth: birthDateInput.value,
+      dateOfBirth: birthDateInput.value
     };
 
     updateDiscardButtonState();
@@ -96,7 +96,7 @@ function createUpdatedUserData() {
     phoneNumber: phoneNumberInput.value,
     address: addressInput.value,
     pictureUrl: pictureUrlInput.value,
-    dateOfBirth: birthDateInput.value,
+    dateOfBirth: birthDateInput.value
   };
   const updatedUserData = {};
   for (const [key, value] of Object.entries(collectedUserData)) {
@@ -114,7 +114,7 @@ function createUpdatedUserData() {
   return updatedUserData;
 }
 
-profileForm.addEventListener("submit", async (event) => {
+profileForm.addEventListener("submit", async event => {
   event.preventDefault();
   const accessToken = localStorage.getItem("accessToken");
   const updatedUserData = createUpdatedUserData();
@@ -123,13 +123,13 @@ profileForm.addEventListener("submit", async (event) => {
     headers: {
       "Content-Type": "application/json",
       "X-API-KEY": API_KEY,
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`
     },
-    body: JSON.stringify(updatedUserData),
+    body: JSON.stringify(updatedUserData)
   });
   if (response.status !== 200) {
     console.error(
-      "unexpected error occurred while modifying profile, please try again later...",
+      "unexpected error occurred while modifying profile, please try again later..."
     );
     return;
   } else {

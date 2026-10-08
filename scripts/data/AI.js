@@ -1,4 +1,4 @@
-import { GEMINI_API_KEY } from "./secret.js";
+import { GEMINI_API_KEY } from "./secrets.js";
 import { apiRequest } from "./apiClient.js";
 
 // You can edit or provide your custom instructions for Gemini here:

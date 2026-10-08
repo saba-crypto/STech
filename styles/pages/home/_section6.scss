@@ -22,9 +22,12 @@
     }
     h3 {
       font-size: $font-sizeXS;
+      font-weight: 600;
+      color: $primary-font-clr;
     }
     p {
       font-size: $font-sizeXXS;
+      color: $optional-font-clr;
     }
     &:hover {
       box-shadow: $shadow-card-hover;
@@ -32,7 +35,7 @@
       transform: translateY(-5px);
       .feature-icon {
         background-color: $accent-clr;
-        color: white;
+        color: $secondary-font-clr;
       }
     }
   }

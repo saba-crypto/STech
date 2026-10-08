@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html class="THEME-DARK" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile - STech</title>
+    <script>
+        document.documentElement.setAttribute(
+          "data-theme",
+          localStorage.getItem("colorTheme") || "light"
+        );
+      </script>
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/pages/profile/profile.css" />
   </head>
@@ -677,6 +683,51 @@
                 </div>
               </header>
 
+              <!-- Customization Card -->
+              <div class="form-card settings-card customization-card">
+                <div class="card-header">
+                  <h3>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+                      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+                      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.92 0 1.5-.7 1.5-1.5 0-.42-.17-.8-.44-1.1-.27-.3-.44-.68-.44-1.1 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.97-4.48-8.8-10-8.8z"></path>
+                    </svg>
+                    <span>Costumize Website and Make it Yours!</span>
+                  </h3>
+                </div>
+                <div class="card-content">
+                  <p class="customization-description">Select your preferred color theme to customize the appearance of STech.</p>
+                  <div class="theme-flex" role="radiogroup" aria-label="Website color themes">
+                    <button data-theme="light" type="button" class="theme-option" role="radio" aria-checked="false" aria-label="Sky White">
+                      <span class="theme-squircle" aria-hidden="true"></span>
+                      <span class="theme-name">Sky White</span>
+                    </button>
+                    <button data-theme="dark" type="button" class="theme-option active" role="radio" aria-checked="true" aria-label="Space Black">
+                      <span class="theme-squircle" aria-hidden="true"></span>
+                      <span class="theme-name">Space Black</span>
+                    </button>
+                    <button data-theme="ocean" type="button" class="theme-option" role="radio" aria-checked="false" aria-label="Ocean">
+                      <span class="theme-squircle" aria-hidden="true"></span>
+                      <span class="theme-name">Ocean</span>
+                    </button>
+                    <button data-theme="cyberpunk" type="button" class="theme-option" role="radio" aria-checked="false" aria-label="Cyberpunk">
+                      <span class="theme-squircle" aria-hidden="true"></span>
+                      <span class="theme-name">Cyberpunk</span>
+                    </button>
+                    <button data-theme="sunset" type="button" class="theme-option" role="radio" aria-checked="false" aria-label="Sunset">
+                      <span class="theme-squircle" aria-hidden="true"></span>
+                      <span class="theme-name">Sunset</span>
+                    </button>
+                    <button data-theme="cherry-blossom" type="button" class="theme-option" role="radio" aria-checked="false" aria-label="Cherry Blossom">
+                      <span class="theme-squircle" aria-hidden="true"></span>
+                      <span class="theme-name">Cherry Blossom</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-card settings-card">
                 <div class="card-header">
                   <h3>
@@ -786,46 +837,7 @@
         </div>
       </section>
 
-      <section class="product-details-section">
-        <div class="section-container">
-          <div class="details-tabs" role="tablist" aria-label="Product details tabs">
-            <button
-              type="button"
-              class="details-tab-btn active"
-              role="tab"
-              id="tab-description"
-              aria-selected="true"
-              aria-controls="panel-description"
-              tabindex="0"
-            >
-              <span>Description</span>
-            </button>
-            <button
-              type="button"
-              class="details-tab-btn"
-              role="tab"
-              id="tab-specifications"
-              aria-selected="false"
-              aria-controls="panel-specifications"
-              tabindex="-1"
-            >
-              <span>Specifications</span>
-            </button>
-            <button
-              type="button"
-              class="details-tab-btn"
-              role="tab"
-              id="tab-reviews"
-              aria-selected="false"
-              aria-controls="panel-reviews"
-              tabindex="-1"
-            >
-              <span>Reviews</span>
-              <span class="details-tab-badge" aria-label="0 reviews">0</span>
-            </button>
-          </div>
-        </div>
-      </section>
+      
     </main>
 
     <footer class="footer-default">

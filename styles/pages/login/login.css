@@ -8,14 +8,14 @@
   overflow: hidden;
   height: 100%;
   min-height: 100vh;
-  background-color: #131d17;
+  background-color: var(--banner-bg, #131d17);
   padding: min(100px, 8vw);
 }
 .banner-section::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 50px 50px;
   animation: gridMove 20s linear infinite;
 }
@@ -23,8 +23,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.1;
-  background: radial-gradient(circle at 20% 50%, #1db954 0%, transparent 50%), radial-gradient(circle at 80% 50%, #1ed760 0%, transparent 50%);
+  opacity: 0.15;
+  background: radial-gradient(circle at 20% 50%, var(--accent-clr) 0%, transparent 50%), radial-gradient(circle at 80% 50%, var(--accent-clr) 0%, transparent 50%);
   pointer-events: none;
 }
 .banner-section .section-container {
@@ -52,10 +52,10 @@
   width: 80px;
   height: 80px;
   margin: 0 auto min(30px, 4vw);
-  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  background: linear-gradient(135deg, var(--accent-clr) 0%, #1ed760 100%);
   border-radius: 16px;
   box-shadow: 0 0 32px rgba(29, 185, 84, 0.5);
-  color: #ffffff;
+  color: var(--secondary-font-clr);
   transition: transform 0.2s ease;
 }
 .banner-section .logo:hover {
@@ -64,13 +64,13 @@
 .banner-section .banner-title {
   font-size: clamp(1.4rem, 3vw + 0.3rem, 2.3rem);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--secondary-font-clr);
   margin-bottom: min(15px, 2.5vw);
   line-height: 1.25;
 }
 .banner-section .banner-description {
   font-size: clamp(1rem, 1.5vw + 0.3rem, 1.4rem);
-  color: #b3b3b3;
+  color: var(--faded-font-clr);
   line-height: 1.6;
   margin-bottom: min(30px, 4vw);
 }
@@ -87,12 +87,12 @@
 .banner-section .stat-value {
   font-size: clamp(1rem, 1.5vw + 0.3rem, 1.4rem);
   font-weight: 700;
-  color: #1db954;
+  color: var(--accent-clr);
   margin-bottom: min(5px, 1vw);
 }
 .banner-section .stat-label {
   font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
-  color: #b3b3b3;
+  color: var(--faded-font-clr);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -118,7 +118,7 @@
   gap: 0px;
   height: 100%;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--bg-clr);
   padding: min(100px, 8vw);
 }
 .form-section .section-container {
@@ -149,21 +149,21 @@
   width: 64px;
   height: 64px;
   margin: 0 auto min(15px, 2.5vw);
-  background-color: #f6f6f6;
-  border: 1px solid #e0e0e0;
+  background-color: var(--optional-clr);
+  border: 1px solid var(--primary-border-clr);
   border-radius: 8px;
-  color: #1db954;
+  color: var(--accent-clr);
 }
 .form-section .header-section .form-title {
   font-size: clamp(1.4rem, 3vw + 0.3rem, 2.3rem);
   font-weight: 600;
-  color: #131d17;
+  color: var(--secondary-clr);
   margin-bottom: min(5px, 1vw);
   letter-spacing: -0.5px;
 }
 .form-section .header-section .subtitle {
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
-  color: #535353;
+  color: var(--optional-font-clr);
   margin: 0;
 }
 .form-section .login-form {
@@ -180,14 +180,14 @@
 .form-section .login-form .form-label {
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   font-weight: 600;
-  color: #131d17;
+  color: var(--secondary-clr);
 }
 .form-section .login-form .input-wrapper {
   position: relative;
   width: 100%;
 }
 .form-section .login-form .input-wrapper:focus-within .input-icon {
-  color: #1db954;
+  color: var(--accent-clr);
 }
 .form-section .login-form .input-icon {
   display: flex;
@@ -199,7 +199,7 @@
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  color: #b3b3b3;
+  color: var(--faded-font-clr);
   z-index: 1;
   pointer-events: none;
   transition: color 0.16s ease;
@@ -209,24 +209,24 @@
   height: 50px;
   border-radius: 6px;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
-  border: 1px solid #e0e0e0;
-  background-color: #f6f6f6;
-  color: #000000;
+  border: 1px solid var(--primary-border-clr);
+  background-color: var(--optional-clr);
+  color: var(--primary-font-clr);
   padding: 0 16px 0 46px;
   outline: none;
   transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
 }
 .form-section .login-form .form-input::placeholder {
-  color: #b3b3b3;
+  color: var(--faded-font-clr);
 }
 .form-section .login-form .form-input:hover {
-  border-color: #b3b3b3;
-  background-color: #ffffff;
+  border-color: var(--faded-font-clr);
+  background-color: var(--bg-clr);
 }
 .form-section .login-form .form-input:focus {
-  border-color: #1db954;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 4px rgba(29, 185, 84, 0.1019607843);
+  border-color: var(--accent-clr);
+  background-color: var(--bg-clr);
+  box-shadow: 0 0 0 4px var(--faded-accent-clr);
 }
 .form-section .login-form .form-options {
   display: flex;
@@ -243,19 +243,19 @@
   align-items: center;
   gap: 8px;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
-  color: #535353;
+  color: var(--optional-font-clr);
   cursor: pointer;
 }
 .form-section .login-form .remember-me .checkbox-input {
   width: 16px;
   height: 16px;
-  accent-color: #1db954;
+  accent-color: var(--accent-clr);
   cursor: pointer;
 }
 .form-section .login-form .forgot-link {
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   font-weight: 500;
-  color: #1db954;
+  color: var(--accent-clr);
   transition: color 0.16s ease;
 }
 .form-section .login-form .forgot-link:hover {
@@ -272,9 +272,9 @@
   border-radius: 6px;
   font-weight: 600;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
-  background-color: #1db954;
-  border: 1px solid #1db954;
-  color: #ffffff;
+  background-color: var(--accent-clr);
+  border: 1px solid var(--accent-clr);
+  color: var(--secondary-font-clr);
   box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
   cursor: pointer;
   position: relative;
@@ -302,26 +302,26 @@
   left: 0;
   right: 0;
   height: 1px;
-  background-color: #e0e0e0;
+  background-color: var(--primary-border-clr);
 }
 .form-section .login-form .divider .divider-text {
   position: relative;
   display: inline-block;
   padding: 0 min(15px, 2.5vw);
-  background-color: #ffffff;
-  color: #b3b3b3;
+  background-color: var(--bg-clr);
+  color: var(--faded-font-clr);
   font-size: clamp(0.6rem, 1.1vw + 0.15rem, 0.7rem);
   font-weight: 500;
 }
 .form-section .login-form .footer-text {
   text-align: center;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
-  color: #535353;
+  color: var(--optional-font-clr);
   margin: 0;
 }
 .form-section .login-form .footer-text .register-link {
   font-weight: 600;
-  color: #1db954;
+  color: var(--accent-clr);
   transition: color 0.16s ease;
 }
 .form-section .login-form .footer-text .register-link:hover {
@@ -379,7 +379,7 @@
   border-radius: 999px;
   font-size: clamp(0.7rem, 1.2vw + 0.2rem, 0.8rem);
   font-weight: 500;
-  color: #ffffff;
+  color: var(--secondary-font-clr);
   background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
@@ -397,8 +397,8 @@
 }
 .back-home-link:hover {
   background-color: rgba(255, 255, 255, 0.16);
-  color: #1db954;
-  border-color: #1db954;
+  color: var(--accent-clr);
+  border-color: var(--accent-clr);
 }
 .back-home-link:hover svg {
   transform: translateX(-3px);
@@ -411,13 +411,13 @@
   .back-home-link {
     top: 16px;
     left: 16px;
-    color: #131d17;
-    background-color: #f6f6f6;
-    border-color: #e0e0e0;
+    color: var(--secondary-clr);
+    background-color: var(--optional-clr);
+    border-color: var(--primary-border-clr);
   }
   .back-home-link:hover {
-    background-color: rgba(29, 185, 84, 0.1019607843);
-    color: #1db954;
-    border-color: #1db954;
+    background-color: var(--faded-accent-clr);
+    color: var(--accent-clr);
+    border-color: var(--accent-clr);
   }
-}/*# sourceMappingURL=login.css.map */
+}

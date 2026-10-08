@@ -19,7 +19,7 @@ if (window.location.href.includes("shop.html")) {
 }
 
 renderStaticHeader();
-renderHeader().then((categories) => {
+renderHeader().then(categories => {
   addCategoriesDropdownControllers();
   addHeaderButtonControllers();
   initSidebar(categories);
@@ -36,8 +36,10 @@ async function renderHeader() {
     lastNameLetter = user.data.lastName.charAt(0);
     sessionStorage.setItem(
       "userProfilePicture",
-      `${user.data.details.pictureUrl}`,
+      `${user.data.details.pictureUrl}`
     );
+    const selectedTheme = localStorage.getItem("colorTheme") || "light";
+    document.documentElement.setAttribute("data-theme", selectedTheme);
   }
 
   if (headerElement) {
@@ -272,7 +274,7 @@ async function renderHeader() {
     return categories;
   } else {
     console.error(
-      'error occurred while rendering header, make sure header element exists with class ".header" ',
+      'error occurred while rendering header, make sure header element exists with class ".header" '
     );
     return [];
   }
@@ -281,7 +283,7 @@ async function renderHeader() {
 function renderHeaderCategories(categories) {
   if (!Array.isArray(categories)) return "";
   return categories
-    .map((category) => {
+    .map(category => {
       return `
       <div data-category-id=${category.id} class="dropdown-item">
         <span>${category.name}</span>
@@ -306,7 +308,7 @@ function addCategoriesDropdownControllers() {
   }
 
   const categoryItems = document.querySelectorAll(".dropdown-item");
-  categoryItems.forEach((item) => {
+  categoryItems.forEach(item => {
     const categoryId = item.dataset.categoryId;
     item.addEventListener("click", () => {
       window.location.href = `${shopUrl}?category=${categoryId}`;
@@ -328,7 +330,7 @@ function addHeaderButtonControllers() {
   }
   if (headerSearchInput) {
     headerSearchInput.value = filterState.search;
-    headerSearchInput.addEventListener("keydown", (event) => {
+    headerSearchInput.addEventListener("keydown", event => {
       if (event.key === "Enter") {
         const inputValue = event.target.value;
         window.location.href = `${shopUrl}?search=${inputValue}`;
@@ -337,7 +339,7 @@ function addHeaderButtonControllers() {
   }
   if (userAvatar) {
     userAvatar.addEventListener("click", () => {
-      fetchUser().then((response) => {
+      fetchUser().then(response => {
         if (!response) {
           window.location.href = loginUrl;
         } else {
@@ -472,64 +474,7 @@ function renderStaticHeader() {
           </div>
 
           <div class="nav-actions" aria-label="User shortcuts">
-         
-
-               <button
-              class="action-btn header-favorite-btn"
-              type="button"
-              aria-label="View wishlist"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 1 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              class="action-btn header-cart-btn"
-              type="button"
-              aria-label="View shopping cart"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M3 4h2l2.1 11.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"
-                ></path>
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-              </svg>
-            </button>
-            <div class="user-btn">
-              <img class="user-avatar" aria-hidden="true" src="${userProfilePicture || ""}" alt="Loading"/>
-            </div>
-          
-            
-            <button
-              class="mobile-menu-btn"
-              type="button"
-              aria-label="Open navigation menu"
-              aria-expanded="false"
-              aria-controls="mobile-menu"
-            >
-              <svg
-                class="menu-open-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-              <svg
-                class="menu-close-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+            <button class="sign-in-btn">Sign in</button>
           </div>
         </div>
       </div>
