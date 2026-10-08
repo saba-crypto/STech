@@ -44,11 +44,9 @@ function addEventListeners() {
   if (deleteAccountButton) {
     deleteAccountButton.addEventListener("click", async () => {
       await deleteUser();
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      sessionStorage.removeItem("userId");
-
-      window.location.href = homeUrl;
+      setTimeout(() => {
+        window.location.href = homeUrl;
+      }, 700);
     });
   }
   if (themeOptionsButton) {

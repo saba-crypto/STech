@@ -26,7 +26,7 @@ export async function updateUserPassword(currentPassword, newPassword) {
   try {
     if (!currentPassword || !newPassword) {
       throw new Error(
-        "Couldn't change user password, currentPassword or/and newPassword is undefined in updateUserPassword function",
+        "Couldn't change user password, currentPassword or/and newPassword is undefined in updateUserPassword function"
       );
     }
 
@@ -34,8 +34,8 @@ export async function updateUserPassword(currentPassword, newPassword) {
       method: "PUT",
       body: {
         currentPassword: currentPassword,
-        newPassword: newPassword,
-      },
+        newPassword: newPassword
+      }
     });
 
     showSuccessPopup("Password was Changed Successfully!");
@@ -48,11 +48,12 @@ export async function updateUserPassword(currentPassword, newPassword) {
 export async function deleteUser() {
   try {
     const result = await apiRequest("/users/delete-profile", {
-      method: "DELETE",
+      method: "DELETE"
     });
 
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("userId");
     showSuccessPopup("Account was Deleted Successfully!");
     return result;
   } catch (err) {
@@ -72,7 +73,7 @@ export async function checkout() {
     }
 
     const result = await apiRequest("/users/checkout", {
-      method: "POST",
+      method: "POST"
     });
 
     showSuccessPopup(result.message || "Checkout Successful");

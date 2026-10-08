@@ -212,7 +212,7 @@
       transition: background-color 0.2s ease;
 
       &:hover:not(:disabled) {
-        background-color: #1ed760;
+        background-color: $accent-clr-hover;
       }
 
       &:disabled {

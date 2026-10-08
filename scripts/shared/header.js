@@ -18,6 +18,9 @@ if (window.location.href.includes("shop.html")) {
   currentPage = "product";
 }
 
+const selectedTheme = localStorage.getItem("colorTheme") || "light";
+document.documentElement.setAttribute("data-theme", selectedTheme) || "light";
+
 renderStaticHeader();
 renderHeader().then(categories => {
   addCategoriesDropdownControllers();
@@ -38,8 +41,6 @@ async function renderHeader() {
       "userProfilePicture",
       `${user.data.details.pictureUrl}`
     );
-    const selectedTheme = localStorage.getItem("colorTheme") || "light";
-    document.documentElement.setAttribute("data-theme", selectedTheme);
   }
 
   if (headerElement) {

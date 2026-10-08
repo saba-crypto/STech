@@ -148,9 +148,9 @@
       cursor: pointer;
       transition-duration: 0.25s;
       &:hover:not(:disabled) {
-        background-color: $accent-clr;
+        background-color: $accent-clr-hover;
         color: $secondary-font-clr;
-        border-color: $accent-clr;
+        border-color: $accent-clr-hover;
       }
       &:disabled {
         cursor: not-allowed;

@@ -1,3 +1,4 @@
+import { showSuccessPopup } from "../../../utils/showPopup.js";
 import { switchTab } from "../profile.js";
 
 export function renderProfileSidebar(user) {
@@ -90,13 +91,13 @@ export function renderProfileSidebar(user) {
 
 function addSidebarEventListeners() {
   const navItems = document.querySelectorAll(
-    ".profile-nav .nav-item[data-page]",
+    ".profile-nav .nav-item[data-page]"
   );
   const logoutButton = document.querySelector(".logout");
 
-  navItems.forEach((item) => {
+  navItems.forEach(item => {
     const page = item.dataset.page;
-    item.addEventListener("click", (e) => {
+    item.addEventListener("click", e => {
       e.preventDefault();
       switchTab(page);
     });
@@ -105,7 +106,11 @@ function addSidebarEventListeners() {
     logoutButton.addEventListener("click", () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      window.location.href = "../index.html";
+      sessionStorage.removeItem("userId");
+      showSuccessPopup("Logout Successful!");
+      setTimeout(() => {
+        window.location.href = "../index.html";
+      }, 700);
     });
   }
 }

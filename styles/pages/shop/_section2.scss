@@ -565,13 +565,15 @@
       color: $accent-clr;
     }
     &.active:hover:not(:disabled) {
-      color: $primary-clr;
+      background-color: $accent-clr-hover;
+      border-color: $accent-clr-hover;
+      color: $secondary-font-clr;
     }
 
     &.active {
       background-color: $accent-clr;
       border-color: $accent-clr;
-      color: white;
+      color: $secondary-font-clr;
     }
 
     &:disabled {

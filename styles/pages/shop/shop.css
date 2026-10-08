@@ -618,12 +618,14 @@
   color: var(--accent-clr);
 }
 #section2 .pagination-btn.active:hover:not(:disabled) {
-  color: var(--primary-clr);
+  background-color: var(--accent-clr-hover);
+  border-color: var(--accent-clr-hover);
+  color: var(--secondary-font-clr);
 }
 #section2 .pagination-btn.active {
   background-color: var(--accent-clr);
   border-color: var(--accent-clr);
-  color: white;
+  color: var(--secondary-font-clr);
 }
 #section2 .pagination-btn:disabled {
   opacity: 0.4;
@@ -742,4 +744,6 @@
     grid-template-columns: 1fr;
     gap: 16px;
   }
-}/*# sourceMappingURL=shop.css.map */
+}
+
+/*# sourceMappingURL=shop.css.map */

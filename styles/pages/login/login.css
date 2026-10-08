@@ -52,7 +52,7 @@
   width: 80px;
   height: 80px;
   margin: 0 auto min(30px, 4vw);
-  background: linear-gradient(135deg, var(--accent-clr) 0%, #1ed760 100%);
+  background: linear-gradient(135deg, var(--accent-clr) 0%, var(--accent-clr-hover) 100%);
   border-radius: 16px;
   box-shadow: 0 0 32px rgba(29, 185, 84, 0.5);
   color: var(--secondary-font-clr);
@@ -282,8 +282,8 @@
   transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
 }
 .form-section .login-form .submit-button:hover {
-  background-color: #1ed760;
-  border-color: #1ed760;
+  background-color: var(--accent-clr-hover);
+  border-color: var(--accent-clr-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
 }
@@ -421,3 +421,5 @@
     border-color: var(--accent-clr);
   }
 }
+
+/*# sourceMappingURL=login.css.map */

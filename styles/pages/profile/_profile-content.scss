@@ -293,8 +293,8 @@
       transition: all 0.16s ease;
 
       &:hover {
-        background-color: #1ed760;
-        border-color: #1ed760;
+        background-color: $accent-clr-hover;
+        border-color: $accent-clr-hover;
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
       }

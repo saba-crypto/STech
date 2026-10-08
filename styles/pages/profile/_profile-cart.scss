@@ -274,7 +274,7 @@
         transform 0.1s ease;
 
       &:hover {
-        background-color: #1ed760;
+        background-color: $accent-clr-hover;
       }
 
       &:active {
@@ -343,7 +343,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #1ed760;
+      background-color: $accent-clr-hover;
     }
   }
 }

@@ -23,6 +23,7 @@
     background-color 0.2s ease;
 
   &:hover {
+    background-color: $accent-clr-hover;
     transform: scale(1.08);
     box-shadow: 0 6px 20px rgba(29, 185, 84, 0.5);
   }
@@ -254,6 +255,7 @@
         background-color 0.15s ease;
 
       &:hover {
+        background-color: $accent-clr-hover;
         transform: scale(1.05);
       }
 

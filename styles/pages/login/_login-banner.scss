@@ -50,7 +50,7 @@
     width: 80px;
     height: 80px;
     margin: 0 auto $paddingXL;
-    background: linear-gradient(135deg, $accent-clr 0%, #1ed760 100%);
+    background: linear-gradient(135deg, $accent-clr 0%, $accent-clr-hover 100%);
     border-radius: $radiusXL;
     box-shadow: 0 0 32px rgba(29, 185, 84, 0.5);
     color: $secondary-font-clr;

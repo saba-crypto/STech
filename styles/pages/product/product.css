@@ -275,8 +275,8 @@
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .product-info .action-buttons .btn-add-cart:hover:not(:disabled) {
-  background-color: var(--accent-clr);
-  border-color: var(--accent-clr);
+  background-color: var(--accent-clr-hover);
+  border-color: var(--accent-clr-hover);
   color: var(--secondary-font-clr);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
@@ -1040,4 +1040,6 @@
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-}/*# sourceMappingURL=product.css.map */
+}
+
+/*# sourceMappingURL=product.css.map */
