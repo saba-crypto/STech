@@ -2,7 +2,7 @@ import { showSuccessPopup } from "../utils/showPopup.js";
 import { API_KEY } from "./secrets.js";
 import { apiRequest } from "./apiClient.js";
 
-export async function login(email, password) {
+export async function login(email, password, rememberMe) {
   if (!email || !password) {
     throw new Error(
       "Error Occurred while trying to login, email or/and password provided for login function are invalid"
@@ -19,7 +19,9 @@ export async function login(email, password) {
 
   showSuccessPopup("Login Successful!");
   localStorage.setItem("accessToken", result.data.accessToken);
-  localStorage.setItem("refreshToken", result.data.refreshToken);
+  if (rememberMe) {
+    localStorage.setItem("refreshToken", result.data.refreshToken);
+  }
 
   setTimeout(() => {
     window.location.href = "../index.html";

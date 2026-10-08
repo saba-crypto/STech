@@ -31,7 +31,6 @@ const searchInput = document.querySelector(".shop-search-input");
 const clearSearchBtn = document.querySelector(".clear-search");
 const clearFilterButton = document.querySelector(".clear-filters-btn");
 const sortBySelect = document.querySelector(".sort-select");
-
 const filterSidebar = document.querySelector(".filter-sidebar");
 const filtersOverlay = document.querySelector(".filters-overlay");
 const filterToggleBtn = document.querySelector(".filter-toggle");
