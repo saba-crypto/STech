@@ -187,7 +187,6 @@
   background: linear-gradient(135deg, var(--accent-clr), var(--accent-clr-hover));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
@@ -506,6 +505,4 @@
     color: var(--accent-clr);
     border-color: var(--accent-clr);
   }
-}
-
-/*# sourceMappingURL=verification.css.map */
+}/*# sourceMappingURL=verification.css.map */

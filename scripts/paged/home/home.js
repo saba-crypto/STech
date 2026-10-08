@@ -14,7 +14,7 @@ if (shopBtns) {
 }
 
 const newArrivalsButton = document.querySelector(".new-arrivals-btn");
-const newArrivalsSection = document.getElementById("s/section5");
+const newArrivalsSection = document.getElementById("section5");
 if (newArrivalsButton && newArrivalsSection) {
   newArrivalsButton.addEventListener("click", () => {
     newArrivalsSection.scrollIntoView();
